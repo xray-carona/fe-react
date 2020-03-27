@@ -46,7 +46,7 @@ class App extends Component {
         <div className="col-md-12">
             <div className="page-header">
               <h3>
-                 Custom Photo Upload&nbsp;<small>with ReactJS, NodeJS and AWS S3.</small>
+                 Upload Xray image&nbsp;<small>to S3.</small>
               </h3>
             </div>
         </div>
@@ -62,7 +62,7 @@ class App extends Component {
           <Preview file={this.state.image} />
         </div>
         { this.state.image ? <div className="col-md-12">
-          <button className="btn bg-warning text-dark mt-3" onClick={this.Upload_To_AWS_S3}>{ this.state.loading ? 'Uploading...' : 'Upload To AWS S3' }</button>
+          <button className="btn bg-warning text-dark mt-3" onClick={this.Upload_To_AWS_S3}>{ this.state.loading ? 'Uploading...' : 'Upload image' }</button>
         </div> : null }
         { this.props.msg ? 
           <div className="col-lg-12 col-md-12 ">

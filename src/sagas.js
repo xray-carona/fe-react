@@ -6,7 +6,7 @@ import {
   setAwsS3ImageUrl
  } from './actions';
 
-import api from './api/upload-image-api';
+import api from './api/upload-image-api.js';
 
 
 function * uploadImageSaga (action) {
