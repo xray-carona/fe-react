@@ -1,0 +1,14 @@
+version: "3"
+
+services:
+
+  fe-react:
+    container_name: fe-react
+    build: .
+    ports:
+      - '3000:3000'
+
+networks:
+  default:
+    external:
+      name: be-express-app_default
