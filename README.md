@@ -2,6 +2,7 @@
 ## How to run 
 Run server (fe-express) first on port 3001
 
+#### `npm install`
 #### `npm start`
 
 Runs the app in the development mode.<br>
