@@ -9,6 +9,7 @@ export const InitialState = {
 function reducer (state = InitialState, action) {
   switch (action.type) {
     case actionTypes.SET_AWS_S3_IMAGE_URL:
+      state.loading = false;
       return {
         ...state,
         ...{ aws_s3_image_url: action.url }
@@ -19,6 +20,12 @@ function reducer (state = InitialState, action) {
         ...state,
         ...{ msg: action.data._response, type: action.data._type  }
       }
+
+    case actionTypes.SET_ML_RESPONSE:
+      return {
+        ...state,
+        ...{ ml_response: action.ml_response }
+    }
 
     default:
       return state

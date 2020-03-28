@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { uploadImage, response } from '../actions';
+import { uploadImage, response , getMLResponse} from '../actions';
 import Preview from './Preview';
 import '../styles/App.css';
 
@@ -25,6 +25,11 @@ class App extends Component {
     let formData = new FormData();
     formData.append("photo", this.state.image);
     this.props.uploadImage(formData);
+  }
+
+  Get_ML_Response = e => {
+    e.preventDefault();
+    this.props.getMLResponse(this.state.aws_s3_image_url);
   }
 
   componentDidUpdate(prevProps) {
@@ -71,6 +76,18 @@ class App extends Component {
                 <span dangerouslySetInnerHTML={{__html: this.props.msg}} />
               </div>
           </div> : null }
+        {
+          (this.state.image && !this.state.loading) ?
+          <button className="btn bg-warning text-dark mt-3" onClick={this.Get_ML_Response}>Evaluate</button>
+          : null
+        }
+        { this.props.ml_response ? 
+          <div className="col-lg-12 col-md-12 ">
+              <div className={`alert ${this.props.type} alert-dismissible mt-3`}>
+                <button className="close" onClick={this.closeAlert.bind(this)} data-dismiss="alert" aria-label="close">&times;</button>
+                <span dangerouslySetInnerHTML={{__html: this.props.ml_response}} />
+          </div>
+          </div> : null }
       </div>
     );
   }
@@ -79,9 +96,10 @@ class App extends Component {
 App.propTypes = {
     aws_s3_image_url: PropTypes.string,
     msg: PropTypes.string,
-    type: PropTypes.string
+    type: PropTypes.string,
+    ml_response : PropTypes.string
 }
 
-const mapStateToProps = ({aws_s3_image_url,msg,type}) => ({aws_s3_image_url,msg,type});
-const mapDispatchToProps = dispatch => bindActionCreators( { uploadImage, response }, dispatch);
+const mapStateToProps = ({aws_s3_image_url,msg,type, ml_response}) => ({aws_s3_image_url,msg,type, ml_response});
+const mapDispatchToProps = dispatch => bindActionCreators( { uploadImage, response, getMLResponse }, dispatch);
 export default connect(mapStateToProps, mapDispatchToProps)(App)
