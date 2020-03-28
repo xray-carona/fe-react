@@ -18,6 +18,7 @@ function * uploadImageSaga (action) {
     yield put(setAwsS3ImageUrl(res.data));
     // yield put(response('You have successfully uploaded your image to S3:<br/> <a target="_blank" href='+res.data+'>Download</a>','alert-success'));
     yield put(response('You have successfully uploaded your image to S3','alert-success'));
+    yield put(setMLResponse(null));
   } catch (err) {
     yield put(response(err.message,'alert-danger'));
   }
@@ -25,11 +26,9 @@ function * uploadImageSaga (action) {
 
 function * mLResponseSaga (action) {
   try {
-    // const res = yield call(api.uploadImageToAwsS3, photo);
-    const res = {data:"hello"};
     let url = yield select(getAwsS3ImageUrl);
-    console.log(url);
-    yield put(setMLResponse(res.data+" "+url));
+    const res = yield call(api.getMLResponse, url);
+    yield put(setMLResponse(res.data));
   } catch (err) {
     yield put(response(err.message,'alert-danger'));
   }

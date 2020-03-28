@@ -20,7 +20,8 @@ class App extends Component {
   Upload_To_AWS_S3 = e => {
     e.preventDefault();
     this.setState({
-       loading: true
+       loading: true,
+       ml_response: false
     });
     let formData = new FormData();
     formData.append("photo", this.state.image);
@@ -28,6 +29,7 @@ class App extends Component {
   }
 
   Get_ML_Response = e => {
+    this.props.response('','');
     e.preventDefault();
     this.props.getMLResponse(this.state.aws_s3_image_url);
   }
@@ -71,23 +73,23 @@ class App extends Component {
         </div> : null }
         { this.props.msg ? 
           <div className="col-lg-12 col-md-12 ">
-              <div className={`alert ${this.props.type} alert-dismissible mt-3`}>
-                <button className="close" onClick={this.closeAlert.bind(this)} data-dismiss="alert" aria-label="close">&times;</button>
-                <span dangerouslySetInnerHTML={{__html: this.props.msg}} />
+              <div className={``}>
+                <h4>{this.props.msg}</h4>
               </div>
           </div> : null }
+        <div class="col-md-12">
         {
           (this.state.image && !this.state.loading) ?
           <button className="btn bg-warning text-dark mt-3" onClick={this.Get_ML_Response}>Evaluate</button>
           : null
         }
-        { this.props.ml_response ? 
+        { (this.props.ml_response && !this.state.loading)? 
           <div className="col-lg-12 col-md-12 ">
               <div className={`alert ${this.props.type} alert-dismissible mt-3`}>
-                <button className="close" onClick={this.closeAlert.bind(this)} data-dismiss="alert" aria-label="close">&times;</button>
-                <span dangerouslySetInnerHTML={{__html: this.props.ml_response}} />
-          </div>
+                <h4>{this.props.ml_response}</h4>
+            </div>
           </div> : null }
+        </div>
       </div>
     );
   }
