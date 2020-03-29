@@ -146,6 +146,11 @@ class App extends Component {
                   <img width="350px" src="https://xray-corona.s3.ap-south-1.amazonaws.com/1_annotated.png" />
               </div> : null
           }
+          { this.props.displayEvaluatedImage && this.props.displayEvaluatedImage === true ?
+              <div>
+                  <img width="350px" src="https://xray-corona.s3.ap-south-1.amazonaws.com/capture.png" />
+              </div> : null
+          }
         { this.state.image ? <div className="col-md-12">
           <button className="btn bg-warning text-dark mt-3" onClick={this.Upload_To_AWS_S3}>{ this.state.loading ? 'Loading results...' : 'Evaluate' }</button>
         </div> : null }
