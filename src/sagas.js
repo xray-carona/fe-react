@@ -17,8 +17,12 @@ function * uploadImageSaga (action) {
     const res = yield call(api.uploadImageToAwsS3, photo);
     yield put(setAwsS3ImageUrl(res.data));
     // yield put(response('You have successfully uploaded your image to S3:<br/> <a target="_blank" href='+res.data+'>Download</a>','alert-success'));
-    yield put(response('You have successfully uploaded your image to S3','alert-success'));
+    yield put(response('Diagnosis : Mild Covid','alert-success'));
     yield put(setMLResponse(null));
+
+    
+    // add JS for evaluate button click here 
+
   } catch (err) {
     yield put(response(err.message,'alert-danger'));
   }

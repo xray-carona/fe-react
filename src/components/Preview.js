@@ -17,12 +17,14 @@ class Preview extends Component {
     }
     render() {
       const { file } = this.props;
+      const { url } = this.props;
       const { thumb } = this.state;
       return (
         <div className="row">
-          <div className="col-md-6">
+          <div className="col-md-4">
             { file ? <img src={thumb} alt={file.name} className="img-thumbnail" /> : null }
           </div>
+
         </div>
       );
     }
