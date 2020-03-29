@@ -61,9 +61,9 @@ class App extends Component {
 
         <form className="form-horizontal">
           <div className="form-group">
-            <label className="control-label d-inline-block col-sm-4" for="email">Temperature</label>
+            <label className="control-label d-inline-block col-sm-4" for="email">Name</label>
             <div className="col-sm-8 d-inline-block">
-              <input type="email" className="form-control " id="email" placeholder="Enter temperature in celsius" name="email"/>
+              <input type="email" className="form-control " id="email" placeholder="Enter Name" name="name"/>
             </div>
           </div>
           <div className="form-group">
