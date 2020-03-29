@@ -3,7 +3,8 @@ export const actionTypes = {
     SET_AWS_S3_IMAGE_URL: 'SET_AWS_S3_IMAGE_URL',
     RESPONSE: 'RESPONSE',
     GET_ML_RESPONSE: 'GET_ML_RESPONSE',
-    SET_ML_RESPONSE: 'SET_ML_RESPONSE'
+    SET_ML_RESPONSE: 'SET_ML_RESPONSE',
+    DISPLAY_IMAGE: 'display'
 }
 
 export const getAwsS3ImageUrl = (state) => state.aws_s3_image_url;
@@ -32,4 +33,11 @@ export function response (response,type) {
     type: actionTypes.RESPONSE,
     data: { _response: response, _type: type }
   }
+}
+
+export function displayImage (response,type) {
+    return {
+        type: actionTypes.DISPLAY_IMAGE,
+        data: { _response: response, _type: type }
+    }
 }

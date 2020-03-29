@@ -1,12 +1,12 @@
 import { all, call, put, takeLatest, select } from 'redux-saga/effects'
 
-import { 
-  actionTypes, 
-  response,
-  setAwsS3ImageUrl,
-  setMLResponse,
-  getAwsS3ImageUrl
- } from './actions';
+import {
+    actionTypes,
+    response,
+    setAwsS3ImageUrl,
+    setMLResponse,
+    getAwsS3ImageUrl, displayImage
+} from './actions';
 
 import api from './api/upload-image-api.js';
 
@@ -18,6 +18,7 @@ function * uploadImageSaga (action) {
     yield put(setAwsS3ImageUrl(res.data));
     // yield put(response('You have successfully uploaded your image to S3:<br/> <a target="_blank" href='+res.data+'>Download</a>','alert-success'));
     yield put(response('Diagnosis : Mild Covid','alert-success'));
+      yield put(displayImage());
     yield put(setMLResponse(null));
 
     

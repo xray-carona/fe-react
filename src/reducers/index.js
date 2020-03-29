@@ -3,7 +3,8 @@ import { actionTypes } from '../actions'
 export const InitialState = {
   msg: '',
   type: '',
-  aws_s3_image_url: ''
+  aws_s3_image_url: '',
+  displayEvaluatedImage: false
 }
 
 function reducer (state = InitialState, action) {
@@ -20,6 +21,12 @@ function reducer (state = InitialState, action) {
         ...state,
         ...{ msg: action.data._response, type: action.data._type  }
       }
+
+      case actionTypes.DISPLAY_IMAGE:
+          return {
+              ...state,
+              displayEvaluatedImage: true
+          }
 
     case actionTypes.SET_ML_RESPONSE:
       return {

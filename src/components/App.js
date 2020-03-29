@@ -48,6 +48,7 @@ class App extends Component {
   }
 
   render() {
+      console.log(this.props.displayEvaluatedImage)
     return (
       <div className="row container">
         <div className="col-md-12">
@@ -140,6 +141,11 @@ class App extends Component {
         <div className="col-md-12">
           <Preview file={this.state.image} url={this.state.aws_s3_image_url}/>
         </div>
+          { this.props.displayEvaluatedImage && this.props.displayEvaluatedImage === true ?
+              <div>
+                  <img width="350px" src="https://xray-corona.s3.ap-south-1.amazonaws.com/1_annotated.png" />
+              </div> : null
+          }
         { this.state.image ? <div className="col-md-12">
           <button className="btn bg-warning text-dark mt-3" onClick={this.Upload_To_AWS_S3}>{ this.state.loading ? 'Loading results...' : 'Evaluate' }</button>
         </div> : null }
@@ -167,6 +173,6 @@ App.propTypes = {
     ml_response : PropTypes.string
 }
 
-const mapStateToProps = ({aws_s3_image_url,msg,type, ml_response}) => ({aws_s3_image_url,msg,type, ml_response});
+const mapStateToProps = ({aws_s3_image_url,msg,type, ml_response,displayEvaluatedImage }) => ({aws_s3_image_url,msg,type, ml_response, displayEvaluatedImage});
 const mapDispatchToProps = dispatch => bindActionCreators( { uploadImage, response, getMLResponse }, dispatch);
 export default connect(mapStateToProps, mapDispatchToProps)(App)
