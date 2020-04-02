@@ -49,17 +49,17 @@ class App extends Component {
 
   render() {
     return (
-      <div className="row">
+      <div className="row container">
         <div className="col-md-12">
-            <div className="page-header">
-              <h3>
-                 Upload Xray image&nbsp;<small>to S3.</small>
-              </h3>
+            <div className="page-header navbar-brand">
+              <h1>
+                 Xray Corona&nbsp;
+              </h1>
             </div>
         </div>
         <div className="col-md-12">
           <div className="upload-btn-wrapper mb-2">
-            <button className="upload-btn bg-primary text-white">Choose Photo...</button>
+            <button className="upload-btn bg-primary text-white">Upload XRay</button>
             <input name="image" type="file" onChange={ e => {
               this.setState({ image: e.currentTarget.files[0] })
             }} />
@@ -69,7 +69,7 @@ class App extends Component {
           <Preview file={this.state.image} />
         </div>
         { this.state.image ? <div className="col-md-12">
-          <button className="btn bg-warning text-dark mt-3" onClick={this.Upload_To_AWS_S3}>{ this.state.loading ? 'Uploading...' : 'Upload image' }</button>
+          <button className="btn bg-warning text-dark mt-3" onClick={this.Upload_To_AWS_S3}>{ this.state.loading ? 'Uploading...' : 'Evaluate' }</button>
         </div> : null }
         { this.props.msg ? 
           <div className="col-lg-12 col-md-12 ">
@@ -78,17 +78,20 @@ class App extends Component {
               </div>
           </div> : null }
         <div class="col-md-12">
-        {
-          (this.state.image && !this.state.loading) ?
-          <button className="btn bg-warning text-dark mt-3" onClick={this.Get_ML_Response}>Evaluate</button>
-          : null
-        }
-        { (this.props.ml_response && !this.state.loading)? 
+
+        { (this.props.covid_diagnosis && !this.state.loading)?
           <div className="col-lg-12 col-md-12 ">
               <div className={`alert ${this.props.type} alert-dismissible mt-3`}>
-                <h4>{this.props.ml_response}</h4>
+                <h4>{this.props.covid_diagnosis}</h4>
             </div>
           </div> : null }
+        { this.props.annotated_img_url ?
+          <div className="row">
+            <div className="col-md-4">
+              <img src={this.props.annotated_img_url} alt={'annotated_img_url'} className="img-thumbnail" /> 
+            </div>
+          </div>
+          : null }
         </div>
       </div>
     );
@@ -99,9 +102,10 @@ App.propTypes = {
     aws_s3_image_url: PropTypes.string,
     msg: PropTypes.string,
     type: PropTypes.string,
-    ml_response : PropTypes.string
+    covid_diagnosis : PropTypes.string,
+    annotated_img_url: PropTypes.string
 }
 
-const mapStateToProps = ({aws_s3_image_url,msg,type, ml_response}) => ({aws_s3_image_url,msg,type, ml_response});
+const mapStateToProps = ({aws_s3_image_url,msg,type, covid_diagnosis, annotated_img_url}) => ({aws_s3_image_url,msg,type, covid_diagnosis, annotated_img_url});
 const mapDispatchToProps = dispatch => bindActionCreators( { uploadImage, response, getMLResponse }, dispatch);
 export default connect(mapStateToProps, mapDispatchToProps)(App)

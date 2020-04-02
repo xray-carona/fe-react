@@ -24,7 +24,10 @@ function reducer (state = InitialState, action) {
     case actionTypes.SET_ML_RESPONSE:
       return {
         ...state,
-        ...{ ml_response: action.ml_response }
+        ...{ 
+              covid_diagnosis: action.ml_response.covid_diagnosis,
+              annotated_img_url: action.ml_response.annotated_img_url 
+            }
     }
 
     default:
