@@ -17,21 +17,19 @@ class App extends Component {
     this.props.response('','');
   }
 
-  Upload_To_AWS_S3 = e => {
+  Upload_To_AWS_S3_and_Run_ML_Model = e => {
     e.preventDefault();
     this.setState({
        loading: true,
        ml_response: false
     });
-    let formData = new FormData();
-    formData.append("photo", this.state.image);
-    this.props.uploadImage(formData);
-  }
-
-  Get_ML_Response = e => {
-    this.props.response('','');
-    e.preventDefault();
-    this.props.getMLResponse(this.state.aws_s3_image_url);
+    let patientInfo = {};
+    for (let field in this.refs) {
+      patientInfo[field] = this.refs[field].value;
+    }
+    let formImageData = new FormData();
+    formImageData.append("photo", this.state.image);
+    this.props.uploadImage(formImageData, patientInfo);
   }
 
   componentDidUpdate(prevProps) {
@@ -57,6 +55,58 @@ class App extends Component {
               </h1>
             </div>
         </div>
+
+        <form className="form-horizontal">
+          <div className="form-group">
+            <label className="control-label d-inline-block col-sm-4" for="email">Name</label>
+            <div className="col-sm-8 d-inline-block">
+              <input type="email" ref="name" className="form-control " id="name" placeholder="Enter Name" name="name"/>
+            </div>
+          </div>
+          <div className="form-group">
+            <label className="control-label d-inline-block col-sm-4" for="pwd">Dry Cough</label>
+            <div className="col-sm-8 d-inline-block">     
+              <input type="text" className="form-control" id="isDryCough" ref="isDryCough" placeholder="Does patient have dry cough" name="pwd"/>
+            </div>
+          </div>
+          <div className="form-group">
+            <label className="control-label d-inline-block col-sm-4" for="email">Sneezing</label>
+            <div className="col-sm-8 d-inline-block">
+              <input type="email" className="form-control " id="isSneezing" ref="isSneezing" placeholder="" name="email"/>
+            </div>
+          </div>
+          <div className="form-group">
+            <label className="control-label d-inline-block col-sm-4" for="email">Breathing issues</label>
+            <div className="col-sm-8 d-inline-block">
+              <input type="email" className="form-control " id="isBreathingIssue" ref="isBreathingIssue" placeholder="" name="email"/>
+            </div>
+          </div>
+          <div className="form-group">
+            <label className="control-label d-inline-block col-sm-4" for="email">Age</label>
+            <div className="col-sm-8 d-inline-block">
+              <input type="email" className="form-control " id="age" ref="age" placeholder="Patient's age in years" name="email"/>
+            </div>
+          </div>
+          <div className="form-group">
+            <label className="control-label d-inline-block col-sm-4" for="email">Gender</label>
+            <div className="col-sm-8 d-inline-block">
+              <input type="email" className="form-control " id="gender" ref="gender" placeholder="" name="email"/>
+            </div>
+          </div>
+          <div className="form-group">
+            <label className="control-label d-inline-block col-sm-4" for="email">Temperature</label>
+            <div className="col-sm-8 d-inline-block">
+              <input type="email" className="form-control " id="temperature" ref="temperature" placeholder="Enter temperature in celsius" name="email"/>
+            </div>
+          </div>
+          <div className="form-group">
+            <label className="control-label d-inline-block col-sm-4" for="email">RT PCR</label>
+            <div className="col-sm-8 d-inline-block">
+              <input type="email" className="form-control " id="rt_pcr" ref="rt_pcr" placeholder="" name="email"/>
+            </div>
+          </div>
+        </form>
+
         <div className="col-md-12">
           <div className="upload-btn-wrapper mb-2">
             <button className="upload-btn bg-primary text-white">Upload XRay</button>
@@ -69,7 +119,7 @@ class App extends Component {
           <Preview file={this.state.image} />
         </div>
         { this.state.image ? <div className="col-md-12">
-          <button className="btn bg-warning text-dark mt-3" onClick={this.Upload_To_AWS_S3}>{ this.state.loading ? 'Uploading...' : 'Evaluate' }</button>
+          <button className="btn bg-warning text-dark mt-3" onClick={this.Upload_To_AWS_S3_and_Run_ML_Model}>{ this.state.loading ? 'Uploading...' : 'Evaluate' }</button>
         </div> : null }
         { this.props.msg ? 
           <div className="col-lg-12 col-md-12 ">

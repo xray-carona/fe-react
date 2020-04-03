@@ -8,10 +8,11 @@ export const actionTypes = {
 
 export const getAwsS3ImageUrl = (state) => state.aws_s3_image_url;
 
-export function uploadImage (photo) {
+export function uploadImage (photo, patientInfo) {
   return {
     type: actionTypes.UPLOAD_IMAGE,
-    photo
+    photo,
+    patientInfo
   }
 }
 
