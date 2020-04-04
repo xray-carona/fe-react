@@ -2,41 +2,31 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { uploadImage, response , getMLResponse} from '../actions';
+import { setXrayImage, uploadImage, response , getMLResponse, setLoading} from '../actions';
 import Preview from './Preview';
 import '../styles/App.css';
 
 class App extends Component {
 
-  state = {
-    image: null,
-    loading: false
-  }
-  
   componentDidMount(){
     this.props.response('','');
   }
 
   Upload_To_AWS_S3_and_Run_ML_Model = e => {
     e.preventDefault();
-    this.setState({
-       loading: true,
-       ml_response: false
-    });
+    this.props.setLoading(true);
     let patientInfo = {};
     for (let field in this.refs) {
       patientInfo[field] = this.refs[field].value;
     }
     let formImageData = new FormData();
-    formImageData.append("photo", this.state.image);
+    formImageData.append("photo", this.props.xray_image);
     this.props.uploadImage(formImageData, patientInfo);
   }
 
   componentDidUpdate(prevProps) {
     if( prevProps.aws_s3_image_url !== this.props.aws_s3_image_url ) {
-        this.setState({
-            loading: false
-        });
+        this.props.setLoading(false);
     }
   }
 
@@ -111,15 +101,15 @@ class App extends Component {
           <div className="upload-btn-wrapper mb-2">
             <button className="upload-btn bg-primary text-white">Upload XRay</button>
             <input name="image" type="file" onChange={ e => {
-              this.setState({ image: e.currentTarget.files[0] })
+              this.props.setXrayImage(e.currentTarget.files[0] )
             }} />
           </div>
         </div>
         <div className="col-md-12">
-          <Preview file={this.state.image} />
+          <Preview file={this.props.xray_image} />
         </div>
-        { this.state.image ? <div className="col-md-12">
-          <button className="btn bg-warning text-dark mt-3" onClick={this.Upload_To_AWS_S3_and_Run_ML_Model}>{ this.state.loading ? 'Uploading...' : 'Evaluate' }</button>
+        { this.props.xray_image ? <div className="col-md-12">
+          <button className="btn bg-warning text-dark mt-3" onClick={this.Upload_To_AWS_S3_and_Run_ML_Model}>{ this.props.loading ? 'Uploading...' : 'Evaluate' }</button>
         </div> : null }
         { this.props.msg ? 
           <div className="col-lg-12 col-md-12 ">
@@ -129,7 +119,7 @@ class App extends Component {
           </div> : null }
         <div class="col-md-12">
 
-        { (this.props.covid_diagnosis && !this.state.loading)?
+        { (this.props.covid_diagnosis && !this.props.loading)?
           <div className="col-lg-12 col-md-12 ">
               <div className={`alert ${this.props.type} alert-dismissible mt-3`}>
                 <h4>{this.props.covid_diagnosis}</h4>
@@ -149,13 +139,15 @@ class App extends Component {
 }
 
 App.propTypes = {
+    xray_image: PropTypes.object,
     aws_s3_image_url: PropTypes.string,
     msg: PropTypes.string,
     type: PropTypes.string,
     covid_diagnosis : PropTypes.string,
-    annotated_img_url: PropTypes.string
+    annotated_img_url: PropTypes.string,
+    loading: PropTypes.bool
 }
 
-const mapStateToProps = ({aws_s3_image_url,msg,type, covid_diagnosis, annotated_img_url}) => ({aws_s3_image_url,msg,type, covid_diagnosis, annotated_img_url});
-const mapDispatchToProps = dispatch => bindActionCreators( { uploadImage, response, getMLResponse }, dispatch);
+const mapStateToProps = ({xray_image, aws_s3_image_url,msg,type, covid_diagnosis, annotated_img_url, loading}) => ({xray_image, aws_s3_image_url,msg,type, covid_diagnosis, annotated_img_url, loading});
+const mapDispatchToProps = dispatch => bindActionCreators( { setXrayImage, uploadImage, response, getMLResponse, setLoading }, dispatch);
 export default connect(mapStateToProps, mapDispatchToProps)(App)
