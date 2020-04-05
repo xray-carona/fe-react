@@ -4,6 +4,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { setXrayImage, uploadImage, response , getMLResponse, setLoading} from '../actions';
 import Preview from './Preview';
+import LungConditions from './LungConditions';
 import '../styles/App.css';
 
 class PatientInfoForm extends Component {
@@ -117,13 +118,19 @@ class PatientInfoForm extends Component {
                 <h4>{this.props.covid_diagnosis}</h4>
             </div>
           </div> : null }
-        { this.props.annotated_img_url ?
-          <div className="row">
-            <div className="col-md-4">
-              <img src={this.props.annotated_img_url} alt={'annotated_img_url'} className="img-thumbnail" /> 
+
+        <div className="row">
+          { this.props.annotated_img_url ?
+              <div className="col-md-4">
+                <img src={this.props.annotated_img_url} alt={'annotated_img_url'} className="img-thumbnail" /> 
             </div>
-          </div>
-          : null }
+            : null }
+          { this.props.lung_conditions ?
+              <div className="col-md-4">
+                <LungConditions data={this.props.lung_conditions} />
+            </div>
+            : null }
+        </div>
         </div>
       </div>
     );
@@ -131,6 +138,7 @@ class PatientInfoForm extends Component {
 }
 PatientInfoForm.propTypes = {
     xray_image: PropTypes.object,
+    lung_conditions: PropTypes.object,
     aws_s3_image_url: PropTypes.string,
     msg: PropTypes.string,
     type: PropTypes.string,
@@ -139,6 +147,6 @@ PatientInfoForm.propTypes = {
     loading: PropTypes.bool
 }
 
-const mapStateToProps = ({xray_image, aws_s3_image_url,msg,type, covid_diagnosis, annotated_img_url, loading}) => ({xray_image, aws_s3_image_url,msg,type, covid_diagnosis, annotated_img_url, loading});
+const mapStateToProps = ({xray_image, aws_s3_image_url,msg,type, covid_diagnosis, annotated_img_url, loading, lung_conditions}) => ({xray_image, aws_s3_image_url,msg,type, covid_diagnosis, annotated_img_url, loading, lung_conditions});
 const mapDispatchToProps = dispatch => bindActionCreators( { setXrayImage, uploadImage, response, getMLResponse, setLoading }, dispatch);
 export default connect(mapStateToProps, mapDispatchToProps)(PatientInfoForm)

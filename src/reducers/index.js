@@ -35,7 +35,8 @@ function reducer (state = InitialState, action) {
         ...state,
         ...{ 
               covid_diagnosis: action.ml_response.covid_diagnosis,
-              annotated_img_url: action.ml_response.annotated_img_url 
+              annotated_img_url: action.ml_response.annotated_img_url,
+              lung_conditions: action.ml_response.lung_conditions
             }
     }
     case actionTypes.SET_LOADING:
