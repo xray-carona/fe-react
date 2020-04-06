@@ -13,11 +13,13 @@ const uploadImageToAwsS3 = async photo =>  await
 	);
 const getMLResponse = async (url, patientInfo) =>  await
 	axios.post(process.env.REACT_APP_BE_EXPRESS_APP_HOST+'/api/v1/getMLResponse',
-	 {
-		url:url,
-		patientInfo:patientInfo
-	 },
-	  config
+	 { 
+	 	params :  {
+			url: url,
+			patientInfo: patientInfo
+		},
+		config
+	 }
 	);
 
 export default { uploadImageToAwsS3, getMLResponse}
