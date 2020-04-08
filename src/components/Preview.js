@@ -20,9 +20,7 @@ class Preview extends Component {
       const { thumb } = this.state;
       return (
         <div className="row">
-          <div className="col-md-4">
             { file ? <img src={thumb} alt={file.name} className="img-thumbnail" /> : null }
-          </div>
         </div>
       );
     }

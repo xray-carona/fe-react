@@ -5,7 +5,17 @@ export const actionTypes = {
     RESPONSE: 'RESPONSE',
     GET_ML_RESPONSE: 'GET_ML_RESPONSE',
     SET_ML_RESPONSE: 'SET_ML_RESPONSE',
-    SET_LOADING: 'SET_LOADING'
+    SET_LOADING: 'SET_LOADING',
+    
+    REGISTER_USER: 'REGISTER_USER',
+    REGISTER_USER_SUCCESS: 'REGISTER_USER_SUCCESS',
+    REGISTER_USER_ERROR: 'REGISTER_USER_ERROR',
+    LOGIN_USER: 'LOGIN_USER',
+    LOGIN_USER_SUCCESS: 'LOGIN_USER_SUCCESS',
+    LOGIN_USER_ERROR: 'LOGIN_USER_ERROR',
+    LOGOUT_USER: 'LOGOUT_USER',
+
+    CLEAR_RESULTS: 'CLEAR_RESULTS'
 }
 
 export const getAwsS3ImageUrl = (state) => state.aws_s3_image_url;
@@ -44,5 +54,19 @@ export function response (response,type) {
   return {
     type: actionTypes.RESPONSE,
     data: { _response: response, _type: type }
+  }
+}
+
+export function clearResults() {
+  return {
+    type: actionTypes.CLEAR_RESULTS,
+    data: {}
+  }
+}
+
+export function logout() {
+  return {
+    type: actionTypes.LOGOUT_USER,
+    data: {}
   }
 }
