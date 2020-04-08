@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { setXrayImage, uploadImage, response , getMLResponse, setLoading} from '../actions';
+import { setXrayImage, uploadImage, response , getMLResponse, setLoading, logout} from '../actions';
 import Preview from './Preview';
 import LungConditions from './LungConditions';
+import { setCookie } from '../util/cookies';
 import '../styles/App.css';
 
 class PatientInfoForm extends Component {
@@ -24,10 +26,17 @@ class PatientInfoForm extends Component {
     formImageData.append("photo", this.props.xray_image);
     this.props.uploadImage(formImageData, patientInfo);
   }
+  logout = e => {
+    e.preventDefault();
+    this.props.logout();
+    setCookie('token', '');
+    this.props.history.push('login');
+  }
 
   componentDidUpdate(prevProps) {
     if( prevProps.aws_s3_image_url !== this.props.aws_s3_image_url ) {
         this.props.setLoading(false);
+        this.props.history.push('results');
     }
   }
 
@@ -38,57 +47,74 @@ class PatientInfoForm extends Component {
 
   render() {
     return (
-      <div className="row container">
-        <form className="form-horizontal">
-          <div className="form-group">
-            <label className="control-label d-inline-block col-sm-4" for="email">Name</label>
-            <div className="col-sm-8 d-inline-block">
-              <input type="email" ref="name" className="form-control " id="name" placeholder="Enter Name" name="name"/>
+      <div>
+        <nav className="navbar navbar-expand-lg navbar-light fixed-top">
+          <div className="container">
+            <Link className="navbar-brand" to={"/patientInfoForm"}><div className="text-white">New Patient</div></Link>
+            <div className="collapse navbar-collapse" id="navbarTogglerDemo02">
+              <ul className="navbar-nav ml-auto">
+                <li className="nav-item">
+                  <Link className="nav-link" to='/patientInfoForm'><div className="text-white">Home</div></Link>
+                </li>
+                <li className="nav-item">
+                  <Link className="nav-link" to='/patientInfoForm' onClick={this.logout}><div className="text-white">Logout</div></Link>
+                </li>
+              </ul>
             </div>
           </div>
-          <div className="form-group">
-            <label className="control-label d-inline-block col-sm-4" for="pwd">Dry Cough</label>
-            <div className="col-sm-8 d-inline-block">     
-              <input type="text" className="form-control" id="isDryCough" ref="isDryCough" placeholder="Does patient have dry cough" name="pwd"/>
+        </nav>
+
+        <div className="row container patient-info-form">
+          <form className="form-horizontal">
+            <div className="form-group">
+              <label className="control-label d-inline-block col-sm-4" for="email">Name</label>
+              <div className="col-sm-8 d-inline-block">
+                <input type="email" ref="name" className="form-control " id="name" placeholder="Enter Name" name="name"/>
+              </div>
             </div>
-          </div>
-          <div className="form-group">
-            <label className="control-label d-inline-block col-sm-4" for="email">Sneezing</label>
-            <div className="col-sm-8 d-inline-block">
-              <input type="email" className="form-control " id="isSneezing" ref="isSneezing" placeholder="" name="email"/>
+            <div className="form-group">
+              <label className="control-label d-inline-block col-sm-4" for="pwd">Dry Cough</label>
+              <div className="col-sm-8 d-inline-block">     
+                <input type="text" className="form-control" id="isDryCough" ref="isDryCough" placeholder="Does patient have dry cough" name="pwd"/>
+              </div>
             </div>
-          </div>
-          <div className="form-group">
-            <label className="control-label d-inline-block col-sm-4" for="email">Breathing issues</label>
-            <div className="col-sm-8 d-inline-block">
-              <input type="email" className="form-control " id="isBreathingIssue" ref="isBreathingIssue" placeholder="" name="email"/>
+            <div className="form-group">
+              <label className="control-label d-inline-block col-sm-4" for="email">Sneezing</label>
+              <div className="col-sm-8 d-inline-block">
+                <input type="email" className="form-control " id="isSneezing" ref="isSneezing" placeholder="" name="email"/>
+              </div>
             </div>
-          </div>
-          <div className="form-group">
-            <label className="control-label d-inline-block col-sm-4" for="email">Age</label>
-            <div className="col-sm-8 d-inline-block">
-              <input type="email" className="form-control " id="age" ref="age" placeholder="Patient's age in years" name="email"/>
+            <div className="form-group">
+              <label className="control-label d-inline-block col-sm-4" for="email">Breathing issues</label>
+              <div className="col-sm-8 d-inline-block">
+                <input type="email" className="form-control " id="isBreathingIssue" ref="isBreathingIssue" placeholder="" name="email"/>
+              </div>
             </div>
-          </div>
-          <div className="form-group">
-            <label className="control-label d-inline-block col-sm-4" for="email">Gender</label>
-            <div className="col-sm-8 d-inline-block">
-              <input type="email" className="form-control " id="gender" ref="gender" placeholder="" name="email"/>
+            <div className="form-group">
+              <label className="control-label d-inline-block col-sm-4" for="email">Age</label>
+              <div className="col-sm-8 d-inline-block">
+                <input type="email" className="form-control " id="age" ref="age" placeholder="Patient's age in years" name="email"/>
+              </div>
             </div>
-          </div>
-          <div className="form-group">
-            <label className="control-label d-inline-block col-sm-4" for="email">Temperature</label>
-            <div className="col-sm-8 d-inline-block">
-              <input type="email" className="form-control " id="temperature" ref="temperature" placeholder="Enter temperature in celsius" name="email"/>
+            <div className="form-group">
+              <label className="control-label d-inline-block col-sm-4" for="email">Gender</label>
+              <div className="col-sm-8 d-inline-block">
+                <input type="email" className="form-control " id="gender" ref="gender" placeholder="" name="email"/>
+              </div>
             </div>
-          </div>
-          <div className="form-group">
-            <label className="control-label d-inline-block col-sm-4" for="email">RT PCR</label>
-            <div className="col-sm-8 d-inline-block">
-              <input type="email" className="form-control " id="rt_pcr" ref="rt_pcr" placeholder="" name="email"/>
+            <div className="form-group">
+              <label className="control-label d-inline-block col-sm-4" for="email">Temperature</label>
+              <div className="col-sm-8 d-inline-block">
+                <input type="email" className="form-control " id="temperature" ref="temperature" placeholder="Enter temperature in celsius" name="email"/>
+              </div>
             </div>
-          </div>
-        </form>
+            <div className="form-group">
+              <label className="control-label d-inline-block col-sm-4" for="email">RT PCR</label>
+              <div className="col-sm-8 d-inline-block">
+                <input type="email" className="form-control " id="rt_pcr" ref="rt_pcr" placeholder="" name="email"/>
+              </div>
+            </div>
+          </form>
 
         <div className="col-md-12">
           <div className="upload-btn-wrapper mb-2">
@@ -98,7 +124,7 @@ class PatientInfoForm extends Component {
             }} />
           </div>
         </div>
-        <div className="col-md-12">
+        <div className="col-md-4">
           <Preview file={this.props.xray_image} />
         </div>
         { this.props.xray_image ? <div className="col-md-12">
@@ -133,6 +159,7 @@ class PatientInfoForm extends Component {
         </div>
         </div>
       </div>
+      </div>
     );
   }
 }
@@ -148,5 +175,5 @@ PatientInfoForm.propTypes = {
 }
 
 const mapStateToProps = ({xray_image, aws_s3_image_url,msg,type, covid_diagnosis, annotated_img_url, loading, lung_conditions}) => ({xray_image, aws_s3_image_url,msg,type, covid_diagnosis, annotated_img_url, loading, lung_conditions});
-const mapDispatchToProps = dispatch => bindActionCreators( { setXrayImage, uploadImage, response, getMLResponse, setLoading }, dispatch);
+const mapDispatchToProps = dispatch => bindActionCreators( { setXrayImage, uploadImage, response, getMLResponse, setLoading, logout }, dispatch);
 export default connect(mapStateToProps, mapDispatchToProps)(PatientInfoForm)
