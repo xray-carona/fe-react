@@ -9,6 +9,7 @@ export const InitialState = {
 }
 
 function reducer (state = InitialState, action) {
+  const response = action.response;
   switch (action.type) {
     case actionTypes.SET_AWS_S3_IMAGE_URL:
       return {
@@ -45,6 +46,32 @@ function reducer (state = InitialState, action) {
         ...{ loading: action.loading  }
       }
 
+    case actionTypes.REGISTER_USER_SUCCESS:
+      return { ...state, response };
+    case actionTypes.REGISTER_USER_ERROR:
+      return { ...state, response };
+    case actionTypes.LOGIN_USER_SUCCESS:
+      return { ...state, response };
+    case actionTypes.LOGIN_USER_ERROR:
+    return { ...state, response };
+
+    case actionTypes.CLEAR_RESULTS:
+      return {
+        ...state,
+        ...{
+            covid_diagnosis: null,
+            annotated_img_url: null,
+            lung_conditions: {},
+            xray_image: null
+          }
+      }
+    case actionTypes.LOGOUT_USER:
+      return {
+        ...state,
+        ...{
+            response: {}
+          }
+      }
     default:
       return state
   }
