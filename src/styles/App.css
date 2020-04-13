@@ -70,3 +70,13 @@ body, html, .App, #root, .auth-wrapper {
 
 .results{
 }
+
+.dote span {
+  color: transparent;
+  background-color: #959595;
+  display: block;
+  line-height: 0;
+  height: 5px;
+  width: 3px;
+  margin-top: 7px;
+}

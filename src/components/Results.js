@@ -48,6 +48,7 @@ class Results extends Component {
 
         <div className="row">
           <div className="col-md-4">
+            <h2>Input image</h2>
             <Preview file={this.props.xray_image} />
           </div>
           { this.props.annotated_img_url ?
@@ -57,6 +58,7 @@ class Results extends Component {
             : null }
           { this.props.lung_conditions ?
               <div className="col-md-4">
+                <h2>Disease predictions</h2>
                 <LungConditions data={this.props.lung_conditions} />
             </div>
             : null }
