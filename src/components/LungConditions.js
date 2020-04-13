@@ -13,6 +13,11 @@ class LungConditions extends Component {
             <div class="col-md-auto">{key}</div>
             <div class="col-sm">
               <ProgressBar
+              variant={
+                this.props.data[key].this_val < 8? "success"
+                : (this.props.data[key].this_val < 14? "warning"
+                : "danger")
+              }
                 now={this.props.data[key].this_val}
                 min={this.props.data[key].low_val}
                 max={this.props.data[key].high_val}
