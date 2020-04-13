@@ -27,7 +27,32 @@ class LungConditions extends Component {
         );
       });
     }
-    return tifOptions;
+    return (
+      <div>
+        <div className="row">
+          <div className="col-md-6"></div>
+          <div className="col-md-6 ">
+                          <div className="justify-content-between d-flex">
+                              <small>Healthy</small>
+                              <small>Risk</small>
+                          </div>
+                          <div className="justify-content-between d-flex dote">
+                              <span></span>
+                              <span></span>
+                              <span></span>
+                              <span></span>
+                              <span></span>
+                              <span></span>
+                              <span></span>
+                              <span></span>
+                              <span></span>
+                              <span></span>
+                          </div>
+           </div>
+        </div>
+        {tifOptions}
+      </div>
+      );
   }
 }
 

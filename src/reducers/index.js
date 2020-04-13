@@ -61,7 +61,7 @@ function reducer (state = InitialState, action) {
         ...{
             covid_diagnosis: null,
             annotated_img_url: null,
-            lung_conditions: {},
+            lung_conditions: null,
             xray_image: null
           }
       }
