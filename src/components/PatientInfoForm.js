@@ -23,7 +23,21 @@ class PatientInfoForm extends Component {
       patientInfo[field] = this.refs[field].value;
     }
 
-    patientInfo['gender'] = document.querySelector('input[name="gender"]:checked').value;
+    patientInfo['gender'] = document.querySelector('input[name="gender"]:checked') ?
+        document.querySelector('input[name="gender"]:checked').value
+        : 'not_selected';
+    patientInfo['isSneezing'] = document.querySelector('input[name="isSneezing"]:checked') ?
+        document.querySelector('input[name="isSneezing"]:checked').value
+        : 'not_selected';
+    patientInfo['isDifficultyInBreathing'] = document.querySelector('input[name="isDifficultyInBreathing"]:checked') ?
+        document.querySelector('input[name="isDifficultyInBreathing"]:checked').value
+        : 'not_selected';
+    patientInfo['isDryCough'] = document.querySelector('input[name="isDryCough"]:checked') ?
+        document.querySelector('input[name="isDryCough"]:checked').value
+        : 'not_selected';
+    patientInfo['isRtPcrConducted'] = document.querySelector('input[name="isRtPcrConducted"]:checked') ?
+        document.querySelector('input[name="isRtPcrConducted"]:checked').value
+        : 'not_selected';
 
     let formImageData = new FormData();
     formImageData.append("photo", this.props.xray_image);
@@ -108,11 +122,11 @@ class PatientInfoForm extends Component {
                             <div><strong>Sneezing</strong></div>
                             <div className="d-flex mt-4">
                                 <label className="radio-btn">Yes
-                                    <input type="radio" name="isSneezing"/>
+                                    <input type="radio" name="isSneezing" value="yes"/>
                                         <span className="checkmark"></span>
                                 </label>
                                 <label className="radio-btn ml-3">No
-                                    <input type="radio" name="isSneezing"/>
+                                    <input type="radio" name="isSneezing" value="no"/>
                                         <span className="checkmark"></span>
                                 </label>
 
@@ -123,11 +137,11 @@ class PatientInfoForm extends Component {
                             <div><strong>Difficulty in Breathing</strong></div>
                             <div className="d-flex mt-4">
                                 <label className="radio-btn">Yes
-                                    <input type="radio" name="isDifficultyInBreathing"/>
+                                    <input type="radio" name="isDifficultyInBreathing" value="yes"/>
                                         <span className="checkmark"></span>
                                 </label>
                                 <label className="radio-btn ml-3">No
-                                    <input type="radio" name="isDifficultyInBreathing"/>
+                                    <input type="radio" name="isDifficultyInBreathing" value="no"/>
                                         <span className="checkmark"></span>
                                 </label>
 
@@ -138,11 +152,11 @@ class PatientInfoForm extends Component {
                             <div><strong>Dry Cough</strong></div>
                             <div className="d-flex mt-4">
                                 <label className="radio-btn">Yes
-                                    <input type="radio" name="isDryCough"/>
+                                    <input type="radio" name="isDryCough" value="yes"/>
                                         <span className="checkmark"></span>
                                 </label>
                                 <label className="radio-btn ml-3">No
-                                    <input type="radio" name="isDryCough"/>
+                                    <input type="radio" name="isDryCough" value="no"/>
                                         <span className="checkmark"></span>
                                 </label>
 
@@ -153,11 +167,11 @@ class PatientInfoForm extends Component {
                             <div><strong>RT-PCR Conducted</strong></div>
                             <div className="d-flex mt-4">
                                 <label className="radio-btn">Yes
-                                    <input type="radio" name="isRtPcrConducted"/>
+                                    <input type="radio" name="isRtPcrConducted" value="yes"/>
                                         <span className="checkmark"></span>
                                 </label>
                                 <label className="radio-btn ml-3">No
-                                    <input type="radio" name="isRtPcrConducted"/>
+                                    <input type="radio" name="isRtPcrConducted" value="no"/>
                                         <span className="checkmark"></span>
                                 </label>
 
