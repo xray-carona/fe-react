@@ -35,13 +35,25 @@ class App extends Component {
         </BrowserRouter>
     );
   }
+
+  
 }
 
-function initializeReactGA() {
-  ReactGA.initialize('UA-163860318-1');
-  ReactGA.pageview(window.location.pathname + window.location.search);
-}
 
+export function  initializeReactGA()  {
+
+  ReactGA.initialize('UA-163860318-1', {
+    debug: true,
+    titleCase: false,
+    gaOptions: {
+      userId: 123
+    }
+  }
+  );
+  ReactGA.pageview('/patientInfoForm');
+  console.log(window.location.pathname + window.location.search);
+  
+}
 
 
 export default App;

@@ -5,7 +5,10 @@ import { connect } from 'react-redux';
 import { loginUserAction } from '../actions/authenticationActions';
 import { setCookie } from '../util/cookies';
 
+import { initializeReactGA } from '../container/App';
+
 class LoginPage extends Component {
+
   onHandleLogin = (event) => {
     event.preventDefault();
 
@@ -20,6 +23,7 @@ class LoginPage extends Component {
   }
 
   componentDidMount() {
+    initializeReactGA();
     document.title = 'RayEye Login';
   }
 
