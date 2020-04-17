@@ -50,7 +50,7 @@ export function  initializeReactGA()  {
     }
   }
   );
-  ReactGA.pageview('/patientInfoForm');
+  ReactGA.pageview(window.location.pathname + window.location.search);
   console.log(window.location.pathname + window.location.search);
   
 }
