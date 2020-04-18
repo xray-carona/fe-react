@@ -12,6 +12,7 @@ import LoginPage from '../components/LoginPage';
 import RegisterPage from '../components/RegisterPage';
 import PatientInfoForm from '../components/PatientInfoForm';
 import Results from '../components/Results';
+import Header from "../components/Header";
 import createBrowserHistory from "history/createBrowserHistory";
 const history = createBrowserHistory();
 

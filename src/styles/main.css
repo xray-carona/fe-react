@@ -1,0 +1,408 @@
+.logo{
+  height: 59px;
+}
+@media screen and (max-width: 1200px) and (min-width: 320px) {
+  .logo {
+    height: 37px !important;
+  }
+}
+header.header {
+  /*box-shadow: 0px 4px 9px rgba(0, 0, 0, 0.11);*/
+
+}
+@media screen and (max-width: 768px) and (min-width: 320px){
+  .iner-menu{
+    display:block !important;
+    justify-content: flex-end;
+  }
+}
+.iner-menu{
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+}
+header a.nav-link {
+  font-size: 19px;
+  font-weight: 600;
+  color: #163342;
+  /*padding-right: 39px !important;*/
+}
+header li{
+  padding-left: 39px !important;
+}
+@media screen and (max-width: 991px) and (min-width: 768px){
+  .col-menu{
+    flex-direction: column !important;
+  }
+}
+ul li {
+  list-style: none;
+  display: inline-block;
+}
+a.active {
+  border-bottom: 3px solid #a7d7fe;
+}
+.title {
+  font-size: 18px;
+  font-weight: 600;
+  color: #163342;
+}
+.card li.nav-item a {
+  padding-bottom: 5px;
+  font-weight: 700;
+  color: #163342;
+  font-size: 18px;
+}
+.card li.nav-item a:hover {
+
+  text-decoration: unset;
+}
+.card li.nav-item {
+  padding: 0px 25px 0px 0;
+}
+.btn-primary {
+  color: #fff;
+  /*background-color: #a7d7fe ;
+  border-color: #a7d7fe;*/
+}
+
+.btn-primary:hover {
+  color: #fff;
+  background-color: #86c6f8 !important;
+  border-color: #86c6f8 !important;
+}
+.form-control {
+
+  padding: 10px 0.75rem;
+
+  border: 1.5px solid #a7d7fe;
+
+}
+
+.input-label-up label {
+  position: absolute;
+  font-size: 15px;
+  font-weight: 500;
+  color: #163342;
+  margin: 0;
+  background-color: white;
+  left: 16px;
+  top: 5px;
+  padding: 0 7px;
+}
+
+.input-label-up {
+  padding: 17px 0;
+  position: relative;
+}
+
+.btn-outline-primary {
+  color: #163342;
+  background-color: transparent;
+  background-image: none;
+  border-color: #a7d7fe;
+  font-weight: 700;
+  font-size: 12px;
+  padding: 10px 29px;
+}
+.icon-img-btn{
+  height: 17px;
+  margin-bottom: 3px;
+  margin-right: 8px;
+}
+
+.btn-outline-primary:hover {
+  color: #fff;
+  background-color: #86c6f8 !important;
+  border-color: #86c6f8 !important;
+}
+
+.card-footer-banner {
+  margin-top: 17px;
+  border-top: 2px solid #a7d7fe;
+  padding-top: 9px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.card-footer-banner a {
+  font-weight: 500;
+  color: #163342;
+}
+
+.banner .card {
+
+   border:unset;
+  min-height: 502px;
+
+  box-shadow: 0px 0px 11px 7px #0000000f;
+}
+
+.text-container {
+  flex: 1 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #163342;
+  padding-top: 62px;
+}
+.icon-count {
+  padding-top: 57px;
+  color: #163342;
+}
+
+.icon-count img {
+  height: 64px;
+}
+
+.bg-img {
+  background-image: url("../assets/img/xray_corona_logo_inv-1.png");
+  background-repeat: no-repeat;
+  background-position-x: center;
+  background-position-y: 114%;
+  background-attachment: fixed;
+  height: 100vh;
+  background-size: 700px;
+  overflow: auto;
+  padding-top: 85px;
+}
+section.banner {
+  padding-bottom: 65px;
+  border-bottom: 1px solid black;
+  color: #163342;
+}
+
+header.header {
+  box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.11);
+  background-color: #ffffff;
+  position: fixed;
+  width: 100%;
+  top: 0;
+  z-index: 100;
+  color: #163342;
+}
+.bg-headerBg {
+  box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.11);
+  background-color: #ffffff;
+  z-index: 100;
+  color: #163342;
+}
+.contact i {
+  height: 41px;
+  width: 41px;
+  color: white;
+  background-color: #a7d7fe;
+  border-radius: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 21px;
+  font-size: 27px;
+}
+.contact {
+  color: #7d7d7d;
+  font-weight: 500;
+}
+
+
+
+/*info*/
+
+.input-label-up.color-p .form-control {
+  border: 1.5px solid #ff437c !important;
+}
+
+
+.radio-btn {
+  display: block;
+  position: relative;
+  padding-left: 35px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  color: #163342;
+  font-size: 16px;
+  font-weight: 500;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* Hide the browser's default radio button */
+.radio-btn input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+}
+
+/* Create a custom radio button */
+.checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 25px;
+  width: 25px;
+  border-radius: 50%;
+  border: 1.5px solid #ff437c;
+}
+
+/* On mouse-over, add a grey background color */
+.radio-btn:hover input ~ .checkmark {
+  background-color: #ccc;
+}
+
+/* When the radio button is checked, add a blue background */
+.radio-btn input:checked ~ .checkmark {
+  background-color: #ff437c;
+}
+/* Create the indicator (the dot/circle - hidden when not checked) */
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+/* Show the indicator (dot/circle) when checked */
+.radio-btn input:checked ~ .checkmark:after {
+  display: block;
+}
+
+/* Style the indicator (dot/circle) */
+.radio-btn .checkmark:after {
+  top: 7px;
+  left: 7px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: white;
+}
+.btn-secondary {
+  color: #fff;
+  background-color: #ff437c;
+  border-color: #ff437c;
+}
+
+.btn-secondary:hover {
+  color: #fff;
+  background-color: #eb1959 !important;
+  border-color: #eb1959 !important;
+}
+h2.headding-title {
+  margin: 0;
+  line-height: 1.7;
+  position: relative;
+  z-index: 10;
+  font-weight: 800;
+}
+h2.headding-title:after {
+  content: '';
+  width: 100%;
+  height: 5px;
+  background-color: #89b4fc;
+  position: absolute;
+  left: 0;
+  bottom: 19px;
+  z-index: -2;
+}
+.data-table{
+  width: 100%;
+  font-weight: 500;
+}
+.data-table td, .data-table th{
+  padding: 10px;
+}
+.data-table th{
+  background-color: #163342;
+  color: white;
+}
+.right-th{
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
+.left-th{
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+}
+
+/*result*/
+
+.slidecontainer {
+  width: 100%;
+}
+
+.slider {
+  -webkit-appearance: none;
+  width: 100%;
+  height: 8px;
+  border-radius: 8px;
+  outline: none;
+  background-color: #00ffb3;
+  background-image: linear-gradient(90deg, #00ffb3 0%, #007eff 100%);
+  -webkit-transition: .2s;
+  transition: opacity .2s;
+}
+
+.slider:hover {
+  opacity: 1;
+}
+
+.slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  background: white;
+  cursor: pointer;
+  border-radius: 100%;
+  box-shadow: 0px 3px 8px 2px rgba(0, 0, 0, 0.24);
+}
+
+.slider::-moz-range-thumb {
+  width: 20px;
+  height: 20px;
+  background: white;
+  cursor: pointer;
+  border-radius: 100%;
+  box-shadow: 0px 3px 8px 2px rgba(0, 0, 0, 0.24);
+}
+
+.dote span {
+  color: transparent;
+  background-color: #959595;
+  display: block;
+  line-height: 0;
+  height: 5px;
+  width: 3px;
+  margin-top: 7px;
+}
+.text-blue{
+  color: #97d5ff;
+}
+.text-pink{
+  color: #ff437c;
+}
+
+.links {
+  display: inline-flex;
+}
+@media screen and (min-width: 992px) {
+  .links {
+    display: inline-flex;
+  }
+}
+@media screen and (max-width: 991px) and (min-width: 768px){
+  .links {
+    display: block;
+  }
+}
+@media screen and (max-width: 768px) and (min-width: 320px){
+  .links {
+    display: block;
+  }
+}
+@media screen and (max-width: 319px){
+  .links {
+    display: block;
+  }
+}
