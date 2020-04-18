@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import ReactGA from 'react-ga';
+
 import {
   BrowserRouter,
   Route,
@@ -34,6 +36,25 @@ class App extends Component {
         </BrowserRouter>
     );
   }
+
+  
 }
+
+
+export function  initializeReactGA()  {
+
+  ReactGA.initialize('UA-163860318-1', {
+    debug: true,
+    titleCase: false,
+    gaOptions: {
+      userId: 123
+    }
+  }
+  );
+  ReactGA.pageview(window.location.pathname + window.location.search);
+  console.log(window.location.pathname + window.location.search);
+  
+}
+
 
 export default App;

@@ -9,9 +9,12 @@ import LungConditions from './LungConditions';
 import { setCookie } from '../util/cookies';
 import '../styles/App.css';
 
+import { initializeReactGA } from '../container/App';
+
 class PatientInfoForm extends Component {
 
   componentDidMount(){
+    initializeReactGA();
     this.props.response('','');
   }
 
