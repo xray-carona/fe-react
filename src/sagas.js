@@ -11,6 +11,7 @@ import {
 
 import api from './api/upload-image-api.js';
 import { registerUserService, loginUserService } from './api/authenticationService';
+import { getCookie } from './util/cookies';
 
 function * uploadImageSaga (action) {
   try {
@@ -20,7 +21,7 @@ function * uploadImageSaga (action) {
     yield put(setAwsS3ImageUrl(res.data));
     // yield put(response('You have successfully uploaded your image to S3','alert-success'));
     let url = yield select(getAwsS3ImageUrl);
-    const mlAPIResponse = yield call(api.getMLResponse, url, patientInfo);
+    const mlAPIResponse = yield call(api.getMLResponse, url, patientInfo, getCookie('userId'));
     yield put(setMLResponse(mlAPIResponse.data));
     yield put(push('/results'));
   } catch (err) {
@@ -40,6 +41,7 @@ function* registerSaga(payload) {
 function* loginSaga(payload) {
   try {
     const response = yield call(loginUserService, payload);
+    response.user = payload.user.email; // set user for tracking
     yield put({ type: actionTypes.LOGIN_USER_SUCCESS, response });
   } catch(error) {
     yield put({ type: actionTypes.LOGIN_USER_ERROR, error })

@@ -22,6 +22,23 @@ class PatientInfoForm extends Component {
     for (let field in this.refs) {
       patientInfo[field] = this.refs[field].value;
     }
+
+    patientInfo['gender'] = document.querySelector('input[name="gender"]:checked') ?
+        document.querySelector('input[name="gender"]:checked').value
+        : 'not_selected';
+    patientInfo['isSneezing'] = document.querySelector('input[name="isSneezing"]:checked') ?
+        document.querySelector('input[name="isSneezing"]:checked').value
+        : 'not_selected';
+    patientInfo['isDifficultyInBreathing'] = document.querySelector('input[name="isDifficultyInBreathing"]:checked') ?
+        document.querySelector('input[name="isDifficultyInBreathing"]:checked').value
+        : 'not_selected';
+    patientInfo['isDryCough'] = document.querySelector('input[name="isDryCough"]:checked') ?
+        document.querySelector('input[name="isDryCough"]:checked').value
+        : 'not_selected';
+    patientInfo['isRtPcrConducted'] = document.querySelector('input[name="isRtPcrConducted"]:checked') ?
+        document.querySelector('input[name="isRtPcrConducted"]:checked').value
+        : 'not_selected';
+
     let formImageData = new FormData();
     formImageData.append("photo", this.props.xray_image);
     this.props.uploadImage(formImageData, patientInfo);
@@ -47,7 +64,7 @@ class PatientInfoForm extends Component {
 
   render() {
     return (
-      <div>
+      <section className="patient-info-form form-group pb-5 pt-5">
         <nav className="navbar navbar-expand-lg navbar-light fixed-top">
           <div className="container">
             <Link className="navbar-brand" to={"/patientInfoForm"}><div className="text-white">New Patient</div></Link>
@@ -57,109 +74,147 @@ class PatientInfoForm extends Component {
                   <Link className="nav-link" to='/patientInfoForm'><div className="text-white">Home</div></Link>
                 </li>
                 <li className="nav-item">
-                  <Link className="nav-link" to='/patientInfoForm' onClick={this.logout}><div className="text-white">Logout</div></Link>
+                  <Link className="nav-link" to='/login'><div className="text-white">Logout</div></Link>
                 </li>
               </ul>
             </div>
           </div>
         </nav>
+            <div className="container">
+                <div className="row justify-content-center">
+                    <div className="col-xl-7 col-lg-7 col-md-7 col-sm-12 col-xs-12">
+                        <div className="input-label-up color-p">
+                            <label>First Name</label>
+                            <input ref="first_name" className="form-control" type="text"/>
+                        </div>
+                        <div className="input-label-up color-p">
+                            <label>Second Name</label>
+                            <input ref="last_name" className="form-control" type="text"/>
+                        </div>
+                        <div className="input-label-up color-p">
+                            <label>Age</label>
+                            <input className="form-control" ref="age" placeholder="Enter Age in Numbers" type="text"/>
+                        </div>
+                        <div>
+                            <div><strong>Gender</strong></div>
+                            <div className="d-flex mt-3">
+                                <label className="radio-btn">Male
+                                    <input type="radio" name="gender" value="male"/>
+                                        <span className="checkmark"></span>
+                                </label>
+                                <label className="radio-btn ml-3">Female
+                                    <input type="radio" name="gender" value="female"/>
+                                        <span className="checkmark"></span>
+                                </label>
+                                <label className="radio-btn ml-3">Other
+                                    <input type="radio" name="gender" value="other"/>
+                                        <span className="checkmark"></span>
+                                </label>
+                            </div>
+                        </div>
+                        <div className="input-label-up color-p">
+                            <label>Body Temperature</label>
+                            <input className="form-control" placeholder="Enter Temperature in Degree Celsius"
+                                   type="text" ref="temperature"/>
+                        </div>
 
-        <div className="row container patient-info-form">
-          <form className="form-horizontal">
-            <div className="form-group">
-              <label className="control-label d-inline-block col-sm-4" for="email">Name</label>
-              <div className="col-sm-8 d-inline-block">
-                <input type="email" ref="name" className="form-control " id="name" placeholder="Enter Name" name="name"/>
-              </div>
-            </div>
-            <div className="form-group">
-              <label className="control-label d-inline-block col-sm-4" for="pwd">Dry Cough</label>
-              <div className="col-sm-8 d-inline-block">     
-                <input type="text" className="form-control" id="isDryCough" ref="isDryCough" placeholder="Does patient have dry cough" name="pwd"/>
-              </div>
-            </div>
-            <div className="form-group">
-              <label className="control-label d-inline-block col-sm-4" for="email">Sneezing</label>
-              <div className="col-sm-8 d-inline-block">
-                <input type="email" className="form-control " id="isSneezing" ref="isSneezing" placeholder="" name="email"/>
-              </div>
-            </div>
-            <div className="form-group">
-              <label className="control-label d-inline-block col-sm-4" for="email">Breathing issues</label>
-              <div className="col-sm-8 d-inline-block">
-                <input type="email" className="form-control " id="isBreathingIssue" ref="isBreathingIssue" placeholder="" name="email"/>
-              </div>
-            </div>
-            <div className="form-group">
-              <label className="control-label d-inline-block col-sm-4" for="email">Age</label>
-              <div className="col-sm-8 d-inline-block">
-                <input type="email" className="form-control " id="age" ref="age" placeholder="Patient's age in years" name="email"/>
-              </div>
-            </div>
-            <div className="form-group">
-              <label className="control-label d-inline-block col-sm-4" for="email">Gender</label>
-              <div className="col-sm-8 d-inline-block">
-                <input type="email" className="form-control " id="gender" ref="gender" placeholder="" name="email"/>
-              </div>
-            </div>
-            <div className="form-group">
-              <label className="control-label d-inline-block col-sm-4" for="email">Temperature</label>
-              <div className="col-sm-8 d-inline-block">
-                <input type="email" className="form-control " id="temperature" ref="temperature" placeholder="Enter temperature in celsius" name="email"/>
-              </div>
-            </div>
-            <div className="form-group">
-              <label className="control-label d-inline-block col-sm-4" for="email">RT PCR</label>
-              <div className="col-sm-8 d-inline-block">
-                <input type="email" className="form-control " id="rt_pcr" ref="rt_pcr" placeholder="" name="email"/>
-              </div>
-            </div>
-          </form>
+                        <div className="mt-4">
+                            <div><strong>Sneezing</strong></div>
+                            <div className="d-flex mt-4">
+                                <label className="radio-btn">Yes
+                                    <input type="radio" name="isSneezing" value="yes"/>
+                                        <span className="checkmark"></span>
+                                </label>
+                                <label className="radio-btn ml-3">No
+                                    <input type="radio" name="isSneezing" value="no"/>
+                                        <span className="checkmark"></span>
+                                </label>
 
-        <div className="col-md-12">
-          <div className="upload-btn-wrapper mb-2">
-            <button className="upload-btn bg-primary text-white">Upload XRay</button>
-            <input name="image" type="file" onChange={ e => {
-              this.props.setXrayImage(e.currentTarget.files[0] )
-            }} />
-          </div>
-        </div>
-        <div className="col-md-4">
-          <Preview file={this.props.xray_image} />
-        </div>
-        { this.props.xray_image ? <div className="col-md-12">
-          <button className="btn bg-warning text-dark mt-3" onClick={this.Upload_To_AWS_S3_and_Run_ML_Model}>{ this.props.loading ? 'Uploading...' : 'Evaluate' }</button>
-        </div> : null }
-        { this.props.msg ? 
-          <div className="col-lg-12 col-md-12 ">
-              <div className={``}>
-                <h4>{this.props.msg}</h4>
-              </div>
-          </div> : null }
-        <div class="col-md-12">
+                            </div>
+                        </div>
 
-        { (this.props.covid_diagnosis && !this.props.loading)?
-          <div className="col-lg-12 col-md-12 ">
-              <div className={`alert ${this.props.type} alert-dismissible mt-3`}>
-                <h4>{this.props.covid_diagnosis}</h4>
-            </div>
-          </div> : null }
+                        <div className="mt-4">
+                            <div><strong>Difficulty in Breathing</strong></div>
+                            <div className="d-flex mt-4">
+                                <label className="radio-btn">Yes
+                                    <input type="radio" name="isDifficultyInBreathing" value="yes"/>
+                                        <span className="checkmark"></span>
+                                </label>
+                                <label className="radio-btn ml-3">No
+                                    <input type="radio" name="isDifficultyInBreathing" value="no"/>
+                                        <span className="checkmark"></span>
+                                </label>
 
-        <div className="row">
-          { this.props.annotated_img_url ?
-              <div className="col-md-4">
-                <img src={this.props.annotated_img_url} alt={'annotated_img_url'} className="img-thumbnail" /> 
+                            </div>
+                        </div>
+
+                        <div className="mt-4">
+                            <div><strong>Dry Cough</strong></div>
+                            <div className="d-flex mt-4">
+                                <label className="radio-btn">Yes
+                                    <input type="radio" name="isDryCough" value="yes"/>
+                                        <span className="checkmark"></span>
+                                </label>
+                                <label className="radio-btn ml-3">No
+                                    <input type="radio" name="isDryCough" value="no"/>
+                                        <span className="checkmark"></span>
+                                </label>
+
+                            </div>
+                        </div>
+
+                        <div className="mt-4">
+                            <div><strong>RT-PCR Conducted</strong></div>
+                            <div className="d-flex mt-4">
+                                <label className="radio-btn">Yes
+                                    <input type="radio" name="isRtPcrConducted" value="yes"/>
+                                        <span className="checkmark"></span>
+                                </label>
+                                <label className="radio-btn ml-3">No
+                                    <input type="radio" name="isRtPcrConducted" value="no"/>
+                                        <span className="checkmark"></span>
+                                </label>
+
+                            </div>
+                        </div>
+
+                        <div className="d-flex align-items-center mt-4">
+                            <div className="upload-btn-wrapper mb-2">
+                              <button className="upload-btn bg-primary">Upload X-Ray</button>
+                              <input name="image" type="file" onChange={ e => {
+                                this.props.setXrayImage(e.currentTarget.files[0] )
+                              }} />
+                            </div>
+                            <p className="text-muted ml-3"></p>
+                        </div>
+                        <div className="col-md-4">
+                          <Preview file={this.props.xray_image} />
+                        </div>
+                        <div className="mt-4">
+                            <div className="upload-btn-wrapper mb-2">
+                              <button className="upload-btn bg-primary">Upload CT-Scan</button>
+                              <input name="image" type="file" onChange={ e => {
+                                this.props.setXrayImage(e.currentTarget.files[0] )
+                              }} />
+                            </div>
+                        </div>
+                        <div className="col-md-4">
+                          <Preview file={this.props.ctscan_image} />
+                        </div>
+
+                      { this.props.xray_image ? <div className="col-md-12">
+                      <div className="mt-4 d-flex justify-content-center">
+                      <button className="btn bg-warning text-dark mt-3" onClick={this.Upload_To_AWS_S3_and_Run_ML_Model} style={{
+                                        paddingRight:'40px',
+                                        paddingLeft: '40px'
+                                    }}>
+                        { this.props.loading ? 'Uploading...' : 'Evaluate' }</button>
+                    </div></div> : null }
+
+                    </div>
+                </div>
             </div>
-            : null }
-          { this.props.lung_conditions ?
-              <div className="col-md-4">
-                <LungConditions data={this.props.lung_conditions} />
-            </div>
-            : null }
-        </div>
-        </div>
-      </div>
-      </div>
+        </section>
     );
   }
 }
