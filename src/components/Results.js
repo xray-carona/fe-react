@@ -3,10 +3,11 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { clearResults} from '../actions';
+import { clearResults, logout} from '../actions';
 import Preview from './Preview';
 import LungConditions from './LungConditions';
 import '../styles/App.css';
+import { setCookie } from '../util/cookies';
 
 class Results extends Component {
 
@@ -15,6 +16,13 @@ class Results extends Component {
       this.props.clearResults();
       this.props.history.push('patientInfoForm');
     }
+
+  logout = e => {
+    e.preventDefault();
+    this.props.logout();
+    setCookie('token', '');
+    this.props.history.push('login');
+  }
 
   render() {
     return (
@@ -28,7 +36,7 @@ class Results extends Component {
                   <Link className="nav-link" to='/patientInfoForm'><div className="text-white">Home</div></Link>
                 </li>
                 <li className="nav-item">
-                  <Link className="nav-link" to='/login'><div className="text-white">Logout</div></Link>
+                  <button className="btn-secondary" onClick= { e => this.logout(e)} style={{marginTop:'10%'}}><div className="text-white">Logout</div></button>
                 </li>
               </ul>
             </div>
@@ -46,9 +54,10 @@ class Results extends Component {
             </div>
           </div> : null }
 
+      { this.props.model_type == 'xray' ?
         <div className="row">
           <div className="col-md-4">
-            <h2>Input image</h2>
+            <h2>Input XRay image</h2>
             <Preview file={this.props.xray_image} />
           </div>
           { this.props.annotated_img_url ?
@@ -62,7 +71,28 @@ class Results extends Component {
                 <LungConditions data={this.props.lung_conditions} />
             </div>
             : null }
-        </div>
+        </div> : null }
+
+        { this.props.model_type == 'ct' ?
+        <div className="row">
+          <div className="col-md-4">
+            <h2>Input CT scan</h2>
+            <Preview file={this.props.ct_scan_image} />
+          </div>
+          { this.props.annotated_img_url ?
+              <div className="col-md-4">
+                <h2>Annotated CT scan</h2>
+                <img src={this.props.annotated_img_url} alt={'annotated_img_url'} className="img-thumbnail" /> 
+            </div>
+            : null }
+          { this.props.lung_conditions ?
+              <div className="col-md-4">
+                <h2>Disease predictions</h2>
+                <LungConditions data={this.props.lung_conditions} />
+            </div>
+            : null }
+        </div> : null }
+
         </div>
       </div>
       </div>
@@ -71,6 +101,7 @@ class Results extends Component {
 }
 Results.propTypes = {
     xray_image: PropTypes.object,
+    ct_scan_image: PropTypes.object,
     lung_conditions: PropTypes.object,
     aws_s3_image_url: PropTypes.string,
     msg: PropTypes.string,
@@ -80,6 +111,6 @@ Results.propTypes = {
     loading: PropTypes.bool
 }
 
-const mapStateToProps = ({xray_image, aws_s3_image_url,msg,type, covid_diagnosis, annotated_img_url, loading, lung_conditions}) => ({xray_image, aws_s3_image_url,msg,type, covid_diagnosis, annotated_img_url, loading, lung_conditions});
-const mapDispatchToProps = dispatch => bindActionCreators( {clearResults}, dispatch);
+const mapStateToProps = ({xray_image, aws_s3_image_url,msg,type, covid_diagnosis, annotated_img_url, loading, lung_conditions, ct_scan_image, model_type}) => ({xray_image, aws_s3_image_url,msg,type, covid_diagnosis, annotated_img_url, loading, lung_conditions, ct_scan_image, model_type});
+const mapDispatchToProps = dispatch => bindActionCreators( {clearResults, logout}, dispatch);
 export default connect(mapStateToProps, mapDispatchToProps)(Results)

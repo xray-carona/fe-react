@@ -16,12 +16,12 @@ import { getCookie } from './util/cookies';
 function * uploadImageSaga (action) {
   try {
     const { photo } = action;
-    const { patientInfo } = action;
+    const { patientInfo, modelType } = action;
     const res = yield call(api.uploadImageToAwsS3, photo);
     yield put(setAwsS3ImageUrl(res.data));
     // yield put(response('You have successfully uploaded your image to S3','alert-success'));
     let url = yield select(getAwsS3ImageUrl);
-    const mlAPIResponse = yield call(api.getMLResponse, url, patientInfo, getCookie('userId'));
+    const mlAPIResponse = yield call(api.getMLResponse, url, patientInfo, getCookie('userId'), modelType);
     yield put(setMLResponse(mlAPIResponse.data));
     yield put(push('/results'));
   } catch (err) {
