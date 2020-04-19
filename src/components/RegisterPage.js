@@ -4,6 +4,8 @@ import { connect } from 'react-redux';
 
 import { registerUserAction } from '../actions/authenticationActions';
 
+import { initializeReactGA } from '../container/App';
+
 class RegisterPage extends Component {
   onHandleRegistration = (event) => {
     event.preventDefault();
@@ -20,6 +22,7 @@ class RegisterPage extends Component {
   }
 
   componentDidMount() {
+    initializeReactGA();
     document.title = 'RayEye Sign Up';
   }
 

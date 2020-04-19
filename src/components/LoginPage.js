@@ -13,7 +13,10 @@ import Tab from "react-bootstrap/Tab";
 import Tabs from "react-bootstrap/Tabs";
 import Header from "../components/Header";
 
+import { initializeReactGA } from '../container/App';
+
 class LoginPage extends Component {
+
   onHandleLogin = (event) => {
     event.preventDefault();
 
@@ -28,6 +31,7 @@ class LoginPage extends Component {
   }
 
   componentDidMount() {
+    initializeReactGA();
     document.title = 'RayEye Login';
   }
 
