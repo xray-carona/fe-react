@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { setXrayImage, uploadImage, response , getMLResponse, setLoading, logout} from '../actions';
+import { setXrayImage, setCTScanImage, uploadImage, response , getMLResponse, setLoading, logout} from '../actions';
 import Preview from './Preview';
 import LungConditions from './LungConditions';
 import { setCookie } from '../util/cookies';
@@ -40,8 +40,13 @@ class PatientInfoForm extends Component {
         : 'not_selected';
 
     let formImageData = new FormData();
-    formImageData.append("photo", this.props.xray_image);
-    this.props.uploadImage(formImageData, patientInfo);
+    if(this.props.model_type == 'xray') {
+      formImageData.append("photo", this.props.xray_image);
+      this.props.uploadImage(formImageData, patientInfo, 'xray');
+    }else if(this.props.model_type == 'ct') {
+      formImageData.append("photo", this.props.ct_scan_image);
+      this.props.uploadImage(formImageData, patientInfo, 'ct');
+    }
   }
   logout = e => {
     e.preventDefault();
@@ -74,7 +79,7 @@ class PatientInfoForm extends Component {
                   <Link className="nav-link" to='/patientInfoForm'><div className="text-white">Home</div></Link>
                 </li>
                 <li className="nav-item">
-                  <Link className="nav-link" to='/login'><div className="text-white">Logout</div></Link>
+                  <button className="btn-secondary" onClick= { e => this.logout(e)} style={{marginTop:'10%'}}><div className="text-white">Logout</div></button>
                 </li>
               </ul>
             </div>
@@ -194,15 +199,15 @@ class PatientInfoForm extends Component {
                             <div className="upload-btn-wrapper mb-2">
                               <button className="upload-btn bg-primary">Upload CT-Scan</button>
                               <input name="image" type="file" onChange={ e => {
-                                this.props.setXrayImage(e.currentTarget.files[0] )
+                                this.props.setCTScanImage(e.currentTarget.files[0] )
                               }} />
                             </div>
                         </div>
                         <div className="col-md-4">
-                          <Preview file={this.props.ctscan_image} />
+                          <Preview file={this.props.ct_scan_image} />
                         </div>
 
-                      { this.props.xray_image ? <div className="col-md-12">
+                      { (this.props.xray_image || this.props.ct_scan_image) ? <div className="col-md-12">
                       <div className="mt-4 d-flex justify-content-center">
                       <button className="btn bg-warning text-dark mt-3" onClick={this.Upload_To_AWS_S3_and_Run_ML_Model} style={{
                                         paddingRight:'40px',
@@ -220,6 +225,7 @@ class PatientInfoForm extends Component {
 }
 PatientInfoForm.propTypes = {
     xray_image: PropTypes.object,
+    ct_scan_image: PropTypes.object,
     lung_conditions: PropTypes.object,
     aws_s3_image_url: PropTypes.string,
     msg: PropTypes.string,
@@ -229,6 +235,6 @@ PatientInfoForm.propTypes = {
     loading: PropTypes.bool
 }
 
-const mapStateToProps = ({xray_image, aws_s3_image_url,msg,type, covid_diagnosis, annotated_img_url, loading, lung_conditions}) => ({xray_image, aws_s3_image_url,msg,type, covid_diagnosis, annotated_img_url, loading, lung_conditions});
-const mapDispatchToProps = dispatch => bindActionCreators( { setXrayImage, uploadImage, response, getMLResponse, setLoading, logout }, dispatch);
+const mapStateToProps = ({xray_image, aws_s3_image_url,msg,type, covid_diagnosis, annotated_img_url, loading, lung_conditions, ct_scan_image, model_type}) => ({xray_image, aws_s3_image_url,msg,type, covid_diagnosis, annotated_img_url, loading, lung_conditions, ct_scan_image, model_type});
+const mapDispatchToProps = dispatch => bindActionCreators( { setXrayImage, uploadImage, response, getMLResponse, setLoading, logout, setCTScanImage }, dispatch);
 export default connect(mapStateToProps, mapDispatchToProps)(PatientInfoForm)

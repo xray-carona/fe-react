@@ -2,6 +2,8 @@ import { actionTypes } from '../actions'
 
 export const InitialState = {
   xray_image: '',
+  ct_scan_image: '',
+  model_type: '',
   msg: '',
   type: '',
   aws_s3_image_url: '',
@@ -21,9 +23,18 @@ function reducer (state = InitialState, action) {
     case actionTypes.SET_XRAY_IMAGE:
       return {
         ...state,
-        ...{ xray_image: action.xray_image
+        ...{ xray_image: action.xray_image,
+             model_type: 'xray'
             }
       }
+
+    case actionTypes.SET_CT_SCAN_IMAGE:
+      return {
+        ...state,
+        ...{ ct_scan_image: action.ct_scan_image,
+             model_type: 'ct'
+            }
+    }
 
     case actionTypes.RESPONSE:
       return {
@@ -62,7 +73,8 @@ function reducer (state = InitialState, action) {
             covid_diagnosis: null,
             annotated_img_url: null,
             lung_conditions: null,
-            xray_image: null
+            xray_image: null,
+            ct_scan_image: null
           }
       }
     case actionTypes.LOGOUT_USER:

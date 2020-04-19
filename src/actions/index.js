@@ -1,5 +1,6 @@
 export const actionTypes = {
     SET_XRAY_IMAGE: 'SET_XRAY_IMAGE',
+    SET_CT_SCAN_IMAGE: 'SET_CT_SCAN_IMAGE',
     UPLOAD_IMAGE: 'UPLOAD_IMAGE',
     SET_AWS_S3_IMAGE_URL: 'SET_AWS_S3_IMAGE_URL',
     RESPONSE: 'RESPONSE',
@@ -20,17 +21,25 @@ export const actionTypes = {
 
 export const getAwsS3ImageUrl = (state) => state.aws_s3_image_url;
 
-export function uploadImage (photo, patientInfo) {
+export function uploadImage (photo, patientInfo, modelType) {
   return {
     type: actionTypes.UPLOAD_IMAGE,
     photo,
-    patientInfo
+    patientInfo,
+    modelType
   }
 }
 export function setXrayImage (xray_image) {
   return {
     type: actionTypes.SET_XRAY_IMAGE,
     xray_image
+  }
+}
+
+export function setCTScanImage (ct_scan_image) {
+  return {
+    type: actionTypes.SET_CT_SCAN_IMAGE,
+    ct_scan_image
   }
 }
 
