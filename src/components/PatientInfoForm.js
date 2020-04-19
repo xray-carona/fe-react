@@ -18,6 +18,12 @@ class PatientInfoForm extends Component {
     this.props.response('','');
   }
 
+  onRtPcrConductedChange = (e) => {
+    this.setState({
+      isRtPcrConducted: e.currentTarget.value
+    });
+  }
+
   Upload_To_AWS_S3_and_Run_ML_Model = e => {
     e.preventDefault();
     this.props.setLoading(true);
@@ -38,9 +44,16 @@ class PatientInfoForm extends Component {
     patientInfo['isDryCough'] = document.querySelector('input[name="isDryCough"]:checked') ?
         document.querySelector('input[name="isDryCough"]:checked').value
         : 'not_selected';
-    patientInfo['isRtPcrConducted'] = document.querySelector('input[name="isRtPcrConducted"]:checked') ?
-        document.querySelector('input[name="isRtPcrConducted"]:checked').value
-        : 'not_selected';
+    patientInfo['isRtPcrConducted'] =
+        document.querySelector('input[name="isRtPcrConducted"]:checked') ?
+            document.querySelector('input[name="isRtPcrConducted"]:checked').value == 'yes' ?
+                document.querySelector('input[name="isRtPcrResultPositive"]:checked') ?
+                    document.querySelector('input[name="isRtPcrResultPositive"]:checked').value == 'yes' ?
+                        'positive'
+                        : 'negative'
+                : 'none'    // TODO: Make 'isRtPcrResultPositive' field mandatory
+            : 'none'
+        : 'none';           // TODO: Make 'isRtPcrConducted' field mandatory
 
     let formImageData = new FormData();
     formImageData.append("photo", this.props.xray_image);
@@ -170,16 +183,31 @@ class PatientInfoForm extends Component {
                             <div><strong>RT-PCR Conducted</strong></div>
                             <div className="d-flex mt-4">
                                 <label className="radio-btn">Yes
-                                    <input type="radio" name="isRtPcrConducted" value="yes"/>
+                                    <input type="radio" name="isRtPcrConducted" value="yes" onChange={this.onRtPcrConductedChange}/>
                                         <span className="checkmark"></span>
                                 </label>
                                 <label className="radio-btn ml-3">No
-                                    <input type="radio" name="isRtPcrConducted" value="no"/>
+                                    <input type="radio" name="isRtPcrConducted" value="no" onChange={this.onRtPcrConductedChange}/>
                                         <span className="checkmark"></span>
                                 </label>
-
                             </div>
                         </div>
+
+                        {this.state && this.state.isRtPcrConducted && this.state.isRtPcrConducted == 'yes' ?
+                        <div className="mt-4">
+                            <div><strong>RT-PCR Test result</strong></div>
+                            <div className="d-flex mt-4">
+                                <label className="radio-btn">Positive
+                                    <input type="radio" name="isRtPcrResultPositive" value="yes"/>
+                                        <span className="checkmark"></span>
+                                </label>
+                                <label className="radio-btn ml-3">Negative
+                                    <input type="radio" name="isRtPcrResultPositive" value="no"/>
+                                        <span className="checkmark"></span>
+                                </label>
+                            </div>
+                        </div>
+                        : null }
 
                         <div className="d-flex align-items-center mt-4">
                             <div className="upload-btn-wrapper mb-2">
