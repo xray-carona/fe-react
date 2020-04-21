@@ -117,6 +117,10 @@ a.active {
   border-color: #86c6f8 !important;
 }
 
+.btn:disabled {
+  cursor: not-allowed;
+}
+
 .card-footer-banner {
   margin-top: 17px;
   border-top: 2px solid #a7d7fe;

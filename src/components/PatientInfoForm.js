@@ -208,6 +208,7 @@ class PatientInfoForm extends Component {
                             <div className="upload-btn-wrapper mb-2">
                               <button className="upload-btn bg-primary">Upload X-Ray</button>
                               <input name="image" type="file" onChange={ e => {
+                                document.getElementById('submitDetails').disabled = false;
                                 this.props.setXrayImage(e.currentTarget.files[0] )
                               }} />
                             </div>
@@ -220,6 +221,7 @@ class PatientInfoForm extends Component {
                             <div className="upload-btn-wrapper mb-2">
                               <button className="upload-btn bg-primary">Upload CT-Scan</button>
                               <input name="image" type="file" onChange={ e => {
+                                document.getElementById('submitDetails').disabled = false;
                                 this.props.setCTScanImage(e.currentTarget.files[0] )
                               }} />
                             </div>
@@ -228,14 +230,15 @@ class PatientInfoForm extends Component {
                           <Preview file={this.props.ct_scan_image} />
                         </div>
 
-                      { (this.props.xray_image || this.props.ct_scan_image) ? <div className="col-md-12">
+                    <div className="col-md-12">
                       <div className="mt-4 d-flex justify-content-center">
-                      <button className="btn bg-warning text-dark mt-3" onClick={this.Upload_To_AWS_S3_and_Run_ML_Model} style={{
-                                        paddingRight:'40px',
-                                        paddingLeft: '40px'
-                                    }}>
-                        { this.props.loading ? 'Uploading...' : 'Evaluate' }</button>
-                    </div></div> : null }
+                        <button className="btn bg-warning text-dark mt-3" id="submitDetails" disabled
+                                onClick={this.Upload_To_AWS_S3_and_Run_ML_Model}
+                                style={{ paddingRight:'40px',paddingLeft: '40px'}}>
+                            { this.props.loading ? 'Uploading...' : 'Evaluate' }
+                        </button>
+                      </div>
+                    </div>
 
                     </div>
                 </div>
