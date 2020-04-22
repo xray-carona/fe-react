@@ -1,15 +1,14 @@
-import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import React, {Component} from 'react';
+import {Link} from 'react-router-dom';
 import PropTypes from 'prop-types';
-import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
-import { setXrayImage, setCTScanImage, uploadImage, response , getMLResponse, setLoading, logout} from '../actions';
+import {bindActionCreators} from 'redux';
+import {connect} from 'react-redux';
+import {getMLResponse, logout, response, setCTScanImage, setLoading, setXrayImage, uploadImage} from '../actions';
 import Preview from './Preview';
-import LungConditions from './LungConditions';
-import { setCookie } from '../util/cookies';
+import {setCookie} from '../util/cookies';
 import '../styles/App.css';
 
-import { initializeReactGA } from '../container/App';
+import {initializeReactGA} from '../container/App';
 
 class PatientInfoForm extends Component {
 
@@ -46,9 +45,9 @@ class PatientInfoForm extends Component {
         : 'not_selected';
     patientInfo['isRtPcrConducted'] =
         document.querySelector('input[name="isRtPcrConducted"]:checked') ?
-            document.querySelector('input[name="isRtPcrConducted"]:checked').value == 'yes' ?
+            document.querySelector('input[name="isRtPcrConducted"]:checked').value === 'yes' ?
                 document.querySelector('input[name="isRtPcrResultPositive"]:checked') ?
-                    document.querySelector('input[name="isRtPcrResultPositive"]:checked').value == 'yes' ?
+                    document.querySelector('input[name="isRtPcrResultPositive"]:checked').value === 'yes' ?
                         'positive'
                         : 'negative'
                 : 'none'    // TODO: Make 'isRtPcrResultPositive' field mandatory
@@ -56,10 +55,10 @@ class PatientInfoForm extends Component {
         : 'none';           // TODO: Make 'isRtPcrConducted' field mandatory
 
     let formImageData = new FormData();
-    if(this.props.model_type == 'xray') {
+    if(this.props.model_type === 'xray') {
       formImageData.append("photo", this.props.xray_image);
       this.props.uploadImage(formImageData, patientInfo, 'xray');
-    }else if(this.props.model_type == 'ct') {
+    }else if(this.props.model_type === 'ct') {
       formImageData.append("photo", this.props.ct_scan_image);
       this.props.uploadImage(formImageData, patientInfo, 'ct');
     }
@@ -198,7 +197,7 @@ class PatientInfoForm extends Component {
                             </div>
                         </div>
 
-                        {this.state && this.state.isRtPcrConducted && this.state.isRtPcrConducted == 'yes' ?
+                        {this.state && this.state.isRtPcrConducted && this.state.isRtPcrConducted === 'yes' ?
                         <div className="mt-4">
                             <div><strong>RT-PCR Test result</strong></div>
                             <div className="d-flex mt-4">

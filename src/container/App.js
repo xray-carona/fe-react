@@ -1,28 +1,24 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import ReactGA from 'react-ga';
 
-import {
-  BrowserRouter,
-  Route,
-  Switch
-} from 'react-router-dom';
+import {BrowserRouter, Route, Switch} from 'react-router-dom';
 
 import PrivateRoute from './PrivateRoute';
 import LoginPage from '../components/LoginPage';
 import RegisterPage from '../components/RegisterPage';
 import PatientInfoForm from '../components/PatientInfoForm';
 import Results from '../components/Results';
-import Header from "../components/Header";
 import createBrowserHistory from "history/createBrowserHistory";
+
 const history = createBrowserHistory();
 
 class App extends Component {
   render() {
     return (
-        
+
         <BrowserRouter history={history}>
           <div>
-            
+
             <div>
               <Switch>
                 <Route path='/' exact={true} component={LoginPage} />
@@ -37,7 +33,7 @@ class App extends Component {
     );
   }
 
-  
+
 }
 
 
@@ -53,7 +49,7 @@ export function  initializeReactGA()  {
   );
   ReactGA.pageview(window.location.pathname + window.location.search);
   console.log(window.location.pathname + window.location.search);
-  
+
 }
 
 

@@ -1,5 +1,4 @@
-import React, { Component } from "react";
-import ProgressBar from "react-bootstrap/ProgressBar";
+import React, {Component} from "react";
 
 class LungConditions extends Component {
 

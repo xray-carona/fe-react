@@ -44,7 +44,7 @@ class Results extends Component {
         </nav>
       <div className="row">
         <button className="upload-btn btn-primary text-white back-button" onClick={this.backToPatientInfo}>Back</button>
-      </div>  
+      </div>
       <div className="row container results">
         <div class="col-md-12">
         { (this.props.covid_diagnosis && !this.props.loading)?
@@ -54,7 +54,7 @@ class Results extends Component {
             </div>
           </div> : null }
 
-      { this.props.model_type == 'xray' ?
+      { this.props.model_type === 'xray' ?
         <div className="row">
           <div className="col-md-4">
             <h2>Input XRay image</h2>
@@ -62,7 +62,7 @@ class Results extends Component {
           </div>
           { this.props.annotated_img_url ?
               <div className="col-md-4">
-                <img src={this.props.annotated_img_url} alt={'annotated_img_url'} className="img-thumbnail" /> 
+                <img src={this.props.annotated_img_url} alt={'annotated_img_url'} className="img-thumbnail" />
             </div>
             : null }
           { this.props.lung_conditions ?
@@ -73,7 +73,7 @@ class Results extends Component {
             : null }
         </div> : null }
 
-        { this.props.model_type == 'ct' ?
+        { this.props.model_type === 'ct' ?
         <div className="row">
           <div className="col-md-4">
             <h2>Input CT scan</h2>
@@ -82,7 +82,7 @@ class Results extends Component {
           { this.props.annotated_img_url ?
               <div className="col-md-4">
                 <h2>Annotated CT scan</h2>
-                <img src={this.props.annotated_img_url} alt={'annotated_img_url'} className="img-thumbnail" /> 
+                <img src={this.props.annotated_img_url} alt={'annotated_img_url'} className="img-thumbnail" />
             </div>
             : null }
           { this.props.lung_conditions ?
