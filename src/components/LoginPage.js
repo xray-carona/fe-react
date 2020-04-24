@@ -29,6 +29,19 @@ class LoginPage extends Component {
 
     this.props.dispatch(loginUserAction(data));
   }
+    onHandleRegistration = (event) => {
+        event.preventDefault();
+
+        let name = event.target.name.value;
+        let email = event.target.email.value;
+        let password = event.target.password.value;
+
+        const data = {
+            name, email, password
+        };
+
+        this.props.dispatch(registerUserAction(data));
+    }
 
   componentDidMount() {
     initializeReactGA();
