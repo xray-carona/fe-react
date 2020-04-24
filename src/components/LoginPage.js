@@ -1,9 +1,9 @@
-import React, { Component } from 'react';
-import { Link, Redirect } from 'react-router-dom';
-import { connect } from 'react-redux';
+import React, {Component} from 'react';
+import {Redirect} from 'react-router-dom';
+import {connect} from 'react-redux';
 
-import { loginUserAction, registerUserAction} from '../actions/authenticationActions';
-import { setCookie } from '../util/cookies';
+import {loginUserAction} from '../actions/authenticationActions';
+import {setCookie} from '../util/cookies';
 import icon1 from '../assets/img/icon-1-li.png';
 import icon2 from '../assets/img/icon-2-li.png'
 import icon3 from '../assets/img/icon-3-li.png'
@@ -13,7 +13,7 @@ import Tab from "react-bootstrap/Tab";
 import Tabs from "react-bootstrap/Tabs";
 import Header from "../components/Header";
 
-import { initializeReactGA } from '../container/App';
+import {initializeReactGA} from '../container/App';
 
 class LoginPage extends Component {
 
@@ -42,7 +42,7 @@ class LoginPage extends Component {
         if (this.props.response && this.props.response.hasOwnProperty('response')) {
           isSuccess = this.props.response.response.success;
           message = this.props.response.response.message;
-          
+
           if (isSuccess) {
             console.log('success');
             setCookie('token', this.props.response.response.token, 1);
@@ -216,7 +216,7 @@ class LoginPage extends Component {
 
                         <div className="text-center mt-4">
                             <strong className="small-line">
-                                <a href="#">Read Our Research</a>
+                                <a href="javascript:void(0)">Read Our Research</a>
                             </strong>
                         </div>
 
