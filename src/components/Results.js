@@ -26,6 +26,7 @@ class Results extends Component {
     }
 
     render() {
+        console.log(this.props);
         return (
             <div>
                 <nav className="navbar navbar-expand-lg navbar-light fixed-top">
@@ -85,34 +86,37 @@ class Results extends Component {
                     </div>
                 </div>
                 <div className="row mt-4">
-                    <div className="col-xl-3 col-lg-3 col-md-3 col-sm-12 col-xs-12 d-flex flex-column">
+                    {this.props.patientInfo ? <div className="col-xl-3 col-lg-3 col-md-3 col-sm-12 col-xs-12 d-flex flex-column">
                         <strong className="mt-2">Patient #69</strong>
-                        <strong className="mt-2">Bhupendra Yadav</strong>
-                        <strong className="mt-2">35 M</strong>
-                        <strong className="mt-2">37 deg Celsius</strong>
-                        <strong className="mt-2">Sneezing <span className="text-blue"> NO </span> </strong>
-                        <strong className="mt-2">Breathing issues <span className="text-pink">Yes</span></strong>
-                        <strong className="mt-2">Dry Cough <span className="text-pink">Yes</span></strong>
-                    </div>
+                        <strong
+                            className="mt-2">{this.props.patientInfo.first_name + ' ' + this.props.patientInfo.last_name}</strong>
+                        <strong className="mt-2">{this.props.patientInfo.age} M</strong>
+                        <strong className="mt-2">{this.props.patientInfo.temperature} deg Celsius</strong>
+                        <strong className="mt-2">Sneezing <span
+                            className="text-blue"> {this.props.patientInfo.isSneezing} </span> </strong>
+                        <strong className="mt-2">Breathing issues <span
+                            className="text-pink">{this.props.patientInfo.isDifficultyInBreathing}</span></strong>
+                        <strong className="mt-2">Dry Cough <span
+                            className="text-pink">{this.props.patientInfo.isDryCough}</span></strong>
+                    </div> : null }
                     <div className="col-xl-3 col-lg-3 col-md-3 col-sm-12 col-xs-12">
                         <strong>Diagnosis</strong>
                         <h1 className="mt-5">COVID-19</h1>
                     </div>
                     <div className="col-xl-3 col-lg-3 col-md-3 col-sm-12 col-xs-12">
-                        <label className="radio-btn ml-3 text-pink mt-5" style={{fontSize: '34px',fontWeight: '700'}}>POSITIVE
+                        <label className="radio-btn ml-3 text-pink mt-5" style={{fontSize: '34px', fontWeight: '700'}}>POSITIVE
                             <input type="radio" name="radio"/>
-                                <span className="checkmark" style={{marginTop: '14px'}}></span>
+                            <span className="checkmark" style={{marginTop: '14px'}}></span>
                         </label>
-                        <label className="radio-btn ml-3 text-blue" style={{fontSize: '34px',fontWeight: '700'}}>NEGATIVE
+                        <label className="radio-btn ml-3 text-blue" style={{fontSize: '34px', fontWeight: '700'}}>NEGATIVE
                             <input type="radio" name="radio"/>
-                                <span className="checkmark" style={{marginTop: '14px'}}></span>
+                            <span className="checkmark" style={{marginTop: '14px'}}></span>
                         </label>
                     </div>
                     <div className="col-xl-3 col-lg-3 col-md-3 col-sm-12 col-xs-12 d-flex flex-column">
                         <button className="btn btn-secondary mt-3">View Report</button>
                         <button className="btn btn-secondary mt-3">Print Report</button>
                         <button className="btn btn-secondary mt-3">Share Report</button>
-
                     </div>
                 </div>
                 <div className="row justify-content-center">
@@ -131,33 +135,33 @@ class Results extends Component {
                             <strong>Sent for PCR</strong>
                             <label className="radio-btn ml-3">yes
                                 <input type="radio" name="radio"/>
-                                    <span className="checkmark"></span>
+                                <span className="checkmark"></span>
                             </label>
                             <label className="radio-btn ml-3">No
                                 <input type="radio" name="radio"/>
-                                    <span className="checkmark"></span>
+                                <span className="checkmark"></span>
                             </label>
                         </div>
                         <div className="d-flex mt-3">
                             <strong>Quarantime</strong>
                             <label className="radio-btn ml-3">yes
                                 <input type="radio" name="radio"/>
-                                    <span className="checkmark"></span>
+                                <span className="checkmark"></span>
                             </label>
                             <label className="radio-btn ml-3">No
                                 <input type="radio" name="radio"/>
-                                    <span className="checkmark"></span>
+                                <span className="checkmark"></span>
                             </label>
                         </div>
                         <div className="d-flex mt-3">
                             <strong>Contact Tracing</strong>
                             <label className="radio-btn ml-3">yes
                                 <input type="radio" name="radio"/>
-                                    <span className="checkmark"></span>
+                                <span className="checkmark"></span>
                             </label>
                             <label className="radio-btn ml-3">No
                                 <input type="radio" name="radio"/>
-                                    <span className="checkmark"></span>
+                                <span className="checkmark"></span>
                             </label>
                         </div>
                         <div className="mt-5 text-center">
@@ -177,6 +181,7 @@ Results.propTypes = {
     xray_image: PropTypes.object,
     ct_scan_image: PropTypes.object,
     lung_conditions: PropTypes.object,
+    patientInfo: PropTypes.object,
     aws_s3_image_url: PropTypes.string,
     msg: PropTypes.string,
     type: PropTypes.string,
@@ -185,7 +190,7 @@ Results.propTypes = {
     loading: PropTypes.bool
 }
 
-const mapStateToProps = ({xray_image, aws_s3_image_url, msg, type, covid_diagnosis, annotated_img_url, loading, lung_conditions, ct_scan_image, model_type}) => ({
+const mapStateToProps = ({xray_image, aws_s3_image_url, msg, type, covid_diagnosis, patientInfo,annotated_img_url, loading, lung_conditions, ct_scan_image, model_type}) => ({
     xray_image,
     aws_s3_image_url,
     msg,
@@ -195,9 +200,11 @@ const mapStateToProps = ({xray_image, aws_s3_image_url, msg, type, covid_diagnos
     loading,
     lung_conditions,
     ct_scan_image,
-    model_type
+    model_type,
+    patientInfo
 });
 const mapDispatchToProps = dispatch => {
+    console.log(dispatch);
     return bindActionCreators({clearResults, logout}, dispatch);
 };
 export default connect(mapStateToProps, mapDispatchToProps)(Results)

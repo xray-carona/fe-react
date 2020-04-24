@@ -8,7 +8,7 @@ class LungConditions extends Component {
     if (this.props.data) {
       Object.keys(this.props.data).forEach(key => {
         tifOptions.push(
-        <div className="row mt-3">
+/**/        <div className="row mt-3" key={key}>
           <div className="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-xs-12">
             <strong>{key}</strong>
           </div>
