@@ -48,7 +48,8 @@ function reducer (state = InitialState, action) {
         ...{ 
               covid_diagnosis: action.ml_response.covid_diagnosis,
               annotated_img_url: action.ml_response.annotated_img_url,
-              lung_conditions: action.ml_response.lung_conditions
+              lung_conditions: action.ml_response.lung_conditions,
+              ct_results: action.ml_response.ct_results,
             }
     }
     case actionTypes.SET_LOADING:
@@ -58,7 +59,7 @@ function reducer (state = InitialState, action) {
       }
 
     case actionTypes.REGISTER_USER_SUCCESS:
-      return { ...state, response };
+      return { ...state, ...{signup_response: response} };
     case actionTypes.REGISTER_USER_ERROR:
       return { ...state, response };
     case actionTypes.LOGIN_USER_SUCCESS:
@@ -82,6 +83,13 @@ function reducer (state = InitialState, action) {
         ...state,
         ...{
             response: {}
+          }
+      }
+    case actionTypes.SET_PATIENT_INFO:
+      return {
+        ...state,
+        ...{
+            patientInfo: action.patientInfo
           }
       }
     default:
