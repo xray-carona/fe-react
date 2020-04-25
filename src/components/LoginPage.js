@@ -43,6 +43,21 @@ class LoginPage extends Component {
         this.props.dispatch(registerUserAction(data));
     }
 
+  onHandleRegistration = (event) => {
+        event.preventDefault();
+
+        let name = event.target.name.value;
+        let org = event.target.org.value;
+        let email = event.target.email.value;
+        let password = event.target.password.value;
+
+        const data = {
+            name, org, email, password
+        };
+
+        this.props.dispatch(registerUserAction(data));
+  }
+
   componentDidMount() {
     initializeReactGA();
     document.title = 'RayEye Login';
@@ -52,7 +67,7 @@ class LoginPage extends Component {
 
         let isSuccess, message;
         // console.log(this.props.response);
-        if (this.props.response && this.props.response.hasOwnProperty('response')) {
+        if (this.props.response && this.props.response.response) {
           isSuccess = this.props.response.response.success;
           message = this.props.response.response.message;
           
@@ -145,6 +160,13 @@ class LoginPage extends Component {
                                                             <input className="form-control" type="text" name='name'
                                                                    id='name'/>
                                                         </div>
+
+                                                        <div className="input-label-up">
+                                                            <label htmlFor='name'>Organisation</label>
+                                                            <input className="form-control" type="text" name='org'
+                                                                   id='org'/>
+                                                        </div>
+
                                                         <div className="input-label-up mt-4">
                                                             <label id='SignUpEmail'>e-mail</label>
                                                             <input className="form-control" type="text" name='email'
@@ -157,8 +179,26 @@ class LoginPage extends Component {
                                                                    name='password' id='SignUpPassword'/>
                                                         </div>
 
+                                                        {(this.props.response && this.props.response.signup_response && this.props.response.signup_response.email) ? 
+                                                        <div className="signup_message_failure">
+                                                          {this.props.response.signup_response.email}
+                                                        </div>
+                                                        : null}
+                                                        {(this.props.response && this.props.response.signup_response && this.props.response.signup_response.success) ? 
+                                                        <div className="signup_message_success">
+                                                          <b>Account created successfully! Please login.</b>
+                                                        </div>
+                                                        : null}
+
+                                                        {(this.props.response && this.props.response.signup_response && !this.props.response.signup_response.success) ? 
+                                                          <div className="signup_message_failure">
+                                                          <b>Account creation failed! Please try again.</b>
+                                                        </div>
+                                                        : null
+                                                        }
+                                                        
                                                         <div className="d-flex justify-content-center mt-2">
-                                                            <button className="btn btn-primary disabled" type='submit' style={{
+                                                            <button className="btn btn-primary" type='submit' style={{
                                                                 paddingRight: '50px',
                                                                 paddingLeft: '50px'
                                                             }}>
@@ -336,6 +376,6 @@ class LoginPage extends Component {
   }
 }
 
-const mapStateToProps = (response) => ({response});
+const mapStateToProps = (response, signup_response) => ({response, signup_response});
 
 export default connect(mapStateToProps)(LoginPage);

@@ -16,7 +16,8 @@ export const actionTypes = {
     LOGIN_USER_ERROR: 'LOGIN_USER_ERROR',
     LOGOUT_USER: 'LOGOUT_USER',
 
-    CLEAR_RESULTS: 'CLEAR_RESULTS'
+    CLEAR_RESULTS: 'CLEAR_RESULTS',
+    SET_PATIENT_INFO: 'SET_PATIENT_INFO'
 }
 
 export const getAwsS3ImageUrl = (state) => state.aws_s3_image_url;
@@ -78,4 +79,8 @@ export function logout() {
     type: actionTypes.LOGOUT_USER,
     data: {}
   }
+}
+
+export function setPatientInfo(patientInfo) {
+  return { type: actionTypes.SET_PATIENT_INFO, patientInfo }
 }

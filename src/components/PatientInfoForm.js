@@ -3,9 +3,10 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { setXrayImage, setCTScanImage, uploadImage, response , getMLResponse, setLoading, logout} from '../actions';
+import { setXrayImage, setCTScanImage, uploadImage, response , getMLResponse, setLoading, logout, setPatientInfo} from '../actions';
 import Preview from './Preview';
 import LungConditions from './LungConditions';
+import HeaderLoggedIn from "../components/HeaderLoggedIn";
 import { setCookie } from '../util/cookies';
 import '../styles/App.css';
 
@@ -63,6 +64,7 @@ class PatientInfoForm extends Component {
       formImageData.append("photo", this.props.ct_scan_image);
       this.props.uploadImage(formImageData, patientInfo, 'ct');
     }
+    this.props.setPatientInfo(patientInfo);
   }
   logout = e => {
     e.preventDefault();
@@ -85,22 +87,10 @@ class PatientInfoForm extends Component {
 
   render() {
     return (
+      <div>
+      <HeaderLoggedIn history={this.props.history}></HeaderLoggedIn>
       <section className="patient-info-form form-group pb-5 pt-5">
-        <nav className="navbar navbar-expand-lg navbar-light fixed-top">
-          <div className="container">
-            <Link className="navbar-brand" to={"/patientInfoForm"}><div className="text-white">New Patient</div></Link>
-            <div className="collapse navbar-collapse" id="navbarTogglerDemo02">
-              <ul className="navbar-nav ml-auto">
-                <li className="nav-item">
-                  <Link className="nav-link" to='/patientInfoForm'><div className="text-white">Home</div></Link>
-                </li>
-                <li className="nav-item">
-                  <button className="btn-secondary" onClick= { e => this.logout(e)} style={{marginTop:'10%'}}><div className="text-white">Logout</div></button>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </nav>
+        
             <div className="container">
                 <div className="row justify-content-center">
                     <div className="col-xl-7 col-lg-7 col-md-7 col-sm-12 col-xs-12">
@@ -251,6 +241,7 @@ class PatientInfoForm extends Component {
                 </div>
             </div>
         </section>
+        </div>
     );
   }
 }
@@ -267,5 +258,5 @@ PatientInfoForm.propTypes = {
 }
 
 const mapStateToProps = ({xray_image, aws_s3_image_url,msg,type, covid_diagnosis, annotated_img_url, loading, lung_conditions, ct_scan_image, model_type}) => ({xray_image, aws_s3_image_url,msg,type, covid_diagnosis, annotated_img_url, loading, lung_conditions, ct_scan_image, model_type});
-const mapDispatchToProps = dispatch => bindActionCreators( { setXrayImage, uploadImage, response, getMLResponse, setLoading, logout, setCTScanImage }, dispatch);
+const mapDispatchToProps = dispatch => bindActionCreators( { setXrayImage, uploadImage, response, getMLResponse, setLoading, logout, setCTScanImage, setPatientInfo }, dispatch);
 export default connect(mapStateToProps, mapDispatchToProps)(PatientInfoForm)

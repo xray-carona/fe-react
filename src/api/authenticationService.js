@@ -9,6 +9,8 @@ export const registerUserService = (request) => {
     body: JSON.stringify(request.user)
   };
 
+  // return {success: true, user: 'user'};
+  // return {success: false, user: 'user'};
   return fetch(REGISTER_API_ENDPOINT, parameters)
     .then(response => {
       return response.json();

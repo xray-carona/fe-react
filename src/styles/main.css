@@ -406,3 +406,24 @@ h2.headding-title:after {
     display: block;
   }
 }
+
+.signup_message_failure {
+    color: red;
+}
+
+.signup_message_success {
+    color: green;
+}
+
+td.SEVERE {
+    color: red;
+    font-weight: bold;
+}
+
+td.MILD {
+    color: #ffd11a;
+    font-weight: bold;
+}
+.result-warning{
+  color:red;
+}

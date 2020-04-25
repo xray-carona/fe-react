@@ -152,7 +152,7 @@ body, html, .App, #root, .auth-wrapper {
 }
 
 .patient-info-form, .back-button {
-    margin-top: 10%;
+    margin-top: 0%;
 }
 
 .results{
@@ -170,8 +170,4 @@ body, html, .App, #root, .auth-wrapper {
 
 .card-body {
     margin-top: 50px;
-}
-
-.patient-info-form {
-    margin-top: 5%;
 }
