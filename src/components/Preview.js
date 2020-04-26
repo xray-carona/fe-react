@@ -8,28 +8,26 @@ class Preview extends Component {
     componentWillReceiveProps(nextProps) {
         if (!nextProps.file) { return; }
         this.setState({ loading: true }, () => {
-          let reader = new FileReader();
-          reader.onloadend = () => {
-            this.setState({ loading: false, thumb: reader.result });
-          };
-          reader.readAsDataURL(nextProps.file);
+            let reader = new FileReader();
+            reader.onloadend = () => {
+                this.setState({ loading: false, thumb: reader.result });
+            };
+            reader.readAsDataURL(nextProps.file);
         });
     }
     render() {
-      const { file } = this.props;
-      const { thumb } = this.state;
-      return (
-        <div className="row">
+        const { file } = this.props;
+        const { thumb } = this.state;
+        return (
+            <div className="row">
             { file ? <img src={thumb} alt={file.name} className="img-thumbnail" /> : null }
         </div>
-      );
+        );
     }
 }
 
 Preview.propTypes = {
     file: PropTypes.object
 }
-  
-export default Preview;
-  
 
+export default Preview;

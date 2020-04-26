@@ -10,6 +10,7 @@
     "history": "latest",
     "http-proxy-middleware": "^0.19.1",
     "prop-types": "^15.7.2",
+    "pure-react-carousel": "^1.27.1",
     "react": "^16.8.3",
     "react-bootstrap": "^1.0.0",
     "react-dom": "^16.8.3",

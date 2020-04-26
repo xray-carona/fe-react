@@ -1,6 +1,6 @@
 import React from "react";
 import logo from '../assets/img/logo.png';
-import {Container, Nav, Navbar} from "react-bootstrap";
+import { Container, Nav, Navbar } from "react-bootstrap";
 import Scrollspy from 'react-scrollspy'
 
 const Header = (props) => {
