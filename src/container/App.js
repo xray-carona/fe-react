@@ -9,7 +9,7 @@ import {
 
 import PrivateRoute from './PrivateRoute';
 import LoginPage from '../components/LoginPage';
-import RegisterPage from '../components/RegisterPage';
+import ResearchPage from '../components/ResearchPage';
 import PatientInfoForm from '../components/PatientInfoForm';
 import Results from '../components/Results';
 import Header from "../components/Header";
@@ -27,7 +27,7 @@ class App extends Component {
               <Switch>
                 <Route path='/' exact={true} component={LoginPage} />
                 <Route path='/login' component={LoginPage} />
-                <Route path='/register' component={RegisterPage} />
+                <Route path='/research' component={ResearchPage} />
                 <PrivateRoute path='/patientInfoForm' component={PatientInfoForm} />
                 <PrivateRoute path='/results' component={Results} />
               </Switch>

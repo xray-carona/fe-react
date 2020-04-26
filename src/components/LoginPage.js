@@ -2,48 +2,41 @@ import React, { Component } from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 
-import { loginUserAction, registerUserAction} from '../actions/authenticationActions';
+import { loginUserAction, registerUserAction } from '../actions/authenticationActions';
 import { setCookie } from '../util/cookies';
 import icon1 from '../assets/img/icon-1-li.png';
 import icon2 from '../assets/img/icon-2-li.png'
 import icon3 from '../assets/img/icon-3-li.png'
+import carousel_1 from '../assets/img/carousel/carousel_1.png'
+import carousel_2 from '../assets/img/carousel/carousel_2.png'
+import carousel_3 from '../assets/img/carousel/carousel_3.png'
+import carousel_4 from '../assets/img/carousel/carousel_4.png'
+import carousel_5 from '../assets/img/carousel/carousel_5.png'
 import google_icon from '../assets/img/google-icon.png';
 import video from '../assets/r1ObefKq_close chat issue 4 (1).mp4';
 import Tab from "react-bootstrap/Tab";
 import Tabs from "react-bootstrap/Tabs";
 import Header from "../components/Header";
-
+import Carousel from 'react-bootstrap/Carousel'
 import { initializeReactGA } from '../container/App';
 
 class LoginPage extends Component {
 
-  onHandleLogin = (event) => {
-    event.preventDefault();
-
-    let email = event.target.email.value;
-    let password = event.target.password.value;
-
-    const data = {
-      email, password
-    };
-
-    this.props.dispatch(loginUserAction(data));
-  }
-    onHandleRegistration = (event) => {
+    onHandleLogin = (event) => {
         event.preventDefault();
 
-        let name = event.target.name.value;
         let email = event.target.email.value;
         let password = event.target.password.value;
 
         const data = {
-            name, email, password
+            email,
+            password
         };
 
-        this.props.dispatch(registerUserAction(data));
-    }
+        this.props.dispatch(loginUserAction(data));
+  }
 
-  onHandleRegistration = (event) => {
+    onHandleRegistration = (event) => {
         event.preventDefault();
 
         let name = event.target.name.value;
@@ -52,30 +45,33 @@ class LoginPage extends Component {
         let password = event.target.password.value;
 
         const data = {
-            name, org, email, password
+            name,
+            org,
+            email,
+            password
         };
 
         this.props.dispatch(registerUserAction(data));
-  }
+    }
 
-  componentDidMount() {
-    initializeReactGA();
-    document.title = 'RayEye Login';
-  }
+    componentDidMount() {
+        initializeReactGA();
+        document.title = 'RayEye Login';
+    }
 
-  render() {
+    render() {
 
         let isSuccess, message;
         // console.log(this.props.response);
         if (this.props.response && this.props.response.response) {
-          isSuccess = this.props.response.response.success;
-          message = this.props.response.response.message;
-          
-          if (isSuccess) {
-            console.log('success');
-            setCookie('token', this.props.response.response.token, 1);
-            setCookie('userId', this.props.response.response.user);
-          }
+            isSuccess = this.props.response.response.success;
+            message = this.props.response.response.message;
+
+            if (isSuccess) {
+                console.log('success');
+                setCookie('token', this.props.response.response.token, 1);
+                setCookie('userId', this.props.response.response.user);
+            }
         }
         return (
             <React.Fragment>
@@ -143,14 +139,14 @@ class LoginPage extends Component {
                                                             </button>
                                                         </div>
 
-                                                        <div className="card-footer-banner">
+                                                        {/* <div className="card-footer-banner">
                                                             <a href="#noid">Forgot Your Password?</a>
                                                             <button className="btn btn-outline-primary mt-3"
                                                                     type='button'>
                                                                 <img alt='nothing' className="icon-img-btn" src={google_icon}/>Login
                                                                 With Google
                                                             </button>
-                                                        </div>
+                                                        </div> */}
                                                     </form>
                                                 </Tab>
                                                 <Tab eventKey="signup" title="Signup">
@@ -206,14 +202,14 @@ class LoginPage extends Component {
                                                             </button>
                                                         </div>
 
-                                                        <div className="card-footer-banner">
+                                                        {/*<div className="card-footer-banner">
                                                             <a href="#noid">Forgot Your Password?</a>
                                                             <button className="btn btn-outline-primary mt-3"
                                                                     type='button'>
                                                                 <img alt='nothing' className="icon-img-btn" src={google_icon}/>Signup
                                                                 With Google
                                                             </button>
-                                                        </div>
+                                                        </div>*/}
                                                     </form>
                                                 </Tab>
                                             </Tabs>
@@ -267,24 +263,16 @@ class LoginPage extends Component {
                     <div className="container">
                         <h1 className="text-center mt-5">How it Works?</h1>
 
-                        <div className="text-center mt-4">
-                            <strong className="small-line">
-                                <a href="#">Read Our Research</a>
-                            </strong>
-                        </div>
-
-                        <div className="row mt-5 justify-content-center">
-                            <div className="col-xl-7 col-md-7 col-lg-7 col-sm-12 col-xs-12">
-                                <video width="100%" height="" controls style={{display:"none"}}>
-                                    <source src={video} type="video/mp4" />
-                                </video>
-                            </div>
-
-                            <div
+                        <div
                                 className="col-xl-12 col-md-12 col-lg-12 col-sm-12 col-xs-12 d-flex flex-column align-items-center mt-5">
                                 <button className="btn btn-primary" style={{display:"none"}}>
                                     Request A Demo
                                 </button>
+                                <div className="text-center mt-4">
+                                    <strong className="small-line">
+                                        <h3><a href="/research">Read Our Research</a></h3>
+                                    </strong>
+                                </div>
                                 <button className="btn btn-primary mt-4" onClick={()=> window.open("https://github.com/xray-carona", "_blank")}>
                                     <i className="fa fa-github" style={{
                                         fontSize: '24px',
@@ -293,7 +281,62 @@ class LoginPage extends Component {
                                 </button>
 
                             </div>
+
+                        <div className="row mt-5 justify-content-center">
+                            <div className="col-xl-7 col-md-7 col-lg-7 col-sm-12 col-xs-12">
+                                <video width="100%" height="" controls style={{display:"none"}}>
+                                    <source src={video} type="video/mp4" />
+                                </video>
+                            </div>
+
+                            <div className="col-xl-7 col-md-7 col-lg-7 col-sm-12 col-xs-12">
+                              <Carousel interval={3000}>
+                                <Carousel.Item>
+                                  <img
+                                    className="d-block w-100"
+                                    src={carousel_1}
+                                    alt="First slide"
+                                  />
+                                </Carousel.Item>
+                                <Carousel.Item>
+                                  <img
+                                    className="d-block w-100"
+                                    src={carousel_2}
+                                    alt="Third slide"
+                                  />
+
+                                </Carousel.Item>
+                                <Carousel.Item>
+                                  <img
+                                    className="d-block w-100"
+                                    src={carousel_3}
+                                    alt="Third slide"
+                                  />
+                                </Carousel.Item>
+                                <Carousel.Item>
+                                  <img
+                                    className="d-block w-100"
+                                    src={carousel_4}
+                                    alt="Fourth slide"
+                                  />
+                                </Carousel.Item>
+                                <Carousel.Item>
+                                  <img
+                                    className="d-block w-100"
+                                    src={carousel_5}
+                                    alt="Fifth slide"
+                                  />
+                                </Carousel.Item>
+                              </Carousel>
+                            </div>
+
+
+                            
                         </div>
+
+                        
+
+                        
                     </div>
 
                 </section>
@@ -309,10 +352,6 @@ class LoginPage extends Component {
                                 <p className="text-center">
                                     We are a group of volunteers working on this application to support fight against COVID-19
                                 </p>
-                                <p className="text-center">
-                                    <b>Currently self sign up is not available. Please email us on below id for demo and creating account.</b>
-                                </p>
-
                             </div>
                         </div>
                     </div>
@@ -329,7 +368,17 @@ class LoginPage extends Component {
                                     <p style={{
                                         margin: '0'
                                     }
-                                    }>srivastava.amritesh09@gmail.com</p>
+                                    }>info@rayeye.in</p>
+                                    <p></p>
+                                </div>
+                            </div>
+                            <div className="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-xs-12 d-flex">
+                                <i className="fa fa-phone"></i>
+                                <div>
+                                    <p style={{
+                                        margin: '0'
+                                    }
+                                    }>+91-7753838089</p>
                                     <p></p>
                                 </div>
                             </div>
@@ -343,7 +392,7 @@ class LoginPage extends Component {
                             </div>
                         </div>
 
-                        <div className="row justify-content-center">
+                        {/* <div className="row justify-content-center">
                             <div className="col-xl-7 col-lg-7 col-md-7 col-sm-12 col-xs-12 ">
                                 <div className="input-label-up mt-4">
                                     <label>FullName</label>
@@ -367,15 +416,15 @@ class LoginPage extends Component {
                                     </button>
                                 </div>
                             </div>
-                        </div>
+                        </div> */}
                     </div>
 
                 </section>
             </React.Fragment>
         );
-  }
+    }
 }
 
-const mapStateToProps = (response, signup_response) => ({response, signup_response});
+const mapStateToProps = (response, signup_response) => ({ response, signup_response });
 
 export default connect(mapStateToProps)(LoginPage);

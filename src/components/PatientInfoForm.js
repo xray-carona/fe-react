@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { setXrayImage, setCTScanImage, uploadImage, response , getMLResponse, setLoading, logout, setPatientInfo} from '../actions';
+import { setXrayImage, setCTScanImage, uploadImage, response, getMLResponse, setLoading, logout, setPatientInfo } from '../actions';
 import Preview from './Preview';
 import LungConditions from './LungConditions';
 import HeaderLoggedIn from "../components/HeaderLoggedIn";
@@ -14,80 +14,81 @@ import { initializeReactGA } from '../container/App';
 
 class PatientInfoForm extends Component {
 
-  componentDidMount(){
-    initializeReactGA();
-    this.props.response('','');
-  }
-
-  onRtPcrConductedChange = (e) => {
-    this.setState({
-      isRtPcrConducted: e.currentTarget.value
-    });
-  }
-
-  Upload_To_AWS_S3_and_Run_ML_Model = e => {
-    e.preventDefault();
-    this.props.setLoading(true);
-    let patientInfo = {};
-    for (let field in this.refs) {
-      patientInfo[field] = this.refs[field].value;
+    componentDidMount() {
+        initializeReactGA();
+        this.props.response('', '');
     }
 
-    patientInfo['gender'] = document.querySelector('input[name="gender"]:checked') ?
-        document.querySelector('input[name="gender"]:checked').value
-        : 'not_selected';
-    patientInfo['isSneezing'] = document.querySelector('input[name="isSneezing"]:checked') ?
-        document.querySelector('input[name="isSneezing"]:checked').value
-        : 'not_selected';
-    patientInfo['isDifficultyInBreathing'] = document.querySelector('input[name="isDifficultyInBreathing"]:checked') ?
-        document.querySelector('input[name="isDifficultyInBreathing"]:checked').value
-        : 'not_selected';
-    patientInfo['isDryCough'] = document.querySelector('input[name="isDryCough"]:checked') ?
-        document.querySelector('input[name="isDryCough"]:checked').value
-        : 'not_selected';
-    patientInfo['isRtPcrConducted'] =
-        document.querySelector('input[name="isRtPcrConducted"]:checked') ?
+    onRtPcrConductedChange = (e) => {
+        this.setState({
+            isRtPcrConducted: e.currentTarget.value
+        });
+    }
+
+    Upload_To_AWS_S3_and_Run_ML_Model = e => {
+        e.preventDefault();
+        this.props.setLoading(true);
+        let patientInfo = {};
+        for (let field in this.refs) {
+            patientInfo[field] = this.refs[field].value;
+        }
+
+        patientInfo['gender'] = document.querySelector('input[name="gender"]:checked') ?
+            document.querySelector('input[name="gender"]:checked').value :
+            'not_selected';
+        patientInfo['isSneezing'] = document.querySelector('input[name="isSneezing"]:checked') ?
+            document.querySelector('input[name="isSneezing"]:checked').value :
+            'not_selected';
+        patientInfo['isDifficultyInBreathing'] = document.querySelector('input[name="isDifficultyInBreathing"]:checked') ?
+            document.querySelector('input[name="isDifficultyInBreathing"]:checked').value :
+            'not_selected';
+        patientInfo['isDryCough'] = document.querySelector('input[name="isDryCough"]:checked') ?
+            document.querySelector('input[name="isDryCough"]:checked').value :
+            'not_selected';
+        patientInfo['isRtPcrConducted'] =
+            document.querySelector('input[name="isRtPcrConducted"]:checked') ?
             document.querySelector('input[name="isRtPcrConducted"]:checked').value == 'yes' ?
-                document.querySelector('input[name="isRtPcrResultPositive"]:checked') ?
-                    document.querySelector('input[name="isRtPcrResultPositive"]:checked').value == 'yes' ?
-                        'positive'
-                        : 'negative'
-                : 'none'    // TODO: Make 'isRtPcrResultPositive' field mandatory
-            : 'none'
-        : 'none';           // TODO: Make 'isRtPcrConducted' field mandatory
+            document.querySelector('input[name="isRtPcrResultPositive"]:checked') ?
+            document.querySelector('input[name="isRtPcrResultPositive"]:checked').value == 'yes' ?
+            'positive' :
+            'negative' :
+            'none' // TODO: Make 'isRtPcrResultPositive' field mandatory
+            :
+            'none' :
+            'none'; // TODO: Make 'isRtPcrConducted' field mandatory
 
-    let formImageData = new FormData();
-    if(this.props.model_type == 'xray') {
-      formImageData.append("photo", this.props.xray_image);
-      this.props.uploadImage(formImageData, patientInfo, 'xray');
-    }else if(this.props.model_type == 'ct') {
-      formImageData.append("photo", this.props.ct_scan_image);
-      this.props.uploadImage(formImageData, patientInfo, 'ct');
+        let formImageData = new FormData();
+        if (this.props.model_type == 'xray') {
+            formImageData.append("photo", this.props.xray_image);
+            this.props.uploadImage(formImageData, patientInfo, 'xray');
+        } else if (this.props.model_type == 'ct') {
+            formImageData.append("photo", this.props.ct_scan_image);
+            this.props.uploadImage(formImageData, patientInfo, 'ct');
+        }
+        this.props.setPatientInfo(patientInfo);
     }
-    this.props.setPatientInfo(patientInfo);
-  }
-  logout = e => {
-    e.preventDefault();
-    this.props.logout();
-    setCookie('token', '');
-    this.props.history.push('login');
-  }
-
-  componentDidUpdate(prevProps) {
-    if( prevProps.aws_s3_image_url !== this.props.aws_s3_image_url ) {
-        this.props.setLoading(false);
-        this.props.history.push('results');
+    logout = e => {
+        e.preventDefault();
+        this.props.logout();
+        setCookie('token', '');
+        this.props.history.push('login');
     }
-  }
 
-  closeAlert = e => {
-    e.preventDefault();
-    this.props.response('','');
-  }
+    componentDidUpdate(prevProps) {
+        if (prevProps.aws_s3_image_url !== this.props.aws_s3_image_url) {
+            this.props.setLoading(false);
+            this.props.history.push('results');
+        }
+    }
 
-  render() {
-    return (
-      <div>
+    closeAlert = e => {
+        e.preventDefault();
+        this.props.response('', '');
+    }
+
+    render() {
+        return (
+            <div>
       <HeaderLoggedIn history={this.props.history}></HeaderLoggedIn>
       <section className="patient-info-form form-group pb-5 pt-5">
         
@@ -129,6 +130,18 @@ class PatientInfoForm extends Component {
                                    type="text" ref="temperature"/>
                         </div>
 
+                        <div className="input-label-up color-p">
+                            <label>Heart Rate</label>
+                            <input className="form-control" placeholder="Enter heart rate"
+                                   type="text" ref="heart_rate"/>
+                        </div>
+
+                        <div className="input-label-up color-p">
+                            <label>Blood pressure</label>
+                            <input className="form-control" placeholder="120/80"
+                                   type="text" ref="bp"/>
+                        </div>
+
                         <div className="mt-4">
                             <div><strong>Sneezing</strong></div>
                             <div className="d-flex mt-4">
@@ -163,7 +176,7 @@ class PatientInfoForm extends Component {
                             <div><strong>Dry Cough</strong></div>
                             <div className="d-flex mt-4">
                                 <label className="radio-btn">Yes
-                                    <input type="radio" name="isDryCough" value="yes"/>
+                                    <input type="radio" name="isDryCough" value="yes" />
                                         <span className="checkmark"></span>
                                 </label>
                                 <label className="radio-btn ml-3">No
@@ -211,11 +224,13 @@ class PatientInfoForm extends Component {
                                 this.props.setXrayImage(e.currentTarget.files[0] )
                               }} />
                             </div>
+                            <a href="/xray_sample.jpeg" className="inline" download>Download sample Xray</a>
                             <p className="text-muted ml-3"></p>
                         </div>
                         <div className="col-md-4">
                           <Preview file={this.props.xray_image} />
                         </div>
+                        <h3>OR</h3>
                         <div className="mt-4">
                             <div className="upload-btn-wrapper mb-2">
                               <button className="upload-btn bg-primary">Upload CT-Scan</button>
@@ -223,6 +238,8 @@ class PatientInfoForm extends Component {
                                 this.props.setCTScanImage(e.currentTarget.files[0] )
                               }} />
                             </div>
+                            <a href="/ct_sample.jpeg" className="inline" download>Download sample CT scan</a>
+                            <p className="text-muted ml-3"></p>
                         </div>
                         <div className="col-md-4">
                           <Preview file={this.props.ct_scan_image} />
@@ -242,8 +259,8 @@ class PatientInfoForm extends Component {
             </div>
         </section>
         </div>
-    );
-  }
+        );
+    }
 }
 PatientInfoForm.propTypes = {
     xray_image: PropTypes.object,
@@ -252,11 +269,11 @@ PatientInfoForm.propTypes = {
     aws_s3_image_url: PropTypes.string,
     msg: PropTypes.string,
     type: PropTypes.string,
-    covid_diagnosis : PropTypes.string,
+    covid_diagnosis: PropTypes.string,
     annotated_img_url: PropTypes.string,
     loading: PropTypes.bool
 }
 
-const mapStateToProps = ({xray_image, aws_s3_image_url,msg,type, covid_diagnosis, annotated_img_url, loading, lung_conditions, ct_scan_image, model_type}) => ({xray_image, aws_s3_image_url,msg,type, covid_diagnosis, annotated_img_url, loading, lung_conditions, ct_scan_image, model_type});
-const mapDispatchToProps = dispatch => bindActionCreators( { setXrayImage, uploadImage, response, getMLResponse, setLoading, logout, setCTScanImage, setPatientInfo }, dispatch);
+const mapStateToProps = ({ xray_image, aws_s3_image_url, msg, type, covid_diagnosis, annotated_img_url, loading, lung_conditions, ct_scan_image, model_type }) => ({ xray_image, aws_s3_image_url, msg, type, covid_diagnosis, annotated_img_url, loading, lung_conditions, ct_scan_image, model_type });
+const mapDispatchToProps = dispatch => bindActionCreators({ setXrayImage, uploadImage, response, getMLResponse, setLoading, logout, setCTScanImage, setPatientInfo }, dispatch);
 export default connect(mapStateToProps, mapDispatchToProps)(PatientInfoForm)

@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { clearResults, logout} from '../actions';
+import { clearResults, logout } from '../actions';
 import Preview from './Preview';
 import LungConditions from './LungConditions';
 import CTResults from './CTResults';
@@ -14,38 +14,38 @@ import { setCookie } from '../util/cookies';
 class Results extends Component {
 
     backToPatientInfo = e => {
-      e.preventDefault();
-      this.props.clearResults();
-      this.props.history.push('patientInfoForm');
+        e.preventDefault();
+        this.props.clearResults();
+        this.props.history.push('patientInfoForm');
     }
 
-  logout = e => {
-    e.preventDefault();
-    this.props.logout();
-    setCookie('token', '');
-    this.props.history.push('login');
-  }
+    logout = e => {
+        e.preventDefault();
+        this.props.logout();
+        setCookie('token', '');
+        this.props.history.push('login');
+    }
 
-  nextPatient = e => {
-    e.preventDefault();
-    this.props.clearResults();
-    this.props.history.push('/patientInfoForm');
-  }
+    nextPatient = e => {
+        e.preventDefault();
+        this.props.clearResults();
+        this.props.history.push('/patientInfoForm');
+    }
 
-  render() {
-    var covid_diagnosis = this.props.covid_diagnosis;
-    var covid_val = 'undetermined';
-    if(covid_diagnosis && covid_diagnosis.includes("Test")) {
-      covid_val = 'undetermined';
-    }
-    if(covid_diagnosis && covid_diagnosis.includes("Positive")) {
-      covid_val = 'positive';
-    }
-    if(covid_diagnosis && covid_diagnosis.includes("Negative")) {
-      covid_val = 'negative';
-    }
-    return (
-      <div>
+    render() {
+        var covid_diagnosis = this.props.covid_diagnosis;
+        var covid_val = 'undetermined';
+        if (covid_diagnosis && covid_diagnosis.includes("Test")) {
+            covid_val = 'undetermined';
+        }
+        if (covid_diagnosis && covid_diagnosis.includes("Positive")) {
+            covid_val = 'positive';
+        }
+        if (covid_diagnosis && covid_diagnosis.includes("Negative")) {
+            covid_val = 'negative';
+        }
+        return (
+            <div>
         <HeaderLoggedIn history={this.props.history}></HeaderLoggedIn>
       <div className="row">
         <button className="upload-btn btn-primary text-white back-button" onClick={this.backToPatientInfo}>Back</button>
@@ -196,8 +196,8 @@ class Results extends Component {
         </div>
       </div>
       </div>
-    );
-  }
+        );
+    }
 }
 Results.propTypes = {
     xray_image: PropTypes.object,
@@ -206,11 +206,11 @@ Results.propTypes = {
     aws_s3_image_url: PropTypes.string,
     msg: PropTypes.string,
     type: PropTypes.string,
-    covid_diagnosis : PropTypes.string,
+    covid_diagnosis: PropTypes.string,
     ct_results: PropTypes.string,
     loading: PropTypes.bool
 }
 
-const mapStateToProps = ({xray_image, aws_s3_image_url,msg,type, covid_diagnosis, annotated_img_url, loading, lung_conditions, ct_scan_image, model_type, ct_results, patientInfo}) => ({xray_image, aws_s3_image_url,msg,type, covid_diagnosis, annotated_img_url, loading, lung_conditions, ct_scan_image, model_type, ct_results, patientInfo});
-const mapDispatchToProps = dispatch => bindActionCreators( {clearResults, logout}, dispatch);
+const mapStateToProps = ({ xray_image, aws_s3_image_url, msg, type, covid_diagnosis, annotated_img_url, loading, lung_conditions, ct_scan_image, model_type, ct_results, patientInfo }) => ({ xray_image, aws_s3_image_url, msg, type, covid_diagnosis, annotated_img_url, loading, lung_conditions, ct_scan_image, model_type, ct_results, patientInfo });
+const mapDispatchToProps = dispatch => bindActionCreators({ clearResults, logout }, dispatch);
 export default connect(mapStateToProps, mapDispatchToProps)(Results)

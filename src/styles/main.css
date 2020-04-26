@@ -427,3 +427,22 @@ td.MILD {
 .result-warning{
   color:red;
 }
+
+.block_diagram {
+  width: 100%;
+}
+
+@media (max-width: 700px) {
+    .carousel {
+      width:auto;
+      height:auto;
+    }
+}
+
+.d-block {
+  max-width: 80%;
+  max-height: 70%;
+  align-self: center;
+  margin-left: 10%;
+}
+

@@ -1,17 +1,17 @@
 import React, { Component } from 'react';
 import logo from '../assets/img/logo.png';
-import {Container, Nav, Navbar} from "react-bootstrap";
-import {logout} from '../actions';
+import { Container, Nav, Navbar } from "react-bootstrap";
+import { logout } from '../actions';
 import { connect } from 'react-redux';
 import { setCookie } from '../util/cookies';
 import { bindActionCreators } from 'redux';
 
 class HeaderLoggedIn extends Component {
     logout = e => {
-    e.preventDefault();
-    this.props.logout();
-    setCookie('token', '');
-    this.props.history.push('login');
+        e.preventDefault();
+        this.props.logout();
+        setCookie('token', '');
+        this.props.history.push('login');
     }
 
     render() {
@@ -37,5 +37,5 @@ class HeaderLoggedIn extends Component {
 }
 
 const mapStateToProps = ({}) => ({});
-const mapDispatchToProps = dispatch => bindActionCreators( {logout}, dispatch);
+const mapDispatchToProps = dispatch => bindActionCreators({ logout }, dispatch);
 export default connect(mapStateToProps, mapDispatchToProps)(HeaderLoggedIn);
