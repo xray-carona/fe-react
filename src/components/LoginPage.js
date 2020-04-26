@@ -34,7 +34,7 @@ class LoginPage extends Component {
         };
 
         this.props.dispatch(loginUserAction(data));
-    }
+  }
 
     onHandleRegistration = (event) => {
         event.preventDefault();
