@@ -116,7 +116,7 @@ class LoginPage extends Component {
                                         <div className="">
                                             <Tabs defaultActiveKey="login" id="uncontrolled-tab-example">
                                                 <Tab eventKey="login" title="Login">
-                                                    {!isSuccess ? <div>{message}</div> : <Redirect to='patientInfoForm' />}
+                                                    {!isSuccess ? <div>{message}</div> : <Redirect to='dashboard' />}
                                                     <form onSubmit={this.onHandleLogin}>
                                                         <div className="input-label-up mt-4">
                                                             <label htmlFor='email'>e-mail</label>

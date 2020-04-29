@@ -7,6 +7,8 @@ export const actionTypes = {
     GET_ML_RESPONSE: 'GET_ML_RESPONSE',
     SET_ML_RESPONSE: 'SET_ML_RESPONSE',
     SET_LOADING: 'SET_LOADING',
+    ASSESS_RISK: 'ASSESS_RISK',
+    SET_ASSESS_RISK_RESPONSE: 'SET_ASSESS_RISK_RESPONSE',
     
     REGISTER_USER: 'REGISTER_USER',
     REGISTER_USER_SUCCESS: 'REGISTER_USER_SUCCESS',
@@ -83,4 +85,15 @@ export function logout() {
 
 export function setPatientInfo(patientInfo) {
   return { type: actionTypes.SET_PATIENT_INFO, patientInfo }
+}
+
+export function assessRisk (patientInfo) {
+  return {
+    type: actionTypes.ASSESS_RISK,
+    patientInfo
+  }
+}
+
+export function setAssessRiskResponse(risk_response) {
+  return { type: actionTypes.SET_ASSESS_RISK_RESPONSE, risk_response }
 }

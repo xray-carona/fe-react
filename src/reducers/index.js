@@ -7,7 +7,8 @@ export const InitialState = {
     msg: '',
     type: '',
     aws_s3_image_url: '',
-    loading: false
+    loading: false,
+    patientInfo: {}
 }
 
 function reducer(state = InitialState, action) {
@@ -94,6 +95,13 @@ function reducer(state = InitialState, action) {
                 ...state,
                 ...{
                     patientInfo: action.patientInfo
+                }
+            }
+        case actionTypes.SET_ASSESS_RISK_RESPONSE:
+            return {
+                ...state,
+                ...{
+                    assessRiskResponse: action.risk_response
                 }
             }
         default:

@@ -31,6 +31,7 @@ export const loginUserService = (request) => {
         body: JSON.stringify(request.user)
     };
 
+    // return {success: true, user: 'user'};
     return fetch(LOGIN_API_ENDPOINT, parameters)
         .then(response => {
             return response.json();
