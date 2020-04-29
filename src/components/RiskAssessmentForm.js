@@ -31,7 +31,7 @@ class RiskAssessmentForm extends Component {
 
     onRadioInputChange = (e) => {
         let patientInfo = this.props.patientInfo;
-        patientInfo[e.currentTarget.name] = e.currentTarget.value;
+        patientInfo[e.currentTarget.name] = JSON.parse(e.currentTarget.value); // Using Boolean instead of string
         this.props.setPatientInfo(patientInfo);
     }
 
@@ -132,11 +132,11 @@ class RiskAssessmentForm extends Component {
                                 <div><strong>Diabetes</strong></div>
                                 <div className="d-flex mt-4">
                                     <label className="radio-btn">Yes
-                                        <input type="radio" name="isDiabetes" value="true" onChange={this.onRadioInputChange}/>
+                                        <input type="radio" name="isDiabetes" value={true} onChange={this.onRadioInputChange}/>
                                         <span className="checkmark"></span>
                                     </label>
                                     <label className="radio-btn ml-3">No
-                                        <input type="radio" name="isDiabetes" value="false" onChange={this.onRadioInputChange}/>
+                                        <input type="radio" name="isDiabetes" value={false} onChange={this.onRadioInputChange}/>
                                         <span className="checkmark"></span>
                                     </label>
 
@@ -146,11 +146,11 @@ class RiskAssessmentForm extends Component {
                                 <div><strong>Hypertension</strong></div>
                                 <div className="d-flex mt-4">
                                     <label className="radio-btn">Yes
-                                        <input type="radio" name="isHypertension" value="true" onChange={this.onRadioInputChange}/>
+                                        <input type="radio" name="isHypertension" value={true} onChange={this.onRadioInputChange}/>
                                         <span className="checkmark"></span>
                                     </label>
                                     <label className="radio-btn ml-3">No
-                                        <input type="radio" name="isHypertension" value="false" onChange={this.onRadioInputChange}/>
+                                        <input type="radio" name="isHypertension" value={false} onChange={this.onRadioInputChange}/>
                                         <span className="checkmark"></span>
                                     </label>
 
@@ -161,11 +161,11 @@ class RiskAssessmentForm extends Component {
                                 <div><strong>Cardio Vascular Disease</strong></div>
                                 <div className="d-flex mt-4">
                                     <label className="radio-btn">Yes
-                                        <input type="radio" name="isCardiacDisease" value="true" onChange={this.onRadioInputChange}/>
+                                        <input type="radio" name="isCardiacDisease" value={true} onChange={this.onRadioInputChange}/>
                                         <span className="checkmark"></span>
                                     </label>
                                     <label className="radio-btn ml-3">No
-                                        <input type="radio" name="isCardiacDisease" value="false" onChange={this.onRadioInputChange}/>
+                                        <input type="radio" name="isCardiacDisease" value={false} onChange={this.onRadioInputChange}/>
                                         <span className="checkmark"></span>
                                     </label>
 
@@ -175,11 +175,11 @@ class RiskAssessmentForm extends Component {
                                 <div><strong>Immunosupression</strong></div>
                                 <div className="d-flex mt-4">
                                     <label className="radio-btn">Yes
-                                        <input type="radio" name="isImmunosupression" value="true" onChange={this.onRadioInputChange}/>
+                                        <input type="radio" name="isImmunosupression" value={true} onChange={this.onRadioInputChange}/>
                                         <span className="checkmark"></span>
                                     </label>
                                     <label className="radio-btn ml-3">No
-                                        <input type="radio" name="isImmunosupression" value="false" onChange={this.onRadioInputChange}/>
+                                        <input type="radio" name="isImmunosupression" value={false} onChange={this.onRadioInputChange}/>
                                         <span className="checkmark"></span>
                                     </label>
 
@@ -189,11 +189,11 @@ class RiskAssessmentForm extends Component {
                                 <div><strong>Travel History from Affected Area (Delhi, Mumbai,Abroad)</strong></div>
                                 <div className="d-flex mt-4">
                                     <label className="radio-btn">Yes
-                                        <input type="radio" name="isTravelHistory" value="true" onChange={this.onRadioInputChange}/>
+                                        <input type="radio" name="isTravelHistory" value={true} onChange={this.onRadioInputChange}/>
                                         <span className="checkmark"></span>
                                     </label>
                                     <label className="radio-btn ml-3">No
-                                        <input type="radio" name="isTravelHistory" value="false" onChange={this.onRadioInputChange}/>
+                                        <input type="radio" name="isTravelHistory" value={false} onChange={this.onRadioInputChange}/>
                                         <span className="checkmark"></span>
                                     </label>
 
@@ -204,11 +204,11 @@ class RiskAssessmentForm extends Component {
                                 <div><strong>Address in containment zone</strong></div>
                                 <div className="d-flex mt-4">
                                     <label className="radio-btn">Yes
-                                        <input type="radio" name="isAddressZone" value="true" onChange={this.onRadioInputChange}/>
+                                        <input type="radio" name="isAddressZone" value={true} onChange={this.onRadioInputChange}/>
                                         <span className="checkmark"></span>
                                     </label>
                                     <label className="radio-btn ml-3">No
-                                        <input type="radio" name="isAddressZone" value="false" onChange={this.onRadioInputChange}/>
+                                        <input type="radio" name="isAddressZone" value={false} onChange={this.onRadioInputChange}/>
                                         <span className="checkmark"></span>
                                     </label>
 
@@ -237,11 +237,11 @@ class RiskAssessmentForm extends Component {
                                 <div><strong>Fever</strong></div>
                                 <div className="d-flex mt-4">
                                     <label className="radio-btn">Yes
-                                        <input type="radio" name="isFever" value="true" onChange={this.onRadioInputChange}/>
+                                        <input type="radio" name="isFever" value={true} onChange={this.onRadioInputChange}/>
                                         <span className="checkmark"></span>
                                     </label>
                                     <label className="radio-btn ml-3">No
-                                        <input type="radio" name="isFever" value="false" onChange={this.onRadioInputChange}/>
+                                        <input type="radio" name="isFever" value={false} onChange={this.onRadioInputChange}/>
                                         <span className="checkmark"></span>
                                     </label>
 
@@ -253,11 +253,11 @@ class RiskAssessmentForm extends Component {
                                 <div><strong>Dry Cough</strong></div>
                                 <div className="d-flex mt-4">
                                     <label className="radio-btn">Yes
-                                        <input type="radio" name="isDryCough" value="true" onChange={this.onRadioInputChange}/>
+                                        <input type="radio" name="isDryCough" value={true} onChange={this.onRadioInputChange}/>
                                         <span className="checkmark"></span>
                                     </label>
                                     <label className="radio-btn ml-3">No
-                                        <input type="radio" name="isDryCough" value="false" onChange={this.onRadioInputChange}/>
+                                        <input type="radio" name="isDryCough" value={false} onChange={this.onRadioInputChange}/>
                                         <span className="checkmark"></span>
                                     </label>
 
@@ -268,11 +268,11 @@ class RiskAssessmentForm extends Component {
                                 <div><strong>Difficulty in Breathing</strong></div>
                                 <div className="d-flex mt-4">
                                     <label className="radio-btn">Yes
-                                        <input type="radio" name="isDifficultyInBreathing" value="true" onChange={this.onRadioInputChange}/>
+                                        <input type="radio" name="isDifficultyInBreathing" value={true} onChange={this.onRadioInputChange}/>
                                             <span className="checkmark"></span>
                                     </label>
                                     <label className="radio-btn ml-3">No
-                                        <input type="radio" name="isDifficultyInBreathing" value="false" onChange={this.onRadioInputChange}/>
+                                        <input type="radio" name="isDifficultyInBreathing" value={false} onChange={this.onRadioInputChange}/>
                                             <span className="checkmark"></span>
                                     </label>
 
@@ -283,11 +283,11 @@ class RiskAssessmentForm extends Component {
                                 <div><strong>Sore Throat</strong></div>
                                 <div className="d-flex mt-4">
                                     <label className="radio-btn">Yes
-                                        <input type="radio" name="isSoreThroat" value="true" onChange={this.onRadioInputChange}/>
+                                        <input type="radio" name="isSoreThroat" value={true} onChange={this.onRadioInputChange}/>
                                         <span className="checkmark"></span>
                                     </label>
                                     <label className="radio-btn ml-3">No
-                                        <input type="radio" name="isSoreThroat" value="false" onChange={this.onRadioInputChange}/>
+                                        <input type="radio" name="isSoreThroat" value={false} onChange={this.onRadioInputChange}/>
                                         <span className="checkmark"></span>
                                     </label>
 
@@ -298,11 +298,11 @@ class RiskAssessmentForm extends Component {
                                 <div><strong>Fatigue</strong></div>
                                 <div className="d-flex mt-4">
                                     <label className="radio-btn">Yes
-                                        <input type="radio" name="isFatigue" value="true" onChange={this.onRadioInputChange}/>
+                                        <input type="radio" name="isFatigue" value={true} onChange={this.onRadioInputChange}/>
                                         <span className="checkmark"></span>
                                     </label>
                                     <label className="radio-btn ml-3">No
-                                        <input type="radio" name="isFatigue" value="false" onChange={this.onRadioInputChange}/>
+                                        <input type="radio" name="isFatigue" value={false} onChange={this.onRadioInputChange}/>
                                         <span className="checkmark"></span>
                                     </label>
 
@@ -313,11 +313,11 @@ class RiskAssessmentForm extends Component {
                                 <div><strong>Body Ache</strong></div>
                                 <div className="d-flex mt-4">
                                     <label className="radio-btn">Yes
-                                        <input type="radio" name="isBodyAche" value="true" onChange={this.onRadioInputChange}/>
+                                        <input type="radio" name="isBodyAche" value={true} onChange={this.onRadioInputChange}/>
                                         <span className="checkmark"></span>
                                     </label>
                                     <label className="radio-btn ml-3">No
-                                        <input type="radio" name="isBodyAche" value="false" onChange={this.onRadioInputChange}/>
+                                        <input type="radio" name="isBodyAche" value={false} onChange={this.onRadioInputChange}/>
                                         <span className="checkmark"></span>
                                     </label>
 
@@ -328,11 +328,11 @@ class RiskAssessmentForm extends Component {
                                 <div><strong>Loss of Taste or Smell</strong></div>
                                 <div className="d-flex mt-4">
                                     <label className="radio-btn">Yes
-                                        <input type="radio" name="isLossOfTasteOrSmell" value="true" onChange={this.onRadioInputChange}/>
+                                        <input type="radio" name="isLossOfTasteOrSmell" value={true} onChange={this.onRadioInputChange}/>
                                         <span className="checkmark"></span>
                                     </label>
                                     <label className="radio-btn ml-3">No
-                                        <input type="radio" name="isLossOfTasteOrSmell" value="false" onChange={this.onRadioInputChange}/>
+                                        <input type="radio" name="isLossOfTasteOrSmell" value={false} onChange={this.onRadioInputChange}/>
                                         <span className="checkmark"></span>
                                     </label>
 
@@ -343,11 +343,11 @@ class RiskAssessmentForm extends Component {
                                 <div><strong>Diarrhoea</strong></div>
                                 <div className="d-flex mt-4">
                                     <label className="radio-btn">Yes
-                                        <input type="radio" name="isDiarrhoea" value="true" onChange={this.onRadioInputChange}/>
+                                        <input type="radio" name="isDiarrhoea" value={true} onChange={this.onRadioInputChange}/>
                                         <span className="checkmark"></span>
                                     </label>
                                     <label className="radio-btn ml-3">No
-                                        <input type="radio" name="isDiarrhoea" value="false" onChange={this.onRadioInputChange}/>
+                                        <input type="radio" name="isDiarrhoea" value={false} onChange={this.onRadioInputChange}/>
                                         <span className="checkmark"></span>
                                     </label>
 
@@ -358,11 +358,11 @@ class RiskAssessmentForm extends Component {
                                 <div><strong>Runny Nose</strong></div>
                                 <div className="d-flex mt-4">
                                     <label className="radio-btn">Yes
-                                        <input type="radio" name="isRunnyNose" value="true" onChange={this.onRadioInputChange}/>
+                                        <input type="radio" name="isRunnyNose" value={true} onChange={this.onRadioInputChange}/>
                                         <span className="checkmark"></span>
                                     </label>
                                     <label className="radio-btn ml-3">No
-                                        <input type="radio" name="isRunnyNose" value="false" onChange={this.onRadioInputChange}/>
+                                        <input type="radio" name="isRunnyNose" value={false} onChange={this.onRadioInputChange}/>
                                         <span className="checkmark"></span>
                                     </label>
 
@@ -396,11 +396,11 @@ class RiskAssessmentForm extends Component {
                                 <div><strong>On Oxygen</strong></div>
                                 <div className="d-flex mt-4">
                                     <label className="radio-btn">Yes
-                                        <input type="radio" name="isOxygen" value="true" onChange={this.onRadioInputChange}/>
+                                        <input type="radio" name="isOxygen" value={true} onChange={this.onRadioInputChange}/>
                                         <span className="checkmark"></span>
                                     </label>
                                     <label className="radio-btn ml-3">No
-                                        <input type="radio" name="isOxygen" value="false" onChange={this.onRadioInputChange} />
+                                        <input type="radio" name="isOxygen" value={false} onChange={this.onRadioInputChange} />
                                         <span className="checkmark"></span>
                                     </label>
                                 </div>
@@ -409,11 +409,11 @@ class RiskAssessmentForm extends Component {
                                 <div><strong>Conscious</strong></div>
                                 <div className="d-flex mt-4">
                                     <label className="radio-btn">Yes
-                                        <input type="radio" name="isConscious" value="true" onChange={this.onRadioInputChange}/>
+                                        <input type="radio" name="isConscious" value={true} onChange={this.onRadioInputChange}/>
                                         <span className="checkmark"></span>
                                     </label>
                                     <label className="radio-btn ml-3">No
-                                        <input type="radio" name="isConscious" value="false" onChange={this.onRadioInputChange} />
+                                        <input type="radio" name="isConscious" value={false} onChange={this.onRadioInputChange} />
                                         <span className="checkmark"></span>
                                     </label>
                                 </div>
@@ -434,11 +434,11 @@ class RiskAssessmentForm extends Component {
                             <div><strong>RT-PCR Conducted</strong></div>
                             <div className="d-flex mt-4">
                                 <label className="radio-btn">Yes
-                                    <input type="radio" name="isRtPcrConducted" value="true" onChange={this.onRtPcrConductedChange}/>
+                                    <input type="radio" name="isRtPcrConducted" value={true} onChange={this.onRtPcrConductedChange}/>
                                         <span className="checkmark"></span>
                                 </label>
                                 <label className="radio-btn ml-3">No
-                                    <input type="radio" name="isRtPcrConducted" value="false" onChange={this.onRtPcrConductedChange} />
+                                    <input type="radio" name="isRtPcrConducted" value={false} onChange={this.onRtPcrConductedChange} />
                                         <span className="checkmark"></span>
                                 </label>
                             </div>
@@ -449,11 +449,11 @@ class RiskAssessmentForm extends Component {
                             <div><strong>RT-PCR Test result</strong></div>
                             <div className="d-flex mt-4">
                                 <label className="radio-btn">Positive
-                                    <input type="radio" name="isRtPcrResultPositive" value="true" onChange={this.onRadioInputChange}/>
+                                    <input type="radio" name="isRtPcrResultPositive" value={true} onChange={this.onRadioInputChange}/>
                                         <span className="checkmark"></span>
                                 </label>
                                 <label className="radio-btn ml-3">Negative
-                                    <input type="radio" name="isRtPcrResultPositive" value="false" onChange={this.onRadioInputChange}/>
+                                    <input type="radio" name="isRtPcrResultPositive" value={false} onChange={this.onRadioInputChange}/>
                                         <span className="checkmark"></span>
                                 </label>
                             </div>
