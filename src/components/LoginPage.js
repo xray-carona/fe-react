@@ -65,7 +65,7 @@ class LoginPage extends Component {
         // console.log(this.props.response);
         if (this.props.response && this.props.response.response) {
             isSuccess = this.props.response.response.success;
-            message = this.props.response.response.message;
+            message = this.props.response.response.errors.message;
 
             if (isSuccess) {
                 console.log('success');
