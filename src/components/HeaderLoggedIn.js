@@ -24,8 +24,8 @@ class HeaderLoggedIn extends Component {
                         <Navbar.Toggle aria-controls="responsive-navbar-nav"/>
                         <Navbar.Collapse id="responsive-navbar-nav" className="justify-content-end">
                             <Nav className="mr-auto">
-                                    <Nav.Link href="/patientInfoForm">New Patient</Nav.Link>
-                                    <Nav.Link href={"/patientInfoForm"}>Home</Nav.Link>
+                                    <Nav.Link href="/dashboard">New Patient</Nav.Link>
+                                    <Nav.Link href={"/dashboard"}>Home</Nav.Link>
                                     <Nav.Link href="/logout" onClick= { e => this.logout(e)}>Logout</Nav.Link>
                             </Nav>
                         </Navbar.Collapse>

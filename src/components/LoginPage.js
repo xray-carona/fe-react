@@ -65,12 +65,13 @@ class LoginPage extends Component {
         // console.log(this.props.response);
         if (this.props.response && this.props.response.response) {
             isSuccess = this.props.response.response.success;
-            message = this.props.response.response.errors.message;
+            if(!isSuccess && this.props.response.response.errors) message = this.props.response.response.errors.message  ;
 
             if (isSuccess) {
                 console.log('success');
+                // console.log(this.props.response.response)
                 setCookie('token', this.props.response.response.token, 1);
-                setCookie('userId', this.props.response.response.user);
+                setCookie('userId', this.props.response.response.userId);
             }
         }
         return (
