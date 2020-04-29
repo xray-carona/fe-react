@@ -46,7 +46,7 @@ class RiskAssessmentForm extends Component {
         this.props.setLoading(true);
         // call API 
         this.props.assessRisk(this.props.patientInfo);
-        this.props.history.push('riskAssessmentResult');
+        // this.props.history.push('riskAssessmentResult');
     }
 
     logout = e => {
@@ -57,9 +57,9 @@ class RiskAssessmentForm extends Component {
     }
 
     componentDidUpdate(prevProps) {
-        if (prevProps.aws_s3_image_url !== this.props.aws_s3_image_url) {
+        if (prevProps.assessRiskResponse !== this.props.assessRiskResponse) {
             this.props.setLoading(false);
-            this.props.history.push('results');
+            this.props.history.push('riskAssessmentResult');
         }
     }
 
@@ -220,6 +220,6 @@ RiskAssessmentForm.propTypes = {
     loading: PropTypes.bool
 }
 
-const mapStateToProps = ({ xray_image, aws_s3_image_url, msg, type, covid_diagnosis, annotated_img_url, loading, lung_conditions, ct_scan_image, model_type, patientInfo }) => ({ xray_image, aws_s3_image_url, msg, type, covid_diagnosis, annotated_img_url, loading, lung_conditions, ct_scan_image, model_type, patientInfo });
+const mapStateToProps = ({ xray_image, aws_s3_image_url, msg, type, covid_diagnosis, annotated_img_url, loading, lung_conditions, ct_scan_image, model_type, patientInfo, assessRiskResponse }) => ({ xray_image, aws_s3_image_url, msg, type, covid_diagnosis, annotated_img_url, loading, lung_conditions, ct_scan_image, model_type, patientInfo, assessRiskResponse });
 const mapDispatchToProps = dispatch => bindActionCreators({ setXrayImage, uploadImage, response, getMLResponse, setLoading, logout, setCTScanImage, setPatientInfo, assessRisk }, dispatch);
 export default connect(mapStateToProps, mapDispatchToProps)(RiskAssessmentForm)

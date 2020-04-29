@@ -30,22 +30,45 @@ class RiskAssessmentResult extends Component {
     }
 
     render() {
-
         return (
             <div>
                 <HeaderLoggedIn history={this.props.history}></HeaderLoggedIn>
                   <div className="row">
                     <button className="upload-btn btn-primary text-white back-button" onClick={this.backToPatientInfo}>Back</button>
                   </div>  
-                  <div className="row container results">
-                    <h1>{this.props.assessRiskResponse}</h1>  
-                  </div>
+                  {this.props.assessRiskResponse ? 
+                    <div> 
+                      <div className="row container">
+                        <h1>Patient Score</h1> 
+                      </div>
+                        <div className="row container">
+                            <div className="col-md-4">
+                                <h2>Risk : {this.props.assessRiskResponse.patientScore.risk}</h2>
+                            </div>
+                                <div className="col-md-4">
+                                <h2>Score : {this.props.assessRiskResponse.patientScore.score}</h2>
+                            </div>
+                        </div>
+
+                        <div className="row container">
+                        <h1>Symptom Score</h1> 
+                      </div>
+                        <div className="row container">
+                            <div className="col-md-4">
+                                <h2>Risk : {this.props.assessRiskResponse.symptomScore.risk}</h2>
+                            </div>
+                                <div className="col-md-4">
+                                <h2>Score : {this.props.assessRiskResponse.symptomScore.score}</h2>
+                            </div>
+                        </div>
+                    </div>
+                    : null }
             </div>
         );
     }
 }
 RiskAssessmentResult.propTypes = {}
 
-const mapStateToProps = ({assessRiskResponse}) => ({assessRiskResponse});
-const mapDispatchToProps = dispatch => bindActionCreators({clearResults, logout }, dispatch);
+const mapStateToProps = ({ assessRiskResponse }) => ({ assessRiskResponse });
+const mapDispatchToProps = dispatch => bindActionCreators({ clearResults, logout }, dispatch);
 export default connect(mapStateToProps, mapDispatchToProps)(RiskAssessmentResult)

@@ -51,9 +51,9 @@ function* loginSaga(payload) {
 
 function* assessRiskSaga(payload) {
     try {
-      // call assess risk API 
-        // const response = yield call(loginUserService, payload);
-        yield put(setAssessRiskResponse("High Risk"));
+        const res = yield call(api.getRiskAssessment, payload);
+        console.log(res.data.patientScore);
+        yield put(setAssessRiskResponse(res.data));
         yield put(push('/riskAssessmentResult'));
     } catch (err) {
         yield put(response(err.message, 'alert-danger'));
