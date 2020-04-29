@@ -11,7 +11,10 @@ import PrivateRoute from './PrivateRoute';
 import LoginPage from '../components/LoginPage';
 import ResearchPage from '../components/ResearchPage';
 import PatientInfoForm from '../components/PatientInfoForm';
+import RiskAssessmentForm from '../components/RiskAssessmentForm';
 import Results from '../components/Results';
+import Dashboard from '../components/Dashboard';
+import RiskAssessmentResult from '../components/RiskAssessmentResult';
 import Header from "../components/Header";
 import createBrowserHistory from "history/createBrowserHistory";
 const history = createBrowserHistory();
@@ -28,8 +31,11 @@ class App extends Component {
                 <Route path='/' exact={true} component={LoginPage} />
                 <Route path='/login' component={LoginPage} />
                 <Route path='/research' component={ResearchPage} />
+                <PrivateRoute path='/dashboard' component={Dashboard} />
                 <PrivateRoute path='/patientInfoForm' component={PatientInfoForm} />
+                <PrivateRoute path='/riskAssessmentForm' component={RiskAssessmentForm} />
                 <PrivateRoute path='/results' component={Results} />
+                <PrivateRoute path='/riskAssessmentResult' component={RiskAssessmentResult} />
               </Switch>
             </div>
         </div>

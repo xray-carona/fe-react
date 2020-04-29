@@ -6,7 +6,8 @@ import {
     response,
     setAwsS3ImageUrl,
     setMLResponse,
-    getAwsS3ImageUrl
+    getAwsS3ImageUrl,
+    setAssessRiskResponse
 } from './actions';
 
 import api from './api/upload-image-api.js';
@@ -48,11 +49,23 @@ function* loginSaga(payload) {
     }
 }
 
+function* assessRiskSaga(payload) {
+    try {
+        const res = yield call(api.getRiskAssessment, payload);
+        console.log(res.data.patientScore);
+        yield put(setAssessRiskResponse(res.data));
+        yield put(push('/riskAssessmentResult'));
+    } catch (err) {
+        yield put(response(err.message, 'alert-danger'));
+    }
+}
+
 function* rootSaga() {
     yield all([
         takeLatest(actionTypes.UPLOAD_IMAGE, uploadImageSaga),
         takeLatest(actionTypes.REGISTER_USER, registerSaga),
-        takeLatest(actionTypes.LOGIN_USER, loginSaga)
+        takeLatest(actionTypes.LOGIN_USER, loginSaga),
+        takeLatest(actionTypes.ASSESS_RISK, assessRiskSaga)
     ])
 }
 

@@ -22,4 +22,13 @@ axios.post(process.env.REACT_APP_BE_EXPRESS_APP_HOST + '/api/v1/getMLResponse', 
     config
 });
 
-export default { uploadImageToAwsS3, getMLResponse }
+const getRiskAssessment = async (patientInfo, userId) => await
+axios.post(process.env.REACT_APP_BE_EXPRESS_APP_HOST + '/api/v1/riskAssessment', {
+    params: {
+        patientInfo: patientInfo,
+        userId: userId
+    },
+    config
+});
+
+export default { uploadImageToAwsS3, getMLResponse, getRiskAssessment }
