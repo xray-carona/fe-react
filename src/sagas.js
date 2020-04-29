@@ -51,7 +51,7 @@ function* loginSaga(payload) {
 
 function* assessRiskSaga(payload) {
     try {
-        const res = yield call(api.getRiskAssessment, payload);
+        const res = yield call(api.getRiskAssessment, payload, getCookie('userId'));
         console.log(res.data.patientScore);
         yield put(setAssessRiskResponse(res.data));
         yield put(push('/riskAssessmentResult'));
