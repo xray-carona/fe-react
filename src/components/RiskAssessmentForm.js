@@ -31,22 +31,20 @@ class RiskAssessmentForm extends Component {
 
     onRadioInputChange = (e) => {
         let patientInfo = this.props.patientInfo;
-        patientInfo[e.currentTarget.name] = e.currentTarget.value;
+        // console.log(e.currentTarget.name , e.currentTarget.value,typeof(e.currentTarget.value))
+        if(e.currentTarget.value=="true" || e.currentTarget.value=="false") {
+            patientInfo[e.currentTarget.name] = JSON.parse(e.currentTarget.value); // Using Boolean instead of string
+        }
+        else{
+            patientInfo[e.currentTarget.name] = e.currentTarget.value;
+        }
         this.props.setPatientInfo(patientInfo);
-
     }
+
     onTextInputChange = (e) => {
         let patientInfo = this.props.patientInfo;
         patientInfo[e.currentTarget.name] = e.currentTarget.value;
         this.props.setPatientInfo(patientInfo);
-       
-    }
-
-    onDropDownSelection = (e) => {
-        let patientInfo = this.props.patientInfo;
-        patientInfo[e.currentTarget.name] = e.currentTarget.value;
-        this.props.setPatientInfo(patientInfo);
-       
     }
 
     evaluateRisk = e => {
@@ -79,365 +77,407 @@ class RiskAssessmentForm extends Component {
     render() {
         return (
             <div>
-                <HeaderLoggedIn history={this.props.history}></HeaderLoggedIn>
-                <section className="patient-info-form form-group pb-5 pt-5">
-
-                    <div className="container">
-                        <div className="row justify-content-center">
-                            <div className="col-xl-7 col-lg-7 col-md-7 col-sm-12 col-xs-12">
-                                <div className="input-label-up color-p">
-                                    <label>Name</label>
-                                    <input ref="name" className="form-control" name="first_name" type="text" onChange={this.onTextInputChange} />
-                                </div>
-
-                                <div className="row justify-content-center">
-                                    <div className="col">
-                                        <div className="input-label-up color-p">
-                                            <label>Age</label>
-                                            <input className="form-control" ref="age" name="age" placeholder="Enter Age in Numbers" type="text" onChange={this.onTextInputChange} />
-                                        </div>
-                                    </div>
-                                    <div className="col">
-                                        <div className="input-label-up color-p">
-                                            <label>Mobile No.</label>
-                                            <input className="form-control" ref="mobileNo" name="mobile" placeholder="Enter Phone Number" type="text" onChange={this.onTextInputChange} />
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div className="row justify-content-center">
-                                    <div className="col">
-                                        <div>
-                                            <div><strong>Gender</strong></div>
-                                            <div className="d-flex mt-3">
-                                                <label className="radio-btn">Male
-                                            <input type="radio" name="gender" value="male" onChange={this.onRadioInputChange} />
-                                                    <span className="checkmark"></span>
-                                                </label>
-                                                <label className="radio-btn ml-3">Female
-                                            <input type="radio" name="gender" value="female" onChange={this.onRadioInputChange} />
-                                                    <span className="checkmark"></span>
-                                                </label>
-                                                <label className="radio-btn ml-3">Other
-                                            <input type="radio" name="gender" value="other" onChange={this.onRadioInputChange} />
-                                                    <span className="checkmark"></span>
-                                                </label>
-                                            </div>
-                                        </div>
-                                    </div>
-
-
-                                    <div className="col">
-                                        <div className="mt-4">
-                                            <div><strong>Have you travelled Mumbai/Delhi/ Internationally in last 14 days </strong></div>
-                                            <div className="d-flex mt-4">
-                                                <label className="radio-btn">Yes
-                                    	<input type="radio" name="travelhistory" value="yes" onChange={this.onRadioInputChange} />
-                                                    <span className="checkmark"></span>
-                                                </label>
-                                                <label className="radio-btn ml-3">No
-                                    <input type="radio" name="travelhistory" value="no" onChange={this.onRadioInputChange} />
-                                                    <span className="checkmark"></span>
-                                                </label>
-
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div className="input-label-up color-p">
-                                    <label> Occuption </label>
-                                    <select className="form-control" name="occupation" onChange={this.onDropDownSelection}>
-                                        <option width="" value="">  </option>
-                                        <option value="healthCarePersonel"> Health Care Personnel / Police Force </option>
-                                        <option value="deliveryAgent">Delivery Agent </option>
-                                        <option value="outDoorWorker">Outdoor work </option>
-                                        <option value="indoorWorker">Housewife / indoor Work </option>
-                                    </select>
-                                </div>
-                                <div className="input-label-up color-p">
-                                    <label>Address</label>
-                                    <input className="form-control" ref="age" placeholder="Enter Address of current residence" type="text" />
-                                </div>
-
-                                <div className="input-label-up color-p">
-                                    <label>Body Temperature</label>
-                                    <input className="form-control" placeholder="Enter Temperature in Degree Celsius"
-                                        type="text" onChange={this.onTextInputChange} name="temperature" />
-                                </div>
-
-                                <div className="input-label-up color-p">
-                                    <label>Heart Rate</label>
-                                    <input className="form-control" placeholder="Enter heart rate"
-                                        type="text" onChange={this.onTextInputChange} name="heart_rate" />
-                                </div>
-
-                                <div className="input-label-up color-p">
-                                    <label>Blood pressure</label>
-                                    <input className="form-control" placeholder="120/80"
-                                        type="text" onChange={this.onTextInputChange} name="bp" />
-                                </div>
-
-                                <div className="row" >
-                                    <div className="col">
-                                        <div className="mt-4">
-                                            <div><strong>Fever</strong></div>
-                                            <div className="d-flex mt-4">
-                                                <label className="radio-btn">Yes
-                                                    <input type="radio" name="hasFever" value="yes" onChange={this.onRadioInputChange} />
-                                                    <span className="checkmark"></span>
-                                                </label>
-                                                <label className="radio-btn ml-3">No
-                                                    <input type="radio" name="hasFever" value="no" onChange={this.onRadioInputChange} />
-                                                    <span className="checkmark"></span>
-                                                </label>
-
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div className="col">
-                                        <div className="mt-4">
-                                            <div><strong> Running Nose /Sneezing</strong></div>
-                                            <div className="d-flex mt-4">
-                                                <label className="radio-btn">Yes
-                                                    <input type="radio" name="isSneezing" value="yes" onChange={this.onRadioInputChange} />
-                                                    <span className="checkmark"></span>
-                                                </label>
-                                                <label className="radio-btn ml-3">No
-                                                    <input type="radio" name="isSneezing" value="no" onChange={this.onRadioInputChange} />
-                                                    <span className="checkmark"></span>
-                                                </label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div className="row justify-content-center" >
-                                    <div className="col">
-                                        <div className="mt-4">
-                                            <div><strong>Difficulty in Breathing</strong></div>
-                                            <div className="d-flex mt-4">
-                                                <label className="radio-btn">Yes
-                                                    <input type="radio" name="isDifficultyInBreathing" value="yes" onChange={this.onRadioInputChange} />
-                                                    <span className="checkmark"></span>
-                                                </label>
-                                                <label className="radio-btn ml-3">No
-                                                    <input type="radio" name="isDifficultyInBreathing" value="no" onChange={this.onRadioInputChange} />
-                                                    <span className="checkmark"></span>
-                                                </label>
-
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div className="col">
-                                        <div className="mt-4">
-                                            <div><strong>Dry Cough</strong></div>
-                                            <div className="d-flex mt-4">
-                                                <label className="radio-btn">Yes
-                                                    <input type="radio" name="isDryCough" value="yes" onChange={this.onRadioInputChange} />
-                                                    <span className="checkmark"></span>
-                                                </label>
-                                                <label className="radio-btn ml-3">No
-                                                    <input type="radio" name="isDryCough" value="no" onChange={this.onRadioInputChange} />
-                                                    <span className="checkmark"></span>
-                                                </label>
-
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div className="row justify-content-center" >
-                                    <div className="col">
-                                        <div className="mt-4">
-                                            <div><strong>Sore Throat</strong></div>
-                                            <div className="d-flex mt-4">
-                                                <label className="radio-btn">Yes
-                                                    <input type="radio" name="hasSoreThroat" value="yes" onChange={this.onRadioInputChange} />
-                                                    <span className="checkmark"></span>
-                                                </label>
-                                                <label className="radio-btn ml-3">No
-                                                    <input type="radio" name="hasSoreThroat" value="no" onChange={this.onRadioInputChange} />
-                                                    <span className="checkmark"></span>
-                                                </label>
-
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div className="col">
-                                        <div className="mt-4">
-                                            <div><strong>Fatigue</strong></div>
-                                            <div className="d-flex mt-4">
-                                                <label className="radio-btn">Yes
-                                                    <input type="radio" name="hasFatigue" value="yes" onChange={this.onRadioInputChange} />
-                                                    <span className="checkmark"></span>
-                                                </label>
-                                                <label className="radio-btn ml-3">No
-                                                    <input type="radio" name="hasFatigue" value="no" onChange={this.onRadioInputChange} />
-                                                    <span className="checkmark"></span>
-                                                </label>
-
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div className="row justify-content-center" >
-                                    <div className="col">
-                                        <div className="mt-4">
-                                            <div><strong>Body Ache</strong></div>
-                                            <div className="d-flex mt-4">
-                                                <label className="radio-btn">Yes
-                                                    <input type="radio" name="hasBodyAche" value="yes" onChange={this.onRadioInputChange} />
-                                                    <span className="checkmark"></span>
-                                                </label>
-                                                <label className="radio-btn ml-3">No
-                                                    <input type="radio" name="hasBodyAche" value="no" onChange={this.onRadioInputChange} />
-                                                    <span className="checkmark"></span>
-                                                </label>
-
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div className="col">
-                                        <div className="mt-4">
-                                            <div><strong>Loss of Taste and smell </strong></div>
-                                            <div className="d-flex mt-4">
-                                                <label className="radio-btn">Yes
-                                                    <input type="radio" name="lossofTasteSmell" value="yes" onChange={this.onRadioInputChange} />
-                                                    <span className="checkmark"></span>
-                                                </label>
-                                                <label className="radio-btn ml-3">No
-                                                    <input type="radio" name="lossofTasteSmell" value="no" onChange={this.onRadioInputChange} />
-                                                    <span className="checkmark"></span>
-                                                </label>
-
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div className="row justify-content-center" >
-                                    <div className="col">
-                                        <div className="mt-4">
-                                            <div><strong>Diahorrea</strong></div>
-                                            <div className="d-flex mt-4">
-                                                <label className="radio-btn">Yes
-                                    <input type="radio" name="hasDiahorrea" value="yes" onChange={this.onRadioInputChange} />
-                                                    <span className="checkmark"></span>
-                                                </label>
-                                                <label className="radio-btn ml-3">No
-                                    <input type="radio" name="hasDiahorrea" value="no" onChange={this.onRadioInputChange} />
-                                                    <span className="checkmark"></span>
-                                                </label>
-
-                                            </div>
-
-                                        </div>
-
-                                    </div>
-                                </div>
-
-                                <div className="row justify-content-center" >
-                                    <div className="col">
-                                        <div className="mt-4">
-                                            <div><strong>Diabetes</strong></div>
-                                            <div className="d-flex mt-4">
-                                                <label className="radio-btn">Yes
-                                                    <input type="radio" name="hasDiabetes " value="yes" onChange={this.onRadioInputChange} />
-                                                    <span className="checkmark"></span>
-                                                </label>
-                                                <label className="radio-btn ml-3">No
-                                                    <input type="radio" name="hasDiabetes" value="no" onChange={this.onRadioInputChange} />
-                                                    <span className="checkmark"></span>
-                                                </label>
-
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div className="col">
-                                        <div className="mt-4">
-                                            <div><strong>High Blood Pressure</strong></div>
-                                            <div className="d-flex mt-4">
-                                                <label className="radio-btn">Yes
-                                                    <input type="radio" name="hasHyperTension" value="yes" onChange={this.onRadioInputChange} />
-                                                    <span className="checkmark"></span>
-                                                </label>
-                                                <label className="radio-btn ml-3">No
-                                                    <input type="radio" name="hasHyperTension" value="no" onChange={this.onRadioInputChange} />
-                                                    <span className="checkmark"></span>
-                                                </label>
-
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div className="row " >
-                                    <div className="col">
-                                        <div className="mt-4">
-                                            <div><strong>Heart Ailments</strong></div>
-                                            <div className="d-flex mt-4">
-                                                <label className="radio-btn">Yes
-                                                    <input type="radio" name="hasHeartAilments" value="yes" onChange={this.onRadioInputChange} />
-                                                    <span className="checkmark"></span>
-                                                </label>
-                                                <label className="radio-btn ml-3">No
-                                                    <input type="radio" name="hasHeartAilments" value="no" onChange={this.onRadioInputChange} />
-                                                    <span className="checkmark"></span>
-                                                </label>
-
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div className="col">
-
-                                    </div>
-                                </div>
-
-                                <div className="mt-4">
-                                    <div><strong>RT-PCR Conducted</strong></div>
-                                    <div className="d-flex mt-4">
-                                        <label className="radio-btn">Yes
-                                    <input type="radio" name="isRtPcrConducted" value="yes" onChange={this.onRtPcrConductedChange} />
+      <HeaderLoggedIn history={this.props.history}></HeaderLoggedIn>
+      <section className="patient-info-form form-group pb-5 pt-5">
+        
+            <div className="container">
+                <div className="row justify-content-center">
+                    <div className="col-xl-7 col-lg-7 col-md-7 col-sm-12 col-xs-12">
+                        <div className="input-label-up color-p">
+                            <label>First Name</label>
+                            <input ref="first_name" name="first_name" className="form-control" type="text" onChange={this.onTextInputChange}/>
+                        </div>
+                        <div className="input-label-up color-p">
+                            <label>Second Name</label>
+                            <input ref="last_name" name="last_name" className="form-control" type="text"  onChange={this.onTextInputChange}/>
+                        </div>
+                        <div className="patient-risk-assessment">
+                            <div className="input-label-up color-p">
+                                <label>Age</label>
+                                <input className="form-control" ref="age" name="age" placeholder="Enter Age in Numbers" type="text"  onChange={this.onTextInputChange}/>
+                            </div>
+                            <div>
+                                <div><strong>Gender</strong></div>
+                                <div className="d-flex mt-3">
+                                    <label className="radio-btn">Male
+                                        <input type="radio" name="gender" value={"male"} onChange={this.onRadioInputChange}/>
                                             <span className="checkmark"></span>
-                                        </label>
-                                        <label className="radio-btn ml-3">No
-                                    <input type="radio" name="isRtPcrConducted" value="no" onChange={this.onRtPcrConductedChange} />
+                                    </label>
+                                    <label className="radio-btn ml-3">Female
+                                        <input type="radio" name="gender" value={"female"} onChange={this.onRadioInputChange}/>
                                             <span className="checkmark"></span>
-                                        </label>
-                                    </div>
+                                    </label>
+                                    <label className="radio-btn ml-3">Other
+                                        <input type="radio" name="gender" value={"other"} onChange={this.onRadioInputChange}/>
+                                            <span className="checkmark"></span>
+                                    </label>
                                 </div>
+                            </div>
+                            <div>
+                                <div><strong>Occupation</strong></div>
+                                <div className="d-flex mt-3">
+                                    <label className="radio-btn">Police/HealthCare
+                                        <input type="radio" name="occupation" value="essential" onChange={this.onRadioInputChange}/>
+                                        <span className="checkmark"></span>
+                                    </label>
+                                    <label className="radio-btn ml-3">Delivery Boy
+                                        <input type="radio" name="occupation" value="delivery" onChange={this.onRadioInputChange}/>
+                                        <span className="checkmark"></span>
+                                    </label>
+                                    <label className="radio-btn ml-3">Indoor Work / Housewife
+                                        <input type="radio" name="occupation" value="indoor" onChange={this.onRadioInputChange}/>
+                                        <span className="checkmark"></span>
+                                    </label>
+                                    <label className="radio-btn ml-3">Other
+                                        <input type="radio" name="occupation" value="other" onChange={this.onRadioInputChange}/>
+                                        <span className="checkmark"></span>
+                                    </label>
+                                </div>
+                            </div>
+                            <div className="mt-4">
+                                <div><strong>Diabetes</strong></div>
+                                <div className="d-flex mt-4">
+                                    <label className="radio-btn">Yes
+                                        <input type="radio" name="isDiabetes" value={true} onChange={this.onRadioInputChange}/>
+                                        <span className="checkmark"></span>
+                                    </label>
+                                    <label className="radio-btn ml-3">No
+                                        <input type="radio" name="isDiabetes" value={false} onChange={this.onRadioInputChange}/>
+                                        <span className="checkmark"></span>
+                                    </label>
 
-                                {this.state && this.state.isRtPcrConducted && this.state.isRtPcrConducted == 'yes' ?
-                                    <div className="mt-4">
-                                        <div><strong>RT-PCR Test result</strong></div>
-                                        <div className="d-flex mt-4">
-                                            <label className="radio-btn">Positive
-                                    <input type="radio" name="isRtPcrResultPositive" value="yes" onChange={this.onRadioInputChange} />
-                                                <span className="checkmark"></span>
-                                            </label>
-                                            <label className="radio-btn ml-3">Negative
-                                    <input type="radio" name="isRtPcrResultPositive" value="no" onChange={this.onRadioInputChange} />
-                                                <span className="checkmark"></span>
-                                            </label>
-                                        </div>
-                                    </div>
-                                    : null}
+                                </div>
+                            </div>
+                            <div className="mt-4">
+                                <div><strong>Hypertension</strong></div>
+                                <div className="d-flex mt-4">
+                                    <label className="radio-btn">Yes
+                                        <input type="radio" name="isHypertension" value={true} onChange={this.onRadioInputChange}/>
+                                        <span className="checkmark"></span>
+                                    </label>
+                                    <label className="radio-btn ml-3">No
+                                        <input type="radio" name="isHypertension" value={false} onChange={this.onRadioInputChange}/>
+                                        <span className="checkmark"></span>
+                                    </label>
+
+                                </div>
+                            </div>
+
+                            <div className="mt-4">
+                                <div><strong>Cardio Vascular Disease</strong></div>
+                                <div className="d-flex mt-4">
+                                    <label className="radio-btn">Yes
+                                        <input type="radio" name="isCardiacDisease" value={true} onChange={this.onRadioInputChange}/>
+                                        <span className="checkmark"></span>
+                                    </label>
+                                    <label className="radio-btn ml-3">No
+                                        <input type="radio" name="isCardiacDisease" value={false} onChange={this.onRadioInputChange}/>
+                                        <span className="checkmark"></span>
+                                    </label>
+
+                                </div>
+                            </div>
+                            <div className="mt-4">
+                                <div><strong>Immunosupression</strong></div>
+                                <div className="d-flex mt-4">
+                                    <label className="radio-btn">Yes
+                                        <input type="radio" name="isImmunosupression" value={true} onChange={this.onRadioInputChange}/>
+                                        <span className="checkmark"></span>
+                                    </label>
+                                    <label className="radio-btn ml-3">No
+                                        <input type="radio" name="isImmunosupression" value={false} onChange={this.onRadioInputChange}/>
+                                        <span className="checkmark"></span>
+                                    </label>
+
+                                </div>
+                            </div>
+                            <div className="mt-4">
+                                <div><strong>Travel History from Affected Area (Delhi, Mumbai,Abroad)</strong></div>
+                                <div className="d-flex mt-4">
+                                    <label className="radio-btn">Yes
+                                        <input type="radio" name="isTravelHistory" value={true} onChange={this.onRadioInputChange}/>
+                                        <span className="checkmark"></span>
+                                    </label>
+                                    <label className="radio-btn ml-3">No
+                                        <input type="radio" name="isTravelHistory" value={false} onChange={this.onRadioInputChange}/>
+                                        <span className="checkmark"></span>
+                                    </label>
+
+                                </div>
+                            </div>
+
+                            <div className="mt-4">
+                                <div><strong>Address in containment zone</strong></div>
+                                <div className="d-flex mt-4">
+                                    <label className="radio-btn">Yes
+                                        <input type="radio" name="isAddressZone" value={true} onChange={this.onRadioInputChange}/>
+                                        <span className="checkmark"></span>
+                                    </label>
+                                    <label className="radio-btn ml-3">No
+                                        <input type="radio" name="isAddressZone" value={false} onChange={this.onRadioInputChange}/>
+                                        <span className="checkmark"></span>
+                                    </label>
+
+                                </div>
+                            </div>
+                        </div>
+
+                        {/*<div className="mt-4">*/}
+                        {/*    <div><strong>Sneezing</strong></div>*/}
+                        {/*    <div className="d-flex mt-4">*/}
+                        {/*        <label className="radio-btn">Yes*/}
+                        {/*            <input type="radio" name="isSneezing" value="true" onChange={this.onRadioInputChange}/>*/}
+                        {/*                <span className="checkmark"></span>*/}
+                        {/*        </label>*/}
+                        {/*        <label className="radio-btn ml-3">No*/}
+                        {/*            <input type="radio" name="isSneezing" value="false" onChange={this.onRadioInputChange}/>*/}
+                        {/*                <span className="checkmark"></span>*/}
+                        {/*        </label>*/}
+
+                        {/*    </div>*/}
+                        {/*</div>*/}
+
+                        {/*SYMPTOM RISK ASSESSMENT */}
+                        <div className="symptom_risk_assessment">
+                            <div className="mt-4">
+                                <div><strong>Fever</strong></div>
+                                <div className="d-flex mt-4">
+                                    <label className="radio-btn">Yes
+                                        <input type="radio" name="isFever" value={true} onChange={this.onRadioInputChange}/>
+                                        <span className="checkmark"></span>
+                                    </label>
+                                    <label className="radio-btn ml-3">No
+                                        <input type="radio" name="isFever" value={false} onChange={this.onRadioInputChange}/>
+                                        <span className="checkmark"></span>
+                                    </label>
+
+                                </div>
                             </div>
 
 
+                            <div className="mt-4">
+                                <div><strong>Dry Cough</strong></div>
+                                <div className="d-flex mt-4">
+                                    <label className="radio-btn">Yes
+                                        <input type="radio" name="isDryCough" value={true} onChange={this.onRadioInputChange}/>
+                                        <span className="checkmark"></span>
+                                    </label>
+                                    <label className="radio-btn ml-3">No
+                                        <input type="radio" name="isDryCough" value={false} onChange={this.onRadioInputChange}/>
+                                        <span className="checkmark"></span>
+                                    </label>
+
+                                </div>
+                            </div>
+
+                            <div className="mt-4">
+                                <div><strong>Difficulty in Breathing</strong></div>
+                                <div className="d-flex mt-4">
+                                    <label className="radio-btn">Yes
+                                        <input type="radio" name="isDifficultyInBreathing" value={true} onChange={this.onRadioInputChange}/>
+                                            <span className="checkmark"></span>
+                                    </label>
+                                    <label className="radio-btn ml-3">No
+                                        <input type="radio" name="isDifficultyInBreathing" value={false} onChange={this.onRadioInputChange}/>
+                                            <span className="checkmark"></span>
+                                    </label>
+
+                                </div>
+                            </div>
+
+                            <div className="mt-4">
+                                <div><strong>Sore Throat</strong></div>
+                                <div className="d-flex mt-4">
+                                    <label className="radio-btn">Yes
+                                        <input type="radio" name="isSoreThroat" value={true} onChange={this.onRadioInputChange}/>
+                                        <span className="checkmark"></span>
+                                    </label>
+                                    <label className="radio-btn ml-3">No
+                                        <input type="radio" name="isSoreThroat" value={false} onChange={this.onRadioInputChange}/>
+                                        <span className="checkmark"></span>
+                                    </label>
+
+                                </div>
+                            </div>
+
+                            <div className="mt-4">
+                                <div><strong>Fatigue</strong></div>
+                                <div className="d-flex mt-4">
+                                    <label className="radio-btn">Yes
+                                        <input type="radio" name="isFatigue" value={true} onChange={this.onRadioInputChange}/>
+                                        <span className="checkmark"></span>
+                                    </label>
+                                    <label className="radio-btn ml-3">No
+                                        <input type="radio" name="isFatigue" value={false} onChange={this.onRadioInputChange}/>
+                                        <span className="checkmark"></span>
+                                    </label>
+
+                                </div>
+                            </div>
+
+                            <div className="mt-4">
+                                <div><strong>Body Ache</strong></div>
+                                <div className="d-flex mt-4">
+                                    <label className="radio-btn">Yes
+                                        <input type="radio" name="isBodyAche" value={true} onChange={this.onRadioInputChange}/>
+                                        <span className="checkmark"></span>
+                                    </label>
+                                    <label className="radio-btn ml-3">No
+                                        <input type="radio" name="isBodyAche" value={false} onChange={this.onRadioInputChange}/>
+                                        <span className="checkmark"></span>
+                                    </label>
+
+                                </div>
+                            </div>
+
+                            <div className="mt-4">
+                                <div><strong>Loss of Taste or Smell</strong></div>
+                                <div className="d-flex mt-4">
+                                    <label className="radio-btn">Yes
+                                        <input type="radio" name="isLossOfTasteOrSmell" value={true} onChange={this.onRadioInputChange}/>
+                                        <span className="checkmark"></span>
+                                    </label>
+                                    <label className="radio-btn ml-3">No
+                                        <input type="radio" name="isLossOfTasteOrSmell" value={false} onChange={this.onRadioInputChange}/>
+                                        <span className="checkmark"></span>
+                                    </label>
+
+                                </div>
+                            </div>
+
+                            <div className="mt-4">
+                                <div><strong>Diarrhoea</strong></div>
+                                <div className="d-flex mt-4">
+                                    <label className="radio-btn">Yes
+                                        <input type="radio" name="isDiarrhoea" value={true} onChange={this.onRadioInputChange}/>
+                                        <span className="checkmark"></span>
+                                    </label>
+                                    <label className="radio-btn ml-3">No
+                                        <input type="radio" name="isDiarrhoea" value={false} onChange={this.onRadioInputChange}/>
+                                        <span className="checkmark"></span>
+                                    </label>
+
+                                </div>
+                            </div>
+
+                            <div className="mt-4">
+                                <div><strong>Runny Nose</strong></div>
+                                <div className="d-flex mt-4">
+                                    <label className="radio-btn">Yes
+                                        <input type="radio" name="isRunnyNose" value={true} onChange={this.onRadioInputChange}/>
+                                        <span className="checkmark"></span>
+                                    </label>
+                                    <label className="radio-btn ml-3">No
+                                        <input type="radio" name="isRunnyNose" value={false} onChange={this.onRadioInputChange}/>
+                                        <span className="checkmark"></span>
+                                    </label>
+
+                                </div>
+                            </div>
                         </div>
+                        <div className="vital-risk-assessment">
+                            <div className="input-label-up color-p">
+                                <label>Body Temperature</label>
+                                <input className="form-control" placeholder="Enter Temperature in Degree Celsius"
+                                       type="text"  onChange={this.onTextInputChange} name="temperature"/>
+                            </div>
+
+                            <div className="input-label-up color-p">
+                                <label>Heart Rate</label>
+                                <input className="form-control" placeholder="Enter heart rate per minute"
+                                       type="text"  onChange={this.onTextInputChange} name="heartRate"/>
+                            </div>
+                            <div className="input-label-up color-p">
+                                <label>Respiration Rate</label>
+                                <input className="form-control" placeholder="Enter Respiration rate per minute"
+                                       type="text"  onChange={this.onTextInputChange} name="respirationRate"/>
+                            </div>
+
+                            <div className="input-label-up color-p">
+                                <label>Blood pressure</label>
+                                <input className="form-control" placeholder="Systolic BP eg.120"
+                                       type="text"  onChange={this.onTextInputChange} name="systolicBP"/>
+                            </div>
+                            <div className="mt-4">
+                                <div><strong>On Oxygen</strong></div>
+                                <div className="d-flex mt-4">
+                                    <label className="radio-btn">Yes
+                                        <input type="radio" name="isOxygen" value={true} onChange={this.onRadioInputChange}/>
+                                        <span className="checkmark"></span>
+                                    </label>
+                                    <label className="radio-btn ml-3">No
+                                        <input type="radio" name="isOxygen" value={false} onChange={this.onRadioInputChange} />
+                                        <span className="checkmark"></span>
+                                    </label>
+                                </div>
+                            </div>
+                            <div className="mt-4">
+                                <div><strong>Conscious</strong></div>
+                                <div className="d-flex mt-4">
+                                    <label className="radio-btn">Yes
+                                        <input type="radio" name="isConscious" value={true} onChange={this.onRadioInputChange}/>
+                                        <span className="checkmark"></span>
+                                    </label>
+                                    <label className="radio-btn ml-3">No
+                                        <input type="radio" name="isConscious" value={false} onChange={this.onRadioInputChange} />
+                                        <span className="checkmark"></span>
+                                    </label>
+                                </div>
+                            </div>
+                            {/*TODO Fix this , using modified news2 for covid*/}
+                            {/*<div className="input-label-up color-p">*/}
+                            {/*    <label>s</label>*/}
+                            {/*    <input className="form-control" placeholder="120/80"*/}
+                            {/*           type="text"  onChange={this.onTextInputChange} name="spo2_scale1"/>*/}
+                            {/*</div>*/}
+                            {/*<div className="input-label-up color-p">*/}
+                            {/*    <label>Blood pressure</label>*/}
+                            {/*    <input className="form-control" placeholder="120/80"*/}
+                            {/*           type="text"  onChange={this.onTextInputChange} name="spo2_scale2"/>*/}
+                            {/*</div>*/}
+                        </div>
+                        <div className="mt-4">
+                            <div><strong>RT-PCR Conducted</strong></div>
+                            <div className="d-flex mt-4">
+                                <label className="radio-btn">Yes
+                                    <input type="radio" name="isRtPcrConducted" value={true} onChange={this.onRtPcrConductedChange}/>
+                                        <span className="checkmark"></span>
+                                </label>
+                                <label className="radio-btn ml-3">No
+                                    <input type="radio" name="isRtPcrConducted" value={false} onChange={this.onRtPcrConductedChange} />
+                                        <span className="checkmark"></span>
+                                </label>
+                            </div>
+                        </div>
+
+                        {this.state && this.state.isRtPcrConducted && this.state.isRtPcrConducted == 'true' ?
+                        <div className="mt-4">
+                            <div><strong>RT-PCR Test result</strong></div>
+                            <div className="d-flex mt-4">
+                                <label className="radio-btn">Positive
+                                    <input type="radio" name="isRtPcrResultPositive" value={true} onChange={this.onRadioInputChange}/>
+                                        <span className="checkmark"></span>
+                                </label>
+                                <label className="radio-btn ml-3">Negative
+                                    <input type="radio" name="isRtPcrResultPositive" value={false} onChange={this.onRadioInputChange}/>
+                                        <span className="checkmark"></span>
+                                </label>
+                            </div>
+                        </div>
+                        : null }
                     </div>
-                    <div className="mt-4 d-flex justify-content-center">
-                        <button className="btn bg-warning text-dark mt-3" onClick={this.evaluateRisk} style={{
-                            paddingRight: '40px',
-                            paddingLeft: '40px'
-                        }}>
-                            {this.props.loading ? 'Evaluating...' : 'Evaluate Risk'}</button>
-                    </div>
-                </section>
+                </div>
             </div>
+
+            <div className="mt-4 d-flex justify-content-center">
+                      <button className="btn bg-warning text-dark mt-3" onClick={this.evaluateRisk} style={{
+                                        paddingRight:'40px',
+                                        paddingLeft: '40px'
+                                    }}>
+                        { this.props.loading ? 'Evaluating...' : 'Evaluate Risk' }</button>
+             </div>
+        </section>
+        </div>
         );
     }
 }
