@@ -31,7 +31,13 @@ class RiskAssessmentForm extends Component {
 
     onRadioInputChange = (e) => {
         let patientInfo = this.props.patientInfo;
-        patientInfo[e.currentTarget.name] = JSON.parse(e.currentTarget.value); // Using Boolean instead of string
+        // console.log(e.currentTarget.name , e.currentTarget.value,typeof(e.currentTarget.value))
+        if(e.currentTarget.value=="true" || e.currentTarget.value=="false") {
+            patientInfo[e.currentTarget.name] = JSON.parse(e.currentTarget.value); // Using Boolean instead of string
+        }
+        else{
+            patientInfo[e.currentTarget.name] = e.currentTarget.value;
+        }
         this.props.setPatientInfo(patientInfo);
     }
 
@@ -94,15 +100,15 @@ class RiskAssessmentForm extends Component {
                                 <div><strong>Gender</strong></div>
                                 <div className="d-flex mt-3">
                                     <label className="radio-btn">Male
-                                        <input type="radio" name="gender" value="male" onChange={this.onRadioInputChange}/>
+                                        <input type="radio" name="gender" value={"male"} onChange={this.onRadioInputChange}/>
                                             <span className="checkmark"></span>
                                     </label>
                                     <label className="radio-btn ml-3">Female
-                                        <input type="radio" name="gender" value="female" onChange={this.onRadioInputChange}/>
+                                        <input type="radio" name="gender" value={"female"} onChange={this.onRadioInputChange}/>
                                             <span className="checkmark"></span>
                                     </label>
                                     <label className="radio-btn ml-3">Other
-                                        <input type="radio" name="gender" value="other" onChange={this.onRadioInputChange}/>
+                                        <input type="radio" name="gender" value={"other"} onChange={this.onRadioInputChange}/>
                                             <span className="checkmark"></span>
                                     </label>
                                 </div>
@@ -389,7 +395,7 @@ class RiskAssessmentForm extends Component {
 
                             <div className="input-label-up color-p">
                                 <label>Blood pressure</label>
-                                <input className="form-control" placeholder="120/80"
+                                <input className="form-control" placeholder="Systolic BP eg.120"
                                        type="text"  onChange={this.onTextInputChange} name="systolicBP"/>
                             </div>
                             <div className="mt-4">
