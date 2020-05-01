@@ -83,9 +83,9 @@ class RiskAssessmentForm extends Component {
             <div className="container">
                 <div className="row justify-content-center">
                     <div className="col-xl-7 col-lg-7 col-md-7 col-sm-12 col-xs-12">
-                        <div className="input-label-up color-p">
-                            <label>First Name</label>
-                            <input ref="first_name" name="first_name" className="form-control" type="text" onChange={this.onTextInputChange}/>
+                        <div className="input-label-up color-p" >
+                            <label  >First Name</label>
+                            <input  ref="first_name" name="first_name" className="form-control" type="text" onChange={this.onTextInputChange} />
                         </div>
                         <div className="input-label-up color-p">
                             <label>Second Name</label>
@@ -376,24 +376,24 @@ class RiskAssessmentForm extends Component {
                             </div>
                         </div>
                         <div className="vital-risk-assessment">
-                            <div className="input-label-up color-p">
+                            <div className="input-label-up color-p" style={{display: 'none'  }}>
                                 <label>Body Temperature</label>
                                 <input className="form-control" placeholder="Enter Temperature in Degree Celsius"
                                        type="text"  onChange={this.onTextInputChange} name="temperature"/>
                             </div>
 
-                            <div className="input-label-up color-p">
+                            <div className="input-label-up color-p" style={{display: 'none'  }}>
                                 <label>Heart Rate</label>
                                 <input className="form-control" placeholder="Enter heart rate per minute"
                                        type="text"  onChange={this.onTextInputChange} name="heartRate"/>
                             </div>
-                            <div className="input-label-up color-p">
+                            <div className="input-label-up color-p" style={{display: 'none'  }}>
                                 <label>Respiration Rate</label>
                                 <input className="form-control" placeholder="Enter Respiration rate per minute"
                                        type="text"  onChange={this.onTextInputChange} name="respirationRate"/>
                             </div>
 
-                            <div className="input-label-up color-p">
+                            <div className="input-label-up color-p" style={{display: 'none'  }}>
                                 <label>Blood pressure</label>
                                 <input className="form-control" placeholder="Systolic BP eg.120"
                                        type="text"  onChange={this.onTextInputChange} name="systolicBP"/>
