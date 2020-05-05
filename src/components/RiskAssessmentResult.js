@@ -49,8 +49,8 @@ class RiskAssessmentResult extends Component {
                                 <h2>Score : {this.props.assessRiskResponse.patientScore.score}</h2>
                             </div>
                         </div>
-
-                        <div className="row container">
+                        
+                      <div className="row container">
                         <h1>Symptom Score</h1> 
                       </div>
                         <div className="row container">
@@ -61,6 +61,28 @@ class RiskAssessmentResult extends Component {
                                 <h2>Score : {this.props.assessRiskResponse.symptomScore.score}</h2>
                             </div>
                         </div>
+                      {/*<div className="row container">*/}
+                      {/*  <h1>Vital Score</h1> */}
+                      {/*</div>*/}
+                      {/*  <div className="row container">*/}
+                      {/*      <div className="col-md-4">*/}
+                      {/*          <h2>Risk : {this.props.assessRiskResponse.vitalScore.risk}</h2>*/}
+                      {/*      </div>*/}
+                      {/*          <div className="col-md-4">*/}
+                      {/*          <h2>Score : {this.props.assessRiskResponse.vitalScore.score}</h2>*/}
+                      {/*      </div>*/}
+                      {/*  </div>  */}
+                      <div className="row container">
+                        <h1>Overall Score</h1>
+                      </div>
+                        <div className="row container">
+                            <div className="col-md-4">
+                                <h2>Risk : {this.props.assessRiskResponse.overAllScore.risk}</h2>
+                            </div>
+                                <div className="col-md-4">
+                                <h2>Score : {this.props.assessRiskResponse.overAllScore.score}</h2>
+                            </div>
+                        </div>  
                     </div>
                     : null }
             </div>
