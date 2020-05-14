@@ -23,7 +23,7 @@ axios.post(process.env.REACT_APP_BE_EXPRESS_APP_HOST + '/api/v1/getMLResponse', 
 });
 
 const getRiskAssessment = async (patientInfo, userId) => await
-axios.post(process.env.REACT_APP_BE_EXPRESS_APP_LOCALHOST + '/api/v1/riskAssessment', {
+axios.post(process.env.REACT_APP_BE_EXPRESS_APP_HOST + '/api/v1/riskAssessment', {
     params: {
         patientInfo: patientInfo,
         userId: userId
@@ -32,12 +32,12 @@ axios.post(process.env.REACT_APP_BE_EXPRESS_APP_LOCALHOST + '/api/v1/riskAssessm
 });
 
 const getAllPatients = async (userId) => await
-axios.post(process.env.REACT_APP_BE_EXPRESS_APP_LOCALHOST + '/api/v1/getAllPatients', {
+axios.post(process.env.REACT_APP_BE_EXPRESS_APP_HOST + '/api/v1/getAllPatients', {
         user_id: userId
 });
 
 const getPatientProfile = async (patientId) => await
-axios.post(process.env.REACT_APP_BE_EXPRESS_APP_LOCALHOST + '/api/v1/getPatientProfile', {
+axios.post(process.env.REACT_APP_BE_EXPRESS_APP_HOST + '/api/v1/getPatientProfile', {
         patient_id: patientId
 });
 
