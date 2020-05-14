@@ -19,7 +19,12 @@ export const actionTypes = {
     LOGOUT_USER: 'LOGOUT_USER',
 
     CLEAR_RESULTS: 'CLEAR_RESULTS',
-    SET_PATIENT_INFO: 'SET_PATIENT_INFO'
+    SET_PATIENT_INFO: 'SET_PATIENT_INFO',
+    LOAD_PATIENTS: 'LOAD_PATIENTS',
+    SET_ALL_PATIENTS: 'SET_ALL_PATIENTS',
+    SET_CURRENT_PATIENT: 'SET_CURRENT_PATIENT',
+    GET_PATIENT_DETAILS: 'GET_PATIENT_DETAILS',
+    SET_PATIENT_DETAILS: 'SET_PATIENT_DETAILS'
 }
 
 export const getAwsS3ImageUrl = (state) => state.aws_s3_image_url;
@@ -96,4 +101,26 @@ export function assessRisk (patientInfo) {
 
 export function setAssessRiskResponse(risk_response) {
   return { type: actionTypes.SET_ASSESS_RISK_RESPONSE, risk_response }
+}
+
+export function loadPatients() {
+  return {type: actionTypes.LOAD_PATIENTS, data: {}}
+}
+
+export function setAllPatients(allPatients) {
+  return {type: actionTypes.SET_ALL_PATIENTS, allPatients}
+}
+
+
+export function setCurrentPatient(patientId) {
+  return {type: actionTypes.SET_CURRENT_PATIENT, patientId}
+}
+
+export function loadPatientDetails(patientId) {
+  
+  return {type: actionTypes.GET_PATIENT_DETAILS, patientId}
+}
+
+export function setPatientDetails(patientDetails) {
+  return {type: actionTypes.SET_PATIENT_DETAILS, patientDetails}
 }

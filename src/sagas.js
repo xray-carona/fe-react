@@ -7,7 +7,9 @@ import {
     setAwsS3ImageUrl,
     setMLResponse,
     getAwsS3ImageUrl,
-    setAssessRiskResponse
+    setAssessRiskResponse,
+    setAllPatients,
+    setPatientDetails
 } from './actions';
 
 import api from './api/upload-image-api.js';
@@ -60,12 +62,33 @@ function* assessRiskSaga(payload) {
     }
 }
 
+function* loadPatientsSaga() {
+    try {
+        const res = yield call(api.getAllPatients, getCookie('userId'));
+        yield put(setAllPatients(res.data));
+    } catch (err) {
+        yield put(response(err.message, 'alert-danger'));
+    }
+}
+
+function* getPatientDetailsSaga(payload) {
+    try {
+        const res = yield call(api.getPatientProfile, payload.patientId);
+        yield put(setPatientDetails(res.data));
+    } catch (err) {
+        yield put(response(err.message, 'alert-danger'));
+    }
+}
+
 function* rootSaga() {
     yield all([
         takeLatest(actionTypes.UPLOAD_IMAGE, uploadImageSaga),
         takeLatest(actionTypes.REGISTER_USER, registerSaga),
         takeLatest(actionTypes.LOGIN_USER, loginSaga),
-        takeLatest(actionTypes.ASSESS_RISK, assessRiskSaga)
+        takeLatest(actionTypes.ASSESS_RISK, assessRiskSaga),
+        takeLatest(actionTypes.LOAD_PATIENTS, loadPatientsSaga),
+        takeLatest(actionTypes.GET_PATIENT_DETAILS, getPatientDetailsSaga)
+        
     ])
 }
 

@@ -15,6 +15,8 @@ import RiskAssessmentForm from '../components/RiskAssessmentForm';
 import Results from '../components/Results';
 import Dashboard from '../components/Dashboard';
 import RiskAssessmentResult from '../components/RiskAssessmentResult';
+import PatientHistory from '../components/PatientHistory';
+import PatientDetails from '../components/PatientDetails';
 import Header from "../components/Header";
 import createBrowserHistory from "history/createBrowserHistory";
 const history = createBrowserHistory();
@@ -36,6 +38,8 @@ class App extends Component {
                 <PrivateRoute path='/riskAssessmentForm' component={RiskAssessmentForm} />
                 <PrivateRoute path='/results' component={Results} />
                 <PrivateRoute path='/riskAssessmentResult' component={RiskAssessmentResult} />
+                <PrivateRoute path='/history' component={PatientHistory} />
+                <PrivateRoute path='/patientDetails' component={PatientDetails} />
               </Switch>
             </div>
         </div>
