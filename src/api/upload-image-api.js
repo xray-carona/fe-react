@@ -31,4 +31,14 @@ axios.post(process.env.REACT_APP_BE_EXPRESS_APP_HOST + '/api/v1/riskAssessment',
     config
 });
 
-export default { uploadImageToAwsS3, getMLResponse, getRiskAssessment }
+const getAllPatients = async (userId) => await
+axios.post(process.env.REACT_APP_BE_EXPRESS_APP_HOST + '/api/v1/getAllPatients', {
+        user_id: userId
+});
+
+const getPatientProfile = async (patientId) => await
+axios.post(process.env.REACT_APP_BE_EXPRESS_APP_HOST + '/api/v1/getPatientProfile', {
+        patient_id: patientId
+});
+
+export default { uploadImageToAwsS3, getMLResponse, getRiskAssessment, getAllPatients, getPatientProfile }

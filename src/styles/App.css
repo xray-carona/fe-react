@@ -171,3 +171,12 @@ body, html, .App, #root, .auth-wrapper {
 .card-body {
     margin-top: 50px;
 }
+
+.searchInput {
+    height: 50px;
+    width: 100%;
+    border: solid;
+    border-style: double;
+    margin-bottom: 5%;
+    margin-top: 2%
+}

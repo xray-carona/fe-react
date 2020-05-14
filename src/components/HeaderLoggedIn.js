@@ -26,6 +26,7 @@ class HeaderLoggedIn extends Component {
                             <Nav className="mr-auto">
                                     <Nav.Link href="/dashboard">New Patient</Nav.Link>
                                     <Nav.Link href={"/dashboard"}>Home</Nav.Link>
+                                    <Nav.Link href={"/history"}>View history</Nav.Link>
                                     <Nav.Link href="/logout" onClick= { e => this.logout(e)}>Logout</Nav.Link>
                             </Nav>
                         </Navbar.Collapse>

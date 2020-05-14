@@ -104,6 +104,27 @@ function reducer(state = InitialState, action) {
                     assessRiskResponse: action.risk_response
                 }
             }
+        case actionTypes.SET_ALL_PATIENTS:
+            return {
+                ...state,
+                ...{
+                    allPatients: action.allPatients
+                }
+            }
+        case actionTypes.SET_CURRENT_PATIENT:
+            return {
+                ...state,
+                ...{
+                    currentPatientId: action.patientId
+                }
+            }
+        case actionTypes.SET_PATIENT_DETAILS:
+            return {
+                ...state,
+                ...{
+                    patientDetails: action.patientDetails
+                }
+            }
         default:
             return state
     }

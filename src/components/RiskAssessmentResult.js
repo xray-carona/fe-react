@@ -38,51 +38,29 @@ class RiskAssessmentResult extends Component {
                   </div>  
                   {this.props.assessRiskResponse ? 
                     <div> 
-                      <div className="row container">
-                        <h1>Patient Score</h1> 
-                      </div>
                         <div className="row container">
-                            <div className="col-md-4">
-                                <h2>Risk : {this.props.assessRiskResponse.patientScore.risk}</h2>
-                            </div>
-                                <div className="col-md-4">
-                                <h2>Score : {this.props.assessRiskResponse.patientScore.score}</h2>
+                            <div className="col-md-12">
+                                <h3>The demographic, travel information, location etc of patient indicate <b>{this.props.assessRiskResponse.patientScore.risk}</b> risk of COVID-19</h3>
+                                <p><h4>Major contributing factors</h4>: {this.props.assessRiskResponse.patientScore.contributingFactors.map(f => <div>{f}</div>)}</p>
                             </div>
                         </div>
                         
-                      <div className="row container">
-                        <h1>Symptom Score</h1> 
-                      </div>
                         <div className="row container">
-                            <div className="col-md-4">
-                                <h2>Risk : {this.props.assessRiskResponse.symptomScore.risk}</h2>
-                            </div>
-                                <div className="col-md-4">
-                                <h2>Score : {this.props.assessRiskResponse.symptomScore.score}</h2>
+                            <div className="col-md-12">
+                                <h3>The current symptoms and  medical history indicate <b>{this.props.assessRiskResponse.symptomScore.risk}</b> risk of COVID-19 </h3>
+                                <p><h4>Major contributing factors:</h4> {this.props.assessRiskResponse.symptomScore.contributingFactors.map(f => <div>{f}</div>)}</p>
                             </div>
                         </div>
-                      {/*<div className="row container">*/}
-                      {/*  <h1>Vital Score</h1> */}
-                      {/*</div>*/}
-                      {/*  <div className="row container">*/}
-                      {/*      <div className="col-md-4">*/}
-                      {/*          <h2>Risk : {this.props.assessRiskResponse.vitalScore.risk}</h2>*/}
-                      {/*      </div>*/}
-                      {/*          <div className="col-md-4">*/}
-                      {/*          <h2>Score : {this.props.assessRiskResponse.vitalScore.score}</h2>*/}
-                      {/*      </div>*/}
-                      {/*  </div>  */}
-                      <div className="row container">
-                        <h1>Overall Score</h1>
-                      </div>
                         <div className="row container">
-                            <div className="col-md-4">
-                                <h2>Risk : {this.props.assessRiskResponse.overAllScore.risk}</h2>
+                            <div className="col-md-12">
+                                <h2>Overall Risk : <b>{this.props.assessRiskResponse.overAllScore.risk}</b></h2>
                             </div>
-                                <div className="col-md-4">
-                                <h2>Score : {this.props.assessRiskResponse.overAllScore.score}</h2>
+                        </div> 
+                        <div className="row container">
+                            <div className="col-md-12">
+                                <p> </p>
                             </div>
-                        </div>  
+                        </div>
                     </div>
                     : null }
             </div>
