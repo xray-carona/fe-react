@@ -35,9 +35,9 @@ class App extends Component {
                 <Route path='/research' component={ResearchPage} />
                 <PrivateRoute path='/dashboard' component={Dashboard} />
                 <PrivateRoute path='/patientInfoForm' component={PatientInfoForm} />
-                <PrivateRoute path='/riskAssessmentForm' component={RiskAssessmentForm} />
+                <Route path='/riskAssessmentForm' component={RiskAssessmentForm} />
                 <PrivateRoute path='/results' component={Results} />
-                <PrivateRoute path='/riskAssessmentResult' component={RiskAssessmentResult} />
+                <Route path='/riskAssessmentResult' component={RiskAssessmentResult} />
                 <PrivateRoute path='/history' component={PatientHistory} />
                 <PrivateRoute path='/patientDetails' component={PatientDetails} />
               </Switch>

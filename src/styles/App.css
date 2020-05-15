@@ -180,3 +180,13 @@ body, html, .App, #root, .auth-wrapper {
     margin-bottom: 5%;
     margin-top: 2%
 }
+
+.select-button {
+    cursor: pointer;
+    border: 1px solid #FF437C;
+    border-radius: 20px;
+    display: inline-block;
+    padding: 6px 12px;
+    margin: 2px 5px;
+    position: relative;
+  }

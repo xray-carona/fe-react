@@ -4,7 +4,7 @@ import { checkCookie } from '../util/cookies';
 
 const PrivateRoute = ({ component: Component, ...rest }) => (  
   <Route { ...rest } render={props => (
-    checkCookie() !== null ? (
+    (checkCookie() !== null && checkCookie() != "demoUser") ? (
       <Component { ...props } />
     ) : (
       <Redirect to={{

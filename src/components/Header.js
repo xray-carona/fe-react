@@ -20,6 +20,7 @@ const Header = (props) => {
                                 <Nav.Link href="#How-it-Works">How-it-Works</Nav.Link>
                                 <Nav.Link href="#AboutUs">About Us</Nav.Link>
                                 <Nav.Link href="#contactUs">Contact US</Nav.Link>
+                                <Nav.Link href="/riskAssessmentForm" style={{color:"red"}}>Risk Assessment Demo</Nav.Link>
                             </Scrollspy>
                         </Nav>
                     </Navbar.Collapse>
