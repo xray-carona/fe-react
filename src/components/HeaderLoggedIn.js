@@ -3,7 +3,7 @@ import logo from '../assets/img/logo.png';
 import { Container, Nav, Navbar } from "react-bootstrap";
 import { logout } from '../actions';
 import { connect } from 'react-redux';
-import { setCookie } from '../util/cookies';
+import { setCookie, checkCookie } from '../util/cookies';
 import { bindActionCreators } from 'redux';
 
 class HeaderLoggedIn extends Component {
@@ -12,6 +12,9 @@ class HeaderLoggedIn extends Component {
         this.props.logout();
         setCookie('token', '');
         this.props.history.push('login');
+    }
+    loggedIn = () => {
+        return checkCookie() && checkCookie() != "demoUser";
     }
 
     render() {
@@ -26,8 +29,12 @@ class HeaderLoggedIn extends Component {
                             <Nav className="mr-auto">
                                     <Nav.Link href="/dashboard">New Patient</Nav.Link>
                                     <Nav.Link href={"/dashboard"}>Home</Nav.Link>
-                                    <Nav.Link href={"/history"}>View history</Nav.Link>
-                                    <Nav.Link href="/logout" onClick= { e => this.logout(e)}>Logout</Nav.Link>
+                                    {this.loggedIn() ?
+                                    <Nav.Link href={"/history"} >View history</Nav.Link>
+                                    : <Nav.Link href={"/history"} disabled>View history</Nav.Link>
+                                    }
+                                    {this.loggedIn() && <Nav.Link href="/logout" onClick= { e => this.logout(e)}>Logout</Nav.Link>}
+                                    
                             </Nav>
                         </Navbar.Collapse>
                     </Container>

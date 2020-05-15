@@ -7,7 +7,7 @@ import { setXrayImage, setCTScanImage, uploadImage, response, getMLResponse, set
 import Preview from './Preview';
 import LungConditions from './LungConditions';
 import HeaderLoggedIn from "../components/HeaderLoggedIn";
-import { setCookie } from '../util/cookies';
+import { setCookie, checkCookie } from '../util/cookies';
 import '../styles/App.css';
 
 import { initializeReactGA } from '../container/App';
@@ -17,6 +17,9 @@ class RiskAssessmentForm extends Component {
     componentDidMount() {
         initializeReactGA();
         this.props.response('', '');
+        if(!checkCookie()) {
+            setCookie('token','demoUser',1);
+        }
     }
 
     onRtPcrConductedChange = (e) => {
@@ -44,6 +47,21 @@ class RiskAssessmentForm extends Component {
     onTextInputChange = (e) => {
         let patientInfo = this.props.patientInfo;
         patientInfo[e.currentTarget.name] = e.currentTarget.value;
+        this.props.setPatientInfo(patientInfo);
+    }
+
+    onSelected = (e) => {
+        console.log(e.target.id);
+        let patientInfo = this.props.patientInfo;
+        if(patientInfo[e.target.id] && patientInfo[e.target.id]==true) {
+            patientInfo[e.target.id] = false;
+            e.target.style.color = "rgb(255, 67, 124)";
+            e.target.style.backgroundColor = "rgb(255, 255, 255)";
+        } else {
+            patientInfo[e.target.id] = true;
+            e.target.style.color = "rgb(255, 255, 255)";
+            e.target.style.backgroundColor = "rgb(255, 67, 124)";
+        }
         this.props.setPatientInfo(patientInfo);
     }
 
@@ -82,7 +100,7 @@ class RiskAssessmentForm extends Component {
         
             <div className="container">
                 <div className="row justify-content-center">
-                    <div className="col-xl-7 col-lg-7 col-md-7 col-sm-12 col-xs-12">
+                    <div className="col-xl-10 col-lg-10 col-md-10 col-sm-12 col-xs-12">
                         <div className="input-label-up color-p" >
                             <label  >First Name</label>
                             <input  ref="first_name" name="first_name" className="form-control" type="text" onChange={this.onTextInputChange} />
@@ -134,90 +152,28 @@ class RiskAssessmentForm extends Component {
                                     </label>
                                 </div>
                             </div>
-                            <div className="mt-4">
-                                <div><strong>Diabetes</strong></div>
-                                <div className="d-flex mt-4">
-                                    <label className="radio-btn">Yes
-                                        <input type="radio" name="isDiabetes" value={true} onChange={this.onRadioInputChange}/>
-                                        <span className="checkmark"></span>
-                                    </label>
-                                    <label className="radio-btn ml-3">No
-                                        <input type="radio" name="isDiabetes" value={false} onChange={this.onRadioInputChange}/>
-                                        <span className="checkmark"></span>
-                                    </label>
-
+                            <div className="d-flex mt-3"><strong>Medical History</strong></div>
+                            <div className="d-flex mt-3">
+                                <div className="select-button" id="isDiabetes" onClick={(e) => this.onSelected(e)} style={{color: "rgb(255, 67, 124)", backgroundColor: "rgb(255, 255, 255)", borderColor: "rgb(255, 67, 124)"}}>
+                                    Diabetes
+                                </div>
+                                <div className="select-button" id="isHypertension" onClick={(e) => this.onSelected(e)} style={{color: "rgb(255, 67, 124)", backgroundColor: "rgb(255, 255, 255)", borderColor: "rgb(255, 67, 124)"}}>
+                                    Hypertension
+                                </div>
+                                <div className="select-button" id="isCardiacDisease" onClick={(e) => this.onSelected(e)} style={{color: "rgb(255, 67, 124)", backgroundColor: "rgb(255, 255, 255)", borderColor: "rgb(255, 67, 124)"}}>
+                                    Cardio Vascular Disease
+                                </div>
+                                <div className="select-button" id="isImmunosupression" onClick={(e) => this.onSelected(e)} style={{color: "rgb(255, 67, 124)", backgroundColor: "rgb(255, 255, 255)", borderColor: "rgb(255, 67, 124)"}}>
+                                    Immunosupression
                                 </div>
                             </div>
-                            <div className="mt-4">
-                                <div><strong>Hypertension</strong></div>
-                                <div className="d-flex mt-4">
-                                    <label className="radio-btn">Yes
-                                        <input type="radio" name="isHypertension" value={true} onChange={this.onRadioInputChange}/>
-                                        <span className="checkmark"></span>
-                                    </label>
-                                    <label className="radio-btn ml-3">No
-                                        <input type="radio" name="isHypertension" value={false} onChange={this.onRadioInputChange}/>
-                                        <span className="checkmark"></span>
-                                    </label>
-
+                            <div className="d-flex mt-3"><strong>Background information</strong></div>
+                            <div className="d-flex mt-3">
+                                <div className="select-button" id="isTravelHistory" onClick={(e) => this.onSelected(e)} style={{color: "rgb(255, 67, 124)", backgroundColor: "rgb(255, 255, 255)", borderColor: "rgb(255, 67, 124)"}}>
+                                    Travel History from Affected Area (Delhi, Mumbai,Abroad)
                                 </div>
-                            </div>
-
-                            <div className="mt-4">
-                                <div><strong>Cardio Vascular Disease</strong></div>
-                                <div className="d-flex mt-4">
-                                    <label className="radio-btn">Yes
-                                        <input type="radio" name="isCardiacDisease" value={true} onChange={this.onRadioInputChange}/>
-                                        <span className="checkmark"></span>
-                                    </label>
-                                    <label className="radio-btn ml-3">No
-                                        <input type="radio" name="isCardiacDisease" value={false} onChange={this.onRadioInputChange}/>
-                                        <span className="checkmark"></span>
-                                    </label>
-
-                                </div>
-                            </div>
-                            <div className="mt-4">
-                                <div><strong>Immunosupression</strong></div>
-                                <div className="d-flex mt-4">
-                                    <label className="radio-btn">Yes
-                                        <input type="radio" name="isImmunosupression" value={true} onChange={this.onRadioInputChange}/>
-                                        <span className="checkmark"></span>
-                                    </label>
-                                    <label className="radio-btn ml-3">No
-                                        <input type="radio" name="isImmunosupression" value={false} onChange={this.onRadioInputChange}/>
-                                        <span className="checkmark"></span>
-                                    </label>
-
-                                </div>
-                            </div>
-                            <div className="mt-4">
-                                <div><strong>Travel History from Affected Area (Delhi, Mumbai,Abroad)</strong></div>
-                                <div className="d-flex mt-4">
-                                    <label className="radio-btn">Yes
-                                        <input type="radio" name="isTravelHistory" value={true} onChange={this.onRadioInputChange}/>
-                                        <span className="checkmark"></span>
-                                    </label>
-                                    <label className="radio-btn ml-3">No
-                                        <input type="radio" name="isTravelHistory" value={false} onChange={this.onRadioInputChange}/>
-                                        <span className="checkmark"></span>
-                                    </label>
-
-                                </div>
-                            </div>
-
-                            <div className="mt-4">
-                                <div><strong>Address in containment zone</strong></div>
-                                <div className="d-flex mt-4">
-                                    <label className="radio-btn">Yes
-                                        <input type="radio" name="isAddressZone" value={true} onChange={this.onRadioInputChange}/>
-                                        <span className="checkmark"></span>
-                                    </label>
-                                    <label className="radio-btn ml-3">No
-                                        <input type="radio" name="isAddressZone" value={false} onChange={this.onRadioInputChange}/>
-                                        <span className="checkmark"></span>
-                                    </label>
-
+                                <div className="select-button" id="isAddressZone" onClick={(e) => this.onSelected(e)} style={{color: "rgb(255, 67, 124)", backgroundColor: "rgb(255, 255, 255)", borderColor: "rgb(255, 67, 124)"}}>
+                                    Address in containment zone
                                 </div>
                             </div>
                         </div>
@@ -238,145 +194,40 @@ class RiskAssessmentForm extends Component {
                         {/*</div>*/}
 
                         {/*SYMPTOM RISK ASSESSMENT */}
+                        <div className="d-flex mt-3"><strong>Choose symptoms</strong></div>
+                        <div className="d-flex mt-3">
                         <div className="symptom_risk_assessment">
-                            <div className="mt-4">
-                                <div><strong>Fever</strong></div>
-                                <div className="d-flex mt-4">
-                                    <label className="radio-btn">Yes
-                                        <input type="radio" name="isFever" value={true} onChange={this.onRadioInputChange}/>
-                                        <span className="checkmark"></span>
-                                    </label>
-                                    <label className="radio-btn ml-3">No
-                                        <input type="radio" name="isFever" value={false} onChange={this.onRadioInputChange}/>
-                                        <span className="checkmark"></span>
-                                    </label>
-
+                                <div className="select-button" id="isFever" onClick={(e) => this.onSelected(e)} style={{color: "rgb(255, 67, 124)", backgroundColor: "rgb(255, 255, 255)", borderColor: "rgb(255, 67, 124)"}}>
+                                    Fever
                                 </div>
-                            </div>
-
-
-                            <div className="mt-4">
-                                <div><strong>Dry Cough</strong></div>
-                                <div className="d-flex mt-4">
-                                    <label className="radio-btn">Yes
-                                        <input type="radio" name="isDryCough" value={true} onChange={this.onRadioInputChange}/>
-                                        <span className="checkmark"></span>
-                                    </label>
-                                    <label className="radio-btn ml-3">No
-                                        <input type="radio" name="isDryCough" value={false} onChange={this.onRadioInputChange}/>
-                                        <span className="checkmark"></span>
-                                    </label>
-
+                                <div className="select-button" id="isDryCough" onClick={(e) => this.onSelected(e)} style={{color: "rgb(255, 67, 124)", backgroundColor: "rgb(255, 255, 255)", borderColor: "rgb(255, 67, 124)"}}>
+                                    Dry Cough
                                 </div>
-                            </div>
-
-                            <div className="mt-4">
-                                <div><strong>Difficulty in Breathing</strong></div>
-                                <div className="d-flex mt-4">
-                                    <label className="radio-btn">Yes
-                                        <input type="radio" name="isDifficultyInBreathing" value={true} onChange={this.onRadioInputChange}/>
-                                            <span className="checkmark"></span>
-                                    </label>
-                                    <label className="radio-btn ml-3">No
-                                        <input type="radio" name="isDifficultyInBreathing" value={false} onChange={this.onRadioInputChange}/>
-                                            <span className="checkmark"></span>
-                                    </label>
-
+                                <div className="select-button" id="isDifficultyInBreathing" onClick={(e) => this.onSelected(e)} style={{color: "rgb(255, 67, 124)", backgroundColor: "rgb(255, 255, 255)", borderColor: "rgb(255, 67, 124)"}}>
+                                    Difficulty in Breathing
                                 </div>
-                            </div>
-
-                            <div className="mt-4">
-                                <div><strong>Sore Throat</strong></div>
-                                <div className="d-flex mt-4">
-                                    <label className="radio-btn">Yes
-                                        <input type="radio" name="isSoreThroat" value={true} onChange={this.onRadioInputChange}/>
-                                        <span className="checkmark"></span>
-                                    </label>
-                                    <label className="radio-btn ml-3">No
-                                        <input type="radio" name="isSoreThroat" value={false} onChange={this.onRadioInputChange}/>
-                                        <span className="checkmark"></span>
-                                    </label>
-
+                                <div className="select-button" id="isSoreThroat" onClick={(e) => this.onSelected(e)} style={{color: "rgb(255, 67, 124)", backgroundColor: "rgb(255, 255, 255)", borderColor: "rgb(255, 67, 124)"}}>
+                                    Sore Throat
                                 </div>
-                            </div>
-
-                            <div className="mt-4">
-                                <div><strong>Fatigue</strong></div>
-                                <div className="d-flex mt-4">
-                                    <label className="radio-btn">Yes
-                                        <input type="radio" name="isFatigue" value={true} onChange={this.onRadioInputChange}/>
-                                        <span className="checkmark"></span>
-                                    </label>
-                                    <label className="radio-btn ml-3">No
-                                        <input type="radio" name="isFatigue" value={false} onChange={this.onRadioInputChange}/>
-                                        <span className="checkmark"></span>
-                                    </label>
-
+                                <div className="select-button" id="isFatigue" onClick={(e) => this.onSelected(e)} style={{color: "rgb(255, 67, 124)", backgroundColor: "rgb(255, 255, 255)", borderColor: "rgb(255, 67, 124)"}}>
+                                    Fatigue
                                 </div>
-                            </div>
-
-                            <div className="mt-4">
-                                <div><strong>Body Ache</strong></div>
-                                <div className="d-flex mt-4">
-                                    <label className="radio-btn">Yes
-                                        <input type="radio" name="isBodyAche" value={true} onChange={this.onRadioInputChange}/>
-                                        <span className="checkmark"></span>
-                                    </label>
-                                    <label className="radio-btn ml-3">No
-                                        <input type="radio" name="isBodyAche" value={false} onChange={this.onRadioInputChange}/>
-                                        <span className="checkmark"></span>
-                                    </label>
-
+                                <div className="select-button" id="isBodyAche" onClick={(e) => this.onSelected(e)} style={{color: "rgb(255, 67, 124)", backgroundColor: "rgb(255, 255, 255)", borderColor: "rgb(255, 67, 124)"}}>
+                                    Body Ache
                                 </div>
-                            </div>
-
-                            <div className="mt-4">
-                                <div><strong>Loss of Taste or Smell</strong></div>
-                                <div className="d-flex mt-4">
-                                    <label className="radio-btn">Yes
-                                        <input type="radio" name="isLossOfTasteOrSmell" value={true} onChange={this.onRadioInputChange}/>
-                                        <span className="checkmark"></span>
-                                    </label>
-                                    <label className="radio-btn ml-3">No
-                                        <input type="radio" name="isLossOfTasteOrSmell" value={false} onChange={this.onRadioInputChange}/>
-                                        <span className="checkmark"></span>
-                                    </label>
-
+                                <div className="select-button" id="isLossOfTasteOrSmell" onClick={(e) => this.onSelected(e)} style={{color: "rgb(255, 67, 124)", backgroundColor: "rgb(255, 255, 255)", borderColor: "rgb(255, 67, 124)"}}>
+                                    Loss of Taste or Smell
                                 </div>
-                            </div>
-
-                            <div className="mt-4">
-                                <div><strong>Diarrhoea</strong></div>
-                                <div className="d-flex mt-4">
-                                    <label className="radio-btn">Yes
-                                        <input type="radio" name="isDiarrhoea" value={true} onChange={this.onRadioInputChange}/>
-                                        <span className="checkmark"></span>
-                                    </label>
-                                    <label className="radio-btn ml-3">No
-                                        <input type="radio" name="isDiarrhoea" value={false} onChange={this.onRadioInputChange}/>
-                                        <span className="checkmark"></span>
-                                    </label>
-
+                                <div className="select-button" id="isDiarrhoea" onClick={(e) => this.onSelected(e)} style={{color: "rgb(255, 67, 124)", backgroundColor: "rgb(255, 255, 255)", borderColor: "rgb(255, 67, 124)"}}>
+                                    Diarrhoea
                                 </div>
-                            </div>
-
-                            <div className="mt-4">
-                                <div><strong>Runny Nose</strong></div>
-                                <div className="d-flex mt-4">
-                                    <label className="radio-btn">Yes
-                                        <input type="radio" name="isRunnyNose" value={true} onChange={this.onRadioInputChange}/>
-                                        <span className="checkmark"></span>
-                                    </label>
-                                    <label className="radio-btn ml-3">No
-                                        <input type="radio" name="isRunnyNose" value={false} onChange={this.onRadioInputChange}/>
-                                        <span className="checkmark"></span>
-                                    </label>
-
+                                <div className="select-button" id="isRunnyNose" onClick={(e) => this.onSelected(e)} style={{color: "rgb(255, 67, 124)", backgroundColor: "rgb(255, 255, 255)", borderColor: "rgb(255, 67, 124)"}}>
+                                    Runny Nose
                                 </div>
-                            </div>
+                        </div>
                         </div>
                         <div className="vital-risk-assessment">
-                            <div className="input-label-up color-p" style={{display: 'none'  }}>
+                            <div className="input-label-up color-p" style={{display: 'block'  }}>
                                 <label>Body Temperature</label>
                                 <input className="form-control" placeholder="Enter Temperature in Degree Celsius"
                                        type="text"  onChange={this.onTextInputChange} name="temperature"/>
@@ -398,32 +249,16 @@ class RiskAssessmentForm extends Component {
                                 <input className="form-control" placeholder="Systolic BP eg.120"
                                        type="text"  onChange={this.onTextInputChange} name="systolicBP"/>
                             </div>
-                            <div className="mt-4">
-                                <div><strong>On Oxygen</strong></div>
-                                <div className="d-flex mt-4">
-                                    <label className="radio-btn">Yes
-                                        <input type="radio" name="isOxygen" value={true} onChange={this.onRadioInputChange}/>
-                                        <span className="checkmark"></span>
-                                    </label>
-                                    <label className="radio-btn ml-3">No
-                                        <input type="radio" name="isOxygen" value={false} onChange={this.onRadioInputChange} />
-                                        <span className="checkmark"></span>
-                                    </label>
+                            <div className="d-flex mt-3"><strong>Vitals</strong></div>
+                            <div className="d-flex mt-3">
+                            <div className="select-button" id="isOxygen" onClick={(e) => this.onSelected(e)} style={{color: "rgb(255, 67, 124)", backgroundColor: "rgb(255, 255, 255)", borderColor: "rgb(255, 67, 124)"}}>
+                                    On Oxygen
+                                </div>
+                            <div className="select-button" id="isConscious" onClick={(e) => this.onSelected(e)} style={{color: "rgb(255, 67, 124)", backgroundColor: "rgb(255, 255, 255)", borderColor: "rgb(255, 67, 124)"}}>
+                                    Conscious
                                 </div>
                             </div>
-                            <div className="mt-4">
-                                <div><strong>Conscious</strong></div>
-                                <div className="d-flex mt-4">
-                                    <label className="radio-btn">Yes
-                                        <input type="radio" name="isConscious" value={true} onChange={this.onRadioInputChange}/>
-                                        <span className="checkmark"></span>
-                                    </label>
-                                    <label className="radio-btn ml-3">No
-                                        <input type="radio" name="isConscious" value={false} onChange={this.onRadioInputChange} />
-                                        <span className="checkmark"></span>
-                                    </label>
-                                </div>
-                            </div>
+                            
                             {/*TODO Fix this , using modified news2 for covid*/}
                             {/*<div className="input-label-up color-p">*/}
                             {/*    <label>s</label>*/}

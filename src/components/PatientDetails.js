@@ -57,71 +57,71 @@ class PatientDetails extends Component {
                             </tr>
                             
                             <tr>
-                                <td>isFever</td>
+                                <td>{this.props.valueToNameMap["isFever"]}</td>
                                 <td>{this.props.patientDetails.data[0].patient_info.isFever ? "No" : "Yes"}</td>
                             </tr>
                             <tr>
-                                <td>isOxygen</td>
+                                <td>{this.props.valueToNameMap["isOxygen"]}</td>
                                 <td>{this.props.patientDetails.data[0].patient_info.isOxygen ? "No" : "Yes"}</td>
                             </tr>
                             <tr>
-                                <td>isFatigue</td>
+                                <td>{this.props.valueToNameMap["isFatigue"]}</td>
                                 <td>{this.props.patientDetails.data[0].patient_info.isFatigue ? "No" : "Yes"}</td>
                             </tr>
                             <tr>
-                                <td>isBodyAche</td>
+                                <td>{this.props.valueToNameMap["isBodyAche"]}</td>
                                 <td>{this.props.patientDetails.data[0].patient_info.isBodyAche ? "No" : "Yes"}</td>
                             </tr>
                             <tr>
-                                <td>isDiabetes</td>
+                                <td>{this.props.valueToNameMap["isDiabetes"]}</td>
                                 <td>{this.props.patientDetails.data[0].patient_info.isDiabetes ? "No" : "Yes"}</td>
                             </tr>
                             <tr>
-                                <td>isDryCough</td>
+                                <td>{this.props.valueToNameMap["isDryCough"]}</td>
                                 <td>{this.props.patientDetails.data[0].patient_info.isDryCough ? "No" : "Yes"}</td>
                             </tr>
                             <tr>
-                                <td>occupation</td>
-                                <td>{this.props.patientDetails.data[0].patient_info.occupation ? "No" : "Yes"}</td>
+                                <td>{this.props.valueToNameMap["occupation"]}</td>
+                                <td>{this.props.patientDetails.data[0].patient_info.occupation}</td>
                             </tr>
                             <tr>
-                                <td>isConscious</td>
+                                <td>{this.props.valueToNameMap["isConscious"]}</td>
                                 <td>{this.props.patientDetails.data[0].patient_info.isConscious ? "No" : "Yes"}</td>
                             </tr>
                             <tr>
-                                <td>isDiarrhoea</td>
+                                <td>{this.props.valueToNameMap["isDiarrhoea"]}</td>
                                 <td>{this.props.patientDetails.data[0].patient_info.isDiarrhoea ? "No" : "Yes"}</td>
                             </tr>
                             <tr>
-                                <td>isRunnyNose</td>
+                                <td>{this.props.valueToNameMap["isRunnyNose"]}</td>
                                 <td>{this.props.patientDetails.data[0].patient_info.isRunnyNose ? "No" : "Yes"}</td>
                             </tr>
                             <tr>
-                                <td>isSoreThroat</td>
+                                <td>{this.props.valueToNameMap["isSoreThroat"]}</td>
                                 <td>{this.props.patientDetails.data[0].patient_info.isSoreThroat ? "No" : "Yes"}</td>
                             </tr>
                             <tr>
-                                <td>isAddressZone</td>
+                                <td>{this.props.valueToNameMap["isAddressZone"]}</td>
                                 <td>{this.props.patientDetails.data[0].patient_info.isAddressZone ? "No" : "Yes"}</td>
                             </tr>
                             <tr>
-                                <td>isHypertension</td>
+                                <td>{this.props.valueToNameMap["isHypertension"]}</td>
                                 <td>{this.props.patientDetails.data[0].patient_info.isHypertension ? "No" : "Yes"}</td>
                             </tr>
                             <tr>
-                                <td>isCardiacDisease</td>
+                                <td>{this.props.valueToNameMap["isCardiacDisease"]}</td>
                                 <td>{this.props.patientDetails.data[0].patient_info.isCardiacDisease ? "No" : "Yes"}</td>
                             </tr>
                             <tr>
-                                <td>isImmunosupression</td>
+                                <td>{this.props.valueToNameMap["isImmunosupression"]}</td>
                                 <td>{this.props.patientDetails.data[0].patient_info.isImmunosupression ? "No" : "Yes"}</td>
                             </tr>
                             <tr>
-                                <td>isLossOfTasteOrSmell</td>
+                                <td>{this.props.valueToNameMap["isLossOfTasteOrSmell"]}</td>
                                 <td>{this.props.patientDetails.data[0].patient_info.isLossOfTasteOrSmell ? "No" : "Yes"}</td>
                             </tr>
                             <tr>
-                                <td>isDifficultyInBreathing</td>
+                                <td>{this.props.valueToNameMap["isDifficultyInBreathing"]}</td>
                                 <td>{this.props.patientDetails.data[0].patient_info.isDifficultyInBreathing ? "No" : "Yes"}</td>
                             </tr>
                             <tr>
@@ -138,6 +138,6 @@ class PatientDetails extends Component {
     }
 }
 
-const mapStateToProps = ({ currentPatientId, patientDetails }) => ({ currentPatientId, patientDetails });
+const mapStateToProps = ({ currentPatientId, patientDetails, valueToNameMap }) => ({ currentPatientId, patientDetails, valueToNameMap });
 const mapDispatchToProps = dispatch => bindActionCreators({ clearResults, logout, loadPatientDetails}, dispatch);
 export default connect(mapStateToProps, mapDispatchToProps)(PatientDetails)

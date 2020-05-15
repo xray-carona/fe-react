@@ -8,7 +8,29 @@ export const InitialState = {
     type: '',
     aws_s3_image_url: '',
     loading: false,
-    patientInfo: {}
+    patientInfo: {},
+    valueToNameMap: {
+        isDiabetes: "Diabetes",
+        isHypertension: "Hypertension",
+        isCardiacDisease:"Cardio Vascular Disease",
+        isImmunosupression:"Immunosupression",
+        isAddressZone:"Address in containment zone",
+        isFever:"Fever",
+        isDryCough:"Dry Cough",
+        isDifficultyInBreathing:"Difficulty in Breathing",
+        isSoreThroat:"Sore Throat",
+        isFatigue:"Fatigue",
+        isBodyAche:"Body Ache",
+        isLossOfTasteOrSmell:"Loss of Taste or Smell",
+        isDiarrhoea:"Diarrhoea",
+        isRunnyNose:"Runny Nose",
+        isOxygen:"On Oxygen",
+        isConscious:"Conscious",
+        isTravelHistory: "Travel History from Affected Area (Delhi, Mumbai,Abroad)",
+        age:"age",
+        gender:"gender",
+        occupation:"Occupation"
+    }
 }
 
 function reducer(state = InitialState, action) {

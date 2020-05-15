@@ -41,14 +41,22 @@ class RiskAssessmentResult extends Component {
                         <div className="row container">
                             <div className="col-md-12">
                                 <h3>The demographic, travel information, location etc of patient indicate <b>{this.props.assessRiskResponse.patientScore.risk}</b> risk of COVID-19</h3>
-                                <p><h4>Major contributing factors</h4>: {this.props.assessRiskResponse.patientScore.contributingFactors.map(f => <div>{f}</div>)}</p>
+                                <p><h4>Major contributing factors:</h4> {this.props.assessRiskResponse.patientScore.contributingFactors.map(
+                                    f => <div className="select-button"style={{color: "rgb(255, 67, 124)", backgroundColor: "rgb(255, 255, 255)", borderColor: "rgb(255, 67, 124)"}}>
+                                    {this.props.valueToNameMap[f]}
+                                </div>
+                                    )}</p>
                             </div>
                         </div>
                         
                         <div className="row container">
                             <div className="col-md-12">
                                 <h3>The current symptoms and  medical history indicate <b>{this.props.assessRiskResponse.symptomScore.risk}</b> risk of COVID-19 </h3>
-                                <p><h4>Major contributing factors:</h4> {this.props.assessRiskResponse.symptomScore.contributingFactors.map(f => <div>{f}</div>)}</p>
+                                <p><h4>Major contributing factors:</h4> {this.props.assessRiskResponse.symptomScore.contributingFactors.map(
+                                    f => <div className="select-button"style={{color: "rgb(255, 67, 124)", backgroundColor: "rgb(255, 255, 255)", borderColor: "rgb(255, 67, 124)"}}>
+                                    {this.props.valueToNameMap[f]}
+                                </div>
+                                    )}</p>
                             </div>
                         </div>
                         <div className="row container">
@@ -69,6 +77,6 @@ class RiskAssessmentResult extends Component {
 }
 RiskAssessmentResult.propTypes = {}
 
-const mapStateToProps = ({ assessRiskResponse }) => ({ assessRiskResponse });
+const mapStateToProps = ({ assessRiskResponse, valueToNameMap }) => ({ assessRiskResponse, valueToNameMap });
 const mapDispatchToProps = dispatch => bindActionCreators({ clearResults, logout }, dispatch);
 export default connect(mapStateToProps, mapDispatchToProps)(RiskAssessmentResult)
