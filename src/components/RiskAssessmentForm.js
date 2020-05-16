@@ -19,6 +19,7 @@ class RiskAssessmentForm extends Component {
         this.props.response('', '');
         if(!checkCookie()) {
             setCookie('token','demoUser',1);
+            setCookie('userId','28',1);
         }
     }
 
